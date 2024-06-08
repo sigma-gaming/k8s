@@ -20,13 +20,13 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    cert-manager.io/cluster-issuer: cloudflare
+    cert-manager.io/cluster-issuer: selfsigned
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - sigma-k8s.top
-      secretName: flux-webhook-tls
+      secretName: sigma-k8s.top-cert
   rules:
   - host: sigma-k8s.top
     http:
