@@ -20,6 +20,10 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
 spec:
+  tls:
+    - hosts:
+        - sigma-k8s.top
+      secretName: ingress-base-tls
   rules:
   - host: sigma-k8s.top
     http:
