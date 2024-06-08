@@ -20,9 +20,9 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: cloudflare
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         - sigma-k8s.top
