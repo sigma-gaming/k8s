@@ -1,0 +1,59 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: elastic-stack
+spec:
+  version: 8.13.4
+
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        disabled: true
+
+  count: 1
+
+  podTemplate:
+    spec:
+      nodeSelector:
+        monitoring: "true"
+
+  elasticsearchRef:
+    name: "elasticsearch"
+
+  config:
+    server.publicBaseUrl: "https://kibana.rcbot.app"
+    xpack.fleet.agents.elasticsearch.hosts:
+      ["https://elasticsearch-es-http.elastic-stack.svc:9200"]
+    xpack.fleet.agents.fleet_server.hosts:
+      ["https://fleet-server-agent-http.elastic-stack.svc:8220"]
+
+    xpack.fleet.packages:
+      - name: elastic_agent
+        version: latest
+      - name: fleet_server
+        version: latest
+
+    xpack.fleet.agentPolicies:
+      - name: Fleet Server on ECK policy
+        id: fleet-server-policy
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900
+        package_policies:
+          - name: fleet_server-1
+            id: fleet_server-1
+            package:
+              name: fleet_server
+      - name: Elastic Agent on ECK policy
+        id: elastic-agent-policy
+        namespace: default
+        monitoring_enabled:
+          - logs
+          - metrics
+        unenroll_timeout: 900

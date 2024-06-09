@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: elastic-agent
+  namespace: elastic-stack
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: elastic-agent
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources:
+      - namespaces
+      - pods
+      - events
+      - deployments
+      - nodes
+      - nodes/stats
+      - replicasets
+      - persistentvolumeclaims
+      - persistentvolumes
+      - services
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: ["coordination.k8s.io"]
+    resources:
+      - leases
+    verbs:
+      - get
+      - create
+      - update
+  - apiGroups: ["apps"]
+    resources:
+      - daemonsets
+      - replicasets
+      - statefulsets
+      - deployments
+    verbs:
+      - list
+      - watch
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - list
+      - watch
+  - apiGroups: ["storage.k8s.io"]
+    resources:
+      - storageclasses
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: elastic-agent
+subjects:
+  - kind: ServiceAccount
+    name: elastic-agent
+    namespace: elastic-stack
+roleRef:
+  kind: ClusterRole
+  name: elastic-agent
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata:
+  name: fleet-server
+  namespace: elastic-stack
+spec:
+  version: 8.13.4
+
+  kibanaRef:
+    name: kibana
+    namespace: elastic-stack
+
+  elasticsearchRefs:
+    - name: elasticsearch
+      namespace: elastic-stack
+
+  mode: fleet
+  fleetServerEnabled: true
+
+  policyID: fleet-server-policy
+
+  deployment:
+    replicas: 1
+    podTemplate:
+      spec:
+        serviceAccountName: elastic-agent
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0
+        nodeSelector:
+          monitoring: "true"
+---
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata:
+  name: elastic-agent
+  namespace: elastic-stack
+spec:
+  version: 8.13.4
+
+  kibanaRef:
+    name: kibana
+    namespace: elastic-stack
+
+  fleetServerRef:
+    name: fleet-server
+    namespace: elastic-stack
+
+  mode: fleet
+  policyID: elastic-agent-policy
+  daemonSet:
+    podTemplate:
+      spec:
+        serviceAccountName: elastic-agent
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0
+        volumes:
+          - name: agent-data
+            emptyDir: {}
