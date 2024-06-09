@@ -23,6 +23,7 @@ metadata:
   namespace: ingress-nginx
 spec:
   interval: 10m
+  timeout: 15m
   chart:
     spec:
       chart: ingress-nginx

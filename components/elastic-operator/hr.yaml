@@ -23,6 +23,7 @@ metadata:
   namespace: elastic-stack
 spec:
   interval: 10m
+  timeout: 15m
   chart:
     spec:
       chart: eck-operator
