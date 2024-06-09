@@ -25,14 +25,14 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - sigma-k8s.top
-      secretName: sigma-k8s.top-cert
+        - flux.sigma-k8s.top
+      secretName: flux.sigma-k8s.top-cert
   rules:
-  - host: sigma-k8s.top
+  - host: flux.sigma-k8s.top
     http:
       paths:
       - pathType: Prefix
-        path: /webhooks/flux
+        path: /
         backend:
           service:
             name: webhook-receiver

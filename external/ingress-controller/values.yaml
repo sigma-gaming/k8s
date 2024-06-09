@@ -1,0 +1,10 @@
+controller:
+  admissionWebhooks:
+    certManager:
+      enabled: true
+  
+  hostNetwork: true
+  hostPort:
+    enabled: true
+
+  kind: DaemonSet
