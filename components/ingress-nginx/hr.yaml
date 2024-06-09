@@ -39,6 +39,7 @@ spec:
         certManager:
           enabled: true
       
+      # dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       hostPort:
         enabled: true
