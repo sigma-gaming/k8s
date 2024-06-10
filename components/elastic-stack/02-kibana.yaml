@@ -54,3 +54,4 @@ spec:
           - logs
           - metrics
         unenroll_timeout: 900
+        package_policies: []
