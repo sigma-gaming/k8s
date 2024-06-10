@@ -71,17 +71,19 @@ spec:
                       type: metrics
                     metricsets:
                       - core
-                    core.metrics:
-                      - percentages
+                    core:
+                      metrics:
+                        - percentages
                   - id: system-1/metrics-system/cpu
                     data_stream:
                       dataset: system.cpu
                       type: metrics
                     metricsets:
                       - cpu
-                    cpu.metrics:
-                      - percentages
-                      - normalized_percentages
+                    cpu:
+                      metrics:
+                        - percentages
+                        - normalized_percentages
                     period: 10s
                   - id: system-1/metrics-system/diskio
                     data_stream:
@@ -89,7 +91,8 @@ spec:
                       type: metrics
                     metricsets:
                       - diskio
-                    diskio.include_devices: null
+                    diskio:
+                      include_devices: null
                     period: 10s
                   - id: system-1/metrics-system/filesystem
                     data_stream:
@@ -133,7 +136,8 @@ spec:
                     metricsets:
                       - network
                     period: 10s
-                    network.interfaces: null
+                    network:
+                      interfaces: null
                   - id: system-1/metrics-system/process
                     data_stream:
                       dataset: system.process
@@ -141,11 +145,12 @@ spec:
                     metricsets:
                       - process
                     period: 10s
-                    process.include_top_n.by_cpu: 5
-                    process.include_top_n.by_memory: 5
-                    process.cmdline.cache.enabled: true
-                    process.cgroups.enabled: false
-                    process.include_cpu_ticks: false
+                    process:
+                      include_top_n.by_cpu: 5
+                      include_top_n.by_memory: 5
+                      cmdline.cache.enabled: true
+                      cgroups.enabled: false
+                      include_cpu_ticks: false
                     processes:
                       - .*
                   - id: system-1/metrics-system/process.summary
