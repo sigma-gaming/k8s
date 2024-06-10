@@ -1,12 +1,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: elastic-operator
+  name: elastic-stack
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./components/elastic-operator
+  path: ./components/elastic-stack
   prune: true
+  dependsOn:
+  - name: cert-issuers
+  - name: ingress-nginx
+  - name: local-path-storage
+  - name: elastic-operator
   sourceRef:
     kind: GitRepository
     name: flux-system
