@@ -33,6 +33,8 @@ spec:
         version: latest
       - name: fleet_server
         version: latest
+      - name: system
+        version: latest
 
     xpack.fleet.agentPolicies:
       - name: Fleet Server on ECK policy
@@ -60,82 +62,110 @@ spec:
             package:
               name: system
             inputs:
-              system-logfile:
-                enabled: false
-              system-winlog:
-                enabled: false
-              system-httpjson:
-                enabled: false
-              system-system/metrics:
-                enabled: true
+              - id: system-1/metrics-system
+                type: system/metrics
                 streams:
-                  system.core:
-                    enabled: true
-                    vars:
-                      period: 10s
-                      core.metrics:
+                  - id: system-1/metrics-system/core
+                    data_stream:
+                      dataset: system.core
+                      type: metrics
+                    metricsets:
+                      - core
+                    core.metrics:
                       - percentages
-                  system.cpu:
-                    enabled: true
-                    vars:
-                      period: 10s
-                      cpu.metrics:
+                  - id: system-1/metrics-system/cpu
+                    data_stream:
+                      dataset: system.cpu
+                      type: metrics
+                    metricsets:
+                      - cpu
+                    cpu.metrics:
                       - percentages
                       - normalized_percentages
-                  system.diskio:
-                    enabled: true
-                    vars:
-                      period: 10s
-                      diskio.include_devices: []
-                  system.filesystem:
-                    enabled: true
-                    vars:
-                      period: 1m
-                      filesystem.ignore_types: []
-                      processors: |
-                        - drop_event.when.regexp:
-                            system.filesystem.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
-                  system.fsstat:
-                    enabled: true
-                    vars:
-                      period: 1m
-                      processors: |
-                        - drop_event.when.regexp:
-                            system.fsstat.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
-                  system.load:
-                    enabled: true
-                    vars:
-                      period: 10s
-                  system.memory:
-                    enabled: true
-                    vars:
-                      period: 10s
-                  system.network:
-                    enabled: true
-                    vars:
-                      period: 10s
-                      network.interfaces: []
-                  system.process:
-                    enabled: true
-                    vars:
-                      period: 10s
-                      process.include_top_n.by_cpu: 5
-                      process.include_top_n.by_memory: 5
-                      process.cmdline.cache.enabled: true
-                      process.cgroups.enabled: false
-                      process.env.whitelist: []
-                      process.include_cpu_ticks: false
-                      processes:
-                      - ".*"
-                  system.process.summary:
-                    enabled: true
-                    vars:
-                      period: 10s
-                  system.socket_summary:
-                    enabled: true
-                    vars:
-                      period: 10s
-                  system.uptime:
-                    enabled: true
-                    vars:
-                      period: 10s
+                    period: 10s
+                  - id: system-1/metrics-system/diskio
+                    data_stream:
+                      dataset: system.diskio
+                      type: metrics
+                    metricsets:
+                      - diskio
+                    diskio.include_devices: null
+                    period: 10s
+                  - id: system-1/metrics-system/filesystem
+                    data_stream:
+                      dataset: system.filesystem
+                      type: metrics
+                    metricsets:
+                      - filesystem
+                    period: 1m
+                    processors:
+                      - drop_event.when.regexp:
+                          system.filesystem.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
+                  - id: system-1/metrics-system/fsstat
+                    data_stream:
+                      dataset: system.fsstat
+                      type: metrics
+                    metricsets:
+                      - fsstat
+                    period: 1m
+                    processors:
+                      - drop_event.when.regexp:
+                          system.fsstat.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
+                  - id: system-1/metrics-system/load
+                    data_stream:
+                      dataset: system.load
+                      type: metrics
+                    metricsets:
+                      - load
+                    condition: '${host.platform} != ''windows'''
+                    period: 10s
+                  - id: system-1/metrics-system/memory
+                    data_stream:
+                      dataset: system.memory
+                      type: metrics
+                    metricsets:
+                      - memory
+                    period: 10s
+                  - id: system-1/metrics-system/network
+                    data_stream:
+                      dataset: system.network
+                      type: metrics
+                    metricsets:
+                      - network
+                    period: 10s
+                    network.interfaces: null
+                  - id: system-1/metrics-system/process
+                    data_stream:
+                      dataset: system.process
+                      type: metrics
+                    metricsets:
+                      - process
+                    period: 10s
+                    process.include_top_n.by_cpu: 5
+                    process.include_top_n.by_memory: 5
+                    process.cmdline.cache.enabled: true
+                    process.cgroups.enabled: false
+                    process.include_cpu_ticks: false
+                    processes:
+                      - .*
+                  - id: system-1/metrics-system/process.summary
+                    data_stream:
+                      dataset: system.process.summary
+                      type: metrics
+                    metricsets:
+                      - process_summary
+                    period: 10s
+                  - id: system-1/metrics-system/system
+                    data_stream:
+                      dataset: system.socket_summary
+                      type: metrics
+                    metricsets:
+                      - socket_summary
+                    period: 10s
+                  - id: system-1/metrics-system/uptime
+                    data_stream:
+                      dataset: system.uptime
+                      type: metrics
+                    metricsets:
+                      - uptime
+                    period: 10s
