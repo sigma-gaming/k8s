@@ -54,4 +54,88 @@ spec:
           - logs
           - metrics
         unenroll_timeout: 900
-        package_policies: []
+        package_policies:
+          - name: system-1
+            id: system-1
+            package:
+              name: system
+            inputs:
+              system-logfile:
+                enabled: false
+              system-winlog:
+                enabled: false
+              system-httpjson:
+                enabled: false
+              system-system/metrics:
+                enabled: true
+                streams:
+                  system.core:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      core.metrics:
+                      - percentages
+                  system.cpu:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      cpu.metrics:
+                      - percentages
+                      - normalized_percentages
+                  system.diskio:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      diskio.include_devices: []
+                  system.filesystem:
+                    enabled: true
+                    vars:
+                      period: 1m
+                      filesystem.ignore_types: []
+                      processors: |
+                        - drop_event.when.regexp:
+                            system.filesystem.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
+                  system.fsstat:
+                    enabled: true
+                    vars:
+                      period: 1m
+                      processors: |
+                        - drop_event.when.regexp:
+                            system.fsstat.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
+                  system.load:
+                    enabled: true
+                    vars:
+                      period: 10s
+                  system.memory:
+                    enabled: true
+                    vars:
+                      period: 10s
+                  system.network:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      network.interfaces: []
+                  system.process:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      process.include_top_n.by_cpu: 5
+                      process.include_top_n.by_memory: 5
+                      process.cmdline.cache.enabled: true
+                      process.cgroups.enabled: false
+                      process.env.whitelist: []
+                      process.include_cpu_ticks: false
+                      processes:
+                      - ".*"
+                  system.process.summary:
+                    enabled: true
+                    vars:
+                      period: 10s
+                  system.socket_summary:
+                    enabled: true
+                    vars:
+                      period: 10s
+                  system.uptime:
+                    enabled: true
+                    vars:
+                      period: 10s
