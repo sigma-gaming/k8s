@@ -94,3 +94,14 @@ flux bootstrap github \
     ```
 
 2. Insert generated token into `webhook-token` secret manifest (`components/flux-webhook/flux-webhook.yaml`)
+3. Reconcile repository
+4. Extract webhook url path from Receiver resource status
+5. Setup webhook in repository (`https://sigma-k8s.app/webhooks/flux/hook/<hook-path>`)
+
+## Elastic Stack
+
+### Get Elastic user password
+
+```bash
+kubectl get secret elasticsearch-es-elastic-user -n elastic-stack -o jsonpath="{.data.elastic}" | base64 -d
+```
