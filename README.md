@@ -1,5 +1,11 @@
 # Sigma K8S
 
+## Setup dev k3s cluster
+
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
+```
+
 ## Setup Talos
 
 1. Generate secrets:
@@ -77,7 +83,7 @@ helm install cilium cilium/cilium --version 1.15.6 \
 Bootstrap:
 
 ```bash
-flux bootstrap github \                                   
+flux bootstrap github \
   --token-auth \
   --owner=sigma-gaming \
   --repository=k8s \
