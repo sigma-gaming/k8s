@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: games-app
+  namespace: dev
+  labels:
+    app: games-app
+spec:
+  selector:
+    matchLabels:
+      app: games-app
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: games-app
+    spec:
+      imagePullSecrets:
+        - name: google-registry-creds
+      containers:
+        - name: games-app
+          image: eu.gcr.io/sigma-gaming/docker/games-app:latest
+          ports:
+            - containerPort: 5173
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: games-app
+spec:
+  selector:
+    app: games-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5173
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: games-app
+  namespace: dev
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - sigmacloud.app
+      secretName: sigmacloud.app-cert
+  rules:
+  - host: sigmacloud.app
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: games-app
+            port:
+              number: 80
