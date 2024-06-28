@@ -22,6 +22,12 @@ kubeseal --fetch-cert \
   > pub-sealed-secrets.pem
 ```
 
+Seal a secret:
+
+```bash
+kubeseal --format=yaml --cert=clusters/<cluster>/pub-sealed-secrets.pem < basic-auth.yaml > basic-auth-sealed.yaml
+```
+
 ## Setup dev k3s cluster
 
 ```bash
