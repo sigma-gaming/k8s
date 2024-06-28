@@ -1,0 +1,19 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dev
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./stands/dev
+  prune: true
+  dependsOn:
+  - name: sealed-secrets
+  - name: cert-issuers
+  - name: ingress-nginx
+  - name: registry-creds
+  - name: cloudnative-pg
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  
