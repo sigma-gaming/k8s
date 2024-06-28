@@ -1,5 +1,27 @@
 # Sigma K8S
 
+## Create registry credentials secret
+
+```bash
+kubectl create secret docker-registry google-registry-creds \
+  --docker-server eu.gcr.io \
+  --docker-username _json_key \
+  --docker-email registry@sigma-k8s.app \
+  --docker-password="$(cat ./key.json)" \
+  --dry-run=client -o yaml
+```
+
+## Kubeseal
+
+Get public key:
+
+```bash
+kubeseal --fetch-cert \
+  --controller-name=sealed-secrets \
+  --controller-namespace=sealed-secrets \
+  > pub-sealed-secrets.pem
+```
+
 ## Setup dev k3s cluster
 
 ```bash
