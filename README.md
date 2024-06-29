@@ -116,7 +116,8 @@ flux bootstrap github \
   --owner=sigma-gaming \
   --repository=k8s \
   --branch=main \
-  --path=clusters/primary
+  --path=clusters/primary \
+  --components-extra image-reflector-controller,image-automation-controller
 ```
 
 ### Webhook
