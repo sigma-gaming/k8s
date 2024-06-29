@@ -33,12 +33,10 @@ spec:
               value: "https://sigmacloud.app"
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
-            - name: PUBLIC_GAMES_API_WS_URL
-              value: "wss://api.sigmacloud.app"
             - name: PUBLIC_TELEGRAM_BOT_ID
-              value: "12345"
+              value: "6551119896"
             - name: PUBLIC_VK_APP_ID
-              value: "12345"
+              value: "51812041"
 ---
 apiVersion: v1
 kind: Service
