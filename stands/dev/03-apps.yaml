@@ -21,7 +21,7 @@ spec:
         - name: games-app
           image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:latest
           ports:
-            - containerPort: 5173
+            - containerPort: 80
           resources:
             limits:
               cpu: "500m"
@@ -51,7 +51,6 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5173
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
