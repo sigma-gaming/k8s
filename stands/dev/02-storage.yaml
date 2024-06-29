@@ -2,7 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: games-db
-  namespace: dev
+  namespace: games-dev
 spec:
   instances: 1
 
@@ -22,21 +22,21 @@ apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
   name: redis-password
-  namespace: dev
+  namespace: games-dev
 spec:
   encryptedData:
     password: AgAiur6fUlSrfObeOya4ogjDYTeQiaPm1Zg8wTFyIW0UtM5JvH3+f5wK/AwuZ2rYco6MmyTTd1ry/VuQyTg2aRnMuIy0i2o46NP2NT+aS1qi09yRy6Dva82KfBz1ppQsdfM6y2yCelI4fWF4LdkMDyBoiRDlaiZbnlcCF1mIV2w5zxwODJvxPr/iAEvO/Lrb/lR/3iJis9d7q8Bf1/gtUGc0aGfaFyWaW0oexvSaQOZfY4nqNlWmmLFqkcY0BzRxwLG96l4+BQvb8YDrHZUw1LSzG3bp23CyVE8SpTugQyz3Fn8WJGkS0gQAVdpVyVsaxUWFpkN7ncIYcR9ncB3u6APfmOLhTymlByboM1DTh3TT+x7yjh/P/hhBqRLpjis0HDRGJYJVvB0LIWO/xdbcRnYgU0GoklPlYC+cgbecBFgY7F5ewmTF2hVK5CMkThVMus0ZDNuoXUewC3fbhUCaHYZ2rPcDtcePE7aaKnknInUaik7YHzP2cb+IjX0qB516Tg+6TNQNDeUpRiBV/DRjQ1KgXqEgEAAvhtdSi7MTI6rLL1wIFkeKlbRHKwTokb4mgHvPfnqIR3HzyL9z5D7YsiNAD8OfyFuPH22cIQLH/hN+v7JwujRFl/VtD+oGM1FpzTiRDZq8aEFh+PaNZwCVDTP8e5ncOPn4QyvNvdVMKnoqleEwYwLsDIetxiUQc4HI5QV60Wpubaq54iKvQ9uLfCmP
   template:
     metadata:
       name: redis-password
-      namespace: dev
+      namespace: games-dev
     type: Opaque
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: redis
-  namespace: dev
+  namespace: games-dev
 spec:
   interval: 10m
   timeout: 15m

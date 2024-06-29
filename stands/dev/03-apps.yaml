@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: games-app
-  namespace: dev
+  namespace: games-dev
   labels:
     app: games-app
 spec:
@@ -11,7 +11,7 @@ spec:
       app: games-app
   template:
     metadata:
-      namespace: dev
+      namespace: games-dev
       labels:
         app: games-app
     spec:
@@ -42,7 +42,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: games-app
-  namespace: dev
+  namespace: games-dev
 spec:
   selector:
     app: games-app
@@ -54,7 +54,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: games-app
-  namespace: dev
+  namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
 spec:
