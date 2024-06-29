@@ -19,7 +19,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719666339840 # {"$imagepolicy": "dev:games-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719675024301 # {"$imagepolicy": "dev:games-app"}
           ports:
             - containerPort: 80
           resources:
@@ -64,13 +64,13 @@ spec:
         - sigmacloud.app
       secretName: sigmacloud.app-cert
   rules:
-  - host: sigmacloud.app
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: games-app
-            port:
-              number: 80
+    - host: sigmacloud.app
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: games-app
+                port:
+                  number: 80
