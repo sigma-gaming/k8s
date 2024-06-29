@@ -4,3 +4,4 @@ resources:
 - 01-namespace.yaml
 - 02-storage.yaml
 - 03-apps.yaml
+- 04-auto-update.yaml
