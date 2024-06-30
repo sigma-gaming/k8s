@@ -19,7 +19,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719682086823 # {"$imagepolicy": "dev:games-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719682086823 # {"$imagepolicy": "games-dev:games-app"}
           ports:
             - containerPort: 80
           resources:
