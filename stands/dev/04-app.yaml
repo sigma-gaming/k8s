@@ -27,12 +27,18 @@ spec:
               cpu: "500m"
               memory: "512Mi"
           env:
+            - name: NODE_ENV
+              value: "production"
             - name: PUBLIC_DOMAIN
               value: "sigmacloud.app"
             - name: PUBLIC_GAMES_APP_URL
               value: "https://sigmacloud.app"
+            - name: PUBLIC_GAMES_APP_VERSION
+              value: "dev-1719737940047" # {"$imagepolicy": "games-dev:games-app:tag"}
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
+            - name: PUBLIC_GAMES_API_VERSION
+              value: "latest" # {"$imagepolicy": "games-dev:games-api:tag"}
             - name: PUBLIC_TELEGRAM_BOT_ID
               value: "6551119896"
             - name: PUBLIC_VK_APP_ID

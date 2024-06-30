@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: games-api
+  namespace: games-dev
+  labels:
+    app: games-api
+spec:
+  selector:
+    matchLabels:
+      app: games-api
+  template:
+    metadata:
+      namespace: games-dev
+      labels:
+        app: games-api
+    spec:
+      imagePullSecrets:
+        - name: google-registry-creds
+      containers:
+        - name: games-api
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api:dev-1719734886194 # {"$imagepolicy": "games-dev:games-api"}
+          ports:
+            - containerPort: 5050
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PUBLIC_DOMAIN
+              value: "sigmacloud.app"
+            - name: PUBLIC_GAMES_APP_URL
+              value: "https://sigmacloud.app"
+            - name: PUBLIC_GAMES_APP_VERSION
+              value: "dev-1719737940047" # {"$imagepolicy": "games-dev:games-app:tag"}
+            - name: PUBLIC_GAMES_API_URL
+              value: "https://api.sigmacloud.app"
+            - name: PUBLIC_GAMES_API_VERSION
+              value: "dev-1719734886194" # {"$imagepolicy": "games-dev:games-api:tag"}
+            - name: PUBLIC_CONTROL_APP_URL
+              value: "https://control.sigmacloud.app"
+            - name: PUBLIC_CONTROL_APP_VERSION
+              value: "latest"
+            - name: PUBLIC_CONTROL_API_URL
+              value: "https://control-api.sigmacloud.app"
+            - name: PUBLIC_CONTROL_API_VERSION
+              value: "latest"
+            - name: POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: url
+            - name: REDIS_URL
+              value: "redis://redis-master"
+            - name: JWT_SECRET
+              value: "SECRET_REMOVED"
+            - name: PUBLIC_TELEGRAM_BOT_ID
+              value: "6551119896"
+            - name: TELEGRAM_BOT_TOKEN
+              value: "SECRET_REMOVED"
+            - name: PUBLIC_VK_APP_ID
+              value: "51812041"
+            - name: VK_APP_SECRET
+              value: "SECRET_REMOVED"
+            - name: VK_SERVICE_TOKEN
+              value: "SECRET_REMOVED"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: games-api
+  namespace: games-dev
+spec:
+  selector:
+    app: games-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5050
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: games-api
+  namespace: games-dev
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.sigmacloud.app
+      secretName: api.sigmacloud.app-cert
+  rules:
+    - host: api.sigmacloud.app
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: games-api
+                port:
+                  number: 80
