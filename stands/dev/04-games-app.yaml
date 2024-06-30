@@ -19,7 +19,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719737940047 # {"$imagepolicy": "games-dev:games-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719762189511 # {"$imagepolicy": "games-dev:games-app"}
           ports:
             - containerPort: 80
           resources:
@@ -34,7 +34,7 @@ spec:
             - name: PUBLIC_GAMES_APP_URL
               value: "https://sigmacloud.app"
             - name: PUBLIC_GAMES_APP_VERSION
-              value: "dev-1719737940047" # {"$imagepolicy": "games-dev:games-app:tag"}
+              value: "dev-1719762189511" # {"$imagepolicy": "games-dev:games-app:tag"}
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
             - name: PUBLIC_TELEGRAM_BOT_ID
