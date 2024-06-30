@@ -19,7 +19,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-api
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api:dev-1719756344365 # {"$imagepolicy": "games-dev:games-api"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api:dev-1719762186928 # {"$imagepolicy": "games-dev:games-api"}
           ports:
             - containerPort: 5050
           resources:
@@ -36,7 +36,7 @@ spec:
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
             - name: PUBLIC_GAMES_API_VERSION
-              value: "dev-1719756344365" # {"$imagepolicy": "games-dev:games-api:tag"}
+              value: "dev-1719762186928" # {"$imagepolicy": "games-dev:games-api:tag"}
             - name: PUBLIC_CONTROL_APP_URL
               value: "https://control.sigmacloud.app"
             - name: PUBLIC_CONTROL_API_URL
