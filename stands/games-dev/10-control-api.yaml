@@ -6,6 +6,7 @@ metadata:
   labels:
     app: control-api
 spec:
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: control-api
