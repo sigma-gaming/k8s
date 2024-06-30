@@ -51,7 +51,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: games-db-app
-                  key: url
+                  key: uri
             - name: REDIS_URL
               value: "redis://redis-master"
             - name: JWT_SECRET
