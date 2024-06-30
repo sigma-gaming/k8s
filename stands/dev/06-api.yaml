@@ -52,8 +52,8 @@ spec:
                 secretKeyRef:
                   name: games-db-app
                   key: uri
-            - name: REDIS_URL
-              value: "redis://redis-master"
+            - name: REDIS_HOST
+              value: "redis-master"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
