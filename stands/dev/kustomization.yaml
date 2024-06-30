@@ -4,7 +4,7 @@ resources:
 - 01-namespace.yaml
 - 02-updates-common.yaml
 - 03-storage.yaml
-- 04-app.yaml
-- 05-app-updates.yaml
-- 06-api.yaml
-- 07-api-updates.yaml
+- 04-games-app.yaml
+- 05-games-app-updates.yaml
+- 06-games-api.yaml
+- 07-games-api-updates.yaml

@@ -37,8 +37,6 @@ spec:
               value: "dev-1719737940047" # {"$imagepolicy": "games-dev:games-app:tag"}
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
-            - name: PUBLIC_GAMES_API_VERSION
-              value: "dev-1719756344365" # {"$imagepolicy": "games-dev:games-api:tag"}
             - name: PUBLIC_TELEGRAM_BOT_ID
               value: "6551119896"
             - name: PUBLIC_VK_APP_ID

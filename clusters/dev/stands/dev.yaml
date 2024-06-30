@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/dev
+  path: ./stands/games-dev
   prune: true
   dependsOn:
   - name: sealed-secrets
