@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: control-app
+  name: control-api
   namespace: games-dev
   labels:
-    app: control-app
+    app: control-api
 spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: control-app
+      app: control-api
   template:
     metadata:
       namespace: games-dev
       labels:
-        app: control-app
+        app: control-api
     spec:
       imagePullSecrets:
         - name: google-registry-creds
       containers:
-        - name: control-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1719816652823 # {"$imagepolicy": "games-dev:control-app"}
+        - name: control-api
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1719816653946 # {"$imagepolicy": "games-dev:control-api"}
           ports:
-            - containerPort: 80
+            - containerPort: 5051
           resources:
             limits:
               cpu: "500m"
@@ -36,33 +36,58 @@ spec:
               value: "https://sigmacloud.app"
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
+            - name: PUBLIC_GAMES_API_VERSION
+              value: "dev-1719816652870" # {"$imagepolicy": "games-dev:games-api:tag"}
+            - name: PUBLIC_GAMES_WS_URL
+              value: "https://ws.sigmacloud.app"
             - name: PUBLIC_CONTROL_APP_URL
               value: "https://control.sigmacloud.app"
-            - name: PUBLIC_CONTROL_APP_VERSION
-              value: "dev-1719816652823" # {"$imagepolicy": "games-dev:control-app:tag"}
             - name: PUBLIC_CONTROL_API_URL
               value: "https://control-api.sigmacloud.app"
+            - name: PUBLIC_CONTROL_API_VERSION
+              value: "dev-1719816653946" # {"$imagepolicy": "games-dev:control-api:tag"}
+            - name: POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: uri
+            - name: REDIS_HOST
+              value: "redis-master"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: password
+            - name: JWT_SECRET
+              value: "SECRET_REMOVED"
             - name: PUBLIC_TELEGRAM_BOT_ID
               value: "6551119896"
+            - name: TELEGRAM_BOT_TOKEN
+              value: "SECRET_REMOVED"
             - name: PUBLIC_VK_APP_ID
               value: "51812041"
+            - name: VK_APP_SECRET
+              value: "SECRET_REMOVED"
+            - name: VK_SERVICE_TOKEN
+              value: "SECRET_REMOVED"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: control-app
+  name: control-api
   namespace: games-dev
 spec:
   selector:
-    app: control-app
+    app: control-api
   ports:
     - protocol: TCP
       port: 80
+      targetPort: 5051
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: control-app
+  name: control-api
   namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
@@ -70,16 +95,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - control.sigmacloud.app
-      secretName: control.sigmacloud.app-cert
+        - control-api.sigmacloud.app
+      secretName: control-api.sigmacloud.app-cert
   rules:
-    - host: control.sigmacloud.app
+    - host: control-api.sigmacloud.app
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: control-app
+                name: control-api
                 port:
                   number: 80

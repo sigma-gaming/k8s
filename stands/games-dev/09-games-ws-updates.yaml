@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: games-ws
+  namespace: games-dev
+spec:
+  image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
+  secretRef:
+    name: google-registry-creds
+  interval: 30s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: games-ws
+  namespace: games-dev
+spec:
+  imageRepositoryRef:
+    name: games-ws
+  filterTags:
+    pattern: '^dev-(?P<timestamp>.*)'
+    extract: '$timestamp'
+  policy:
+    numerical:
+      order: asc

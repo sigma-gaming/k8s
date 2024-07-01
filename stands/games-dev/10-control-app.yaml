@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: games-app
+  name: control-app
   namespace: games-dev
   labels:
-    app: games-app
+    app: control-app
 spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: games-app
+      app: control-app
   template:
     metadata:
       namespace: games-dev
       labels:
-        app: games-app
+        app: control-app
     spec:
       imagePullSecrets:
         - name: google-registry-creds
       containers:
-        - name: games-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1719816653470 # {"$imagepolicy": "games-dev:games-app"}
+        - name: control-app
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1719816652823 # {"$imagepolicy": "games-dev:control-app"}
           ports:
             - containerPort: 80
           resources:
@@ -34,12 +34,16 @@ spec:
               value: "sigmacloud.app"
             - name: PUBLIC_GAMES_APP_URL
               value: "https://sigmacloud.app"
-            - name: PUBLIC_GAMES_APP_VERSION
-              value: "dev-1719816653470" # {"$imagepolicy": "games-dev:games-app:tag"}
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
             - name: PUBLIC_GAMES_WS_URL
               value: "https://ws.sigmacloud.app"
+            - name: PUBLIC_CONTROL_APP_URL
+              value: "https://control.sigmacloud.app"
+            - name: PUBLIC_CONTROL_APP_VERSION
+              value: "dev-1719816652823" # {"$imagepolicy": "games-dev:control-app:tag"}
+            - name: PUBLIC_CONTROL_API_URL
+              value: "https://control-api.sigmacloud.app"
             - name: PUBLIC_TELEGRAM_BOT_ID
               value: "6551119896"
             - name: PUBLIC_VK_APP_ID
@@ -48,11 +52,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: games-app
+  name: control-app
   namespace: games-dev
 spec:
   selector:
-    app: games-app
+    app: control-app
   ports:
     - protocol: TCP
       port: 80
@@ -60,7 +64,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: games-app
+  name: control-app
   namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
@@ -68,16 +72,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - sigmacloud.app
-      secretName: sigmacloud.app-cert
+        - control.sigmacloud.app
+      secretName: control.sigmacloud.app-cert
   rules:
-    - host: sigmacloud.app
+    - host: control.sigmacloud.app
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: games-app
+                name: control-app
                 port:
                   number: 80

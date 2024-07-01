@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: control-api
+  name: games-ws
   namespace: games-dev
   labels:
-    app: control-api
+    app: games-ws
 spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: control-api
+      app: games-ws
   template:
     metadata:
       namespace: games-dev
       labels:
-        app: control-api
+        app: games-ws
     spec:
       imagePullSecrets:
         - name: google-registry-creds
       containers:
-        - name: control-api
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1719816653946 # {"$imagepolicy": "games-dev:control-api"}
+        - name: games-ws
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws:dev-1719816651950 # {"$imagepolicy": "games-dev:games-ws"}
           ports:
-            - containerPort: 5051
+            - containerPort: 5052
           resources:
             limits:
               cpu: "500m"
@@ -36,14 +36,14 @@ spec:
               value: "https://sigmacloud.app"
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
-            - name: PUBLIC_GAMES_API_VERSION
-              value: "dev-1719816652870" # {"$imagepolicy": "games-dev:games-api:tag"}
+            - name: PUBLIC_GAMES_WS_URL
+              value: "https://ws.sigmacloud.app"
+            - name: PUBLIC_GAMES_WS_VERSION
+              value: "dev-1719816651950" # {"$imagepolicy": "games-dev:games-ws:tag"}
             - name: PUBLIC_CONTROL_APP_URL
               value: "https://control.sigmacloud.app"
             - name: PUBLIC_CONTROL_API_URL
               value: "https://control-api.sigmacloud.app"
-            - name: PUBLIC_CONTROL_API_VERSION
-              value: "dev-1719816653946" # {"$imagepolicy": "games-dev:control-api:tag"}
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:
@@ -72,20 +72,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: control-api
+  name: games-ws
   namespace: games-dev
 spec:
   selector:
-    app: control-api
+    app: games-ws
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 5051
+      targetPort: 5052
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: control-api
+  name: games-ws
   namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
@@ -93,16 +93,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - control-api.sigmacloud.app
-      secretName: control-api.sigmacloud.app-cert
+        - ws.sigmacloud.app
+      secretName: ws.sigmacloud.app-cert
   rules:
-    - host: control-api.sigmacloud.app
+    - host: ws.sigmacloud.app
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: control-api
+                name: games-ws
                 port:
                   number: 80

@@ -8,7 +8,9 @@ resources:
 - 05-games-app-updates.yaml
 - 06-games-api.yaml
 - 07-games-api-updates.yaml
-- 08-control-app.yaml
-- 09-control-app-updates.yaml
-- 10-control-api.yaml
-- 11-control-api-updates.yaml
+- 08-games-ws.yaml
+- 09-games-ws-updates.yaml
+- 10-control-app.yaml
+- 11-control-app-updates.yaml
+- 12-control-api.yaml
+- 13-control-api-updates.yaml
