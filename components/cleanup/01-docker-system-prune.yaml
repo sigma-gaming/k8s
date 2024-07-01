@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: docker-system-prune
+  namespace: cleanup
+spec:
+  schedule: "0 */6 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: docker-system-prune
+              image: docker
+              command:
+                - /bin/sh
+                - -c
+                - >
+                  echo y | docker system prune -a --force --filter "until=6h"
+              volumeMounts:
+                - name: docker-socket
+                  mountPath: /var/run/docker.sock
+          volumes:
+            - name: docker-socket
+              hostPath:
+                path: /var/run/docker.sock
+          restartPolicy: OnFailure
