@@ -33,6 +33,8 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
+            - name: PUBLIC_STAGE
+              value: "dev"
             - name: PUBLIC_DOMAIN
               value: "sigmacloud.app"
             - name: PUBLIC_GAMES_APP_URL
