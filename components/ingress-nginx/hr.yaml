@@ -47,3 +47,6 @@ spec:
         enabled: true
 
       kind: DaemonSet
+
+      # for Authentik
+      allowSnippetAnnotations: true
