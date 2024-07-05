@@ -95,7 +95,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
     nginx.ingress.kubernetes.io/auth-url: |-
-      https://authentik.sigmacloud.app/outpost.goauthentik.io/auth/nginx
+      http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
       https://sigmacloud.app/outpost.goauthentik.io/start?rd=$escaped_request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: |-
