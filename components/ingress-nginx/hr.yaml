@@ -46,6 +46,8 @@ spec:
       hostPort:
         enabled: true
 
+      dnsPolicy: ClusterFirstWithHostNet
+
       kind: DaemonSet
 
       # for Authentik
