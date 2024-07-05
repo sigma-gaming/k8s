@@ -20,7 +20,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: control-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1720097475439 # {"$imagepolicy": "games-dev:control-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1720160150879 # {"$imagepolicy": "games-dev:control-app"}
           ports:
             - containerPort: 80
           resources:
@@ -46,7 +46,7 @@ spec:
             - name: PUBLIC_CONTROL_APP_URL
               value: "https://control.sigmacloud.app"
             - name: PUBLIC_CONTROL_APP_VERSION
-              value: "dev-1720097475439" # {"$imagepolicy": "games-dev:control-app:tag"}
+              value: "dev-1720160150879" # {"$imagepolicy": "games-dev:control-app:tag"}
             - name: PUBLIC_CONTROL_API_URL
               value: "https://control-api.sigmacloud.app"
             - name: PUBLIC_TELEGRAM_BOT_ID
@@ -74,13 +74,13 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
     nginx.ingress.kubernetes.io/auth-url: |-
-        http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
+      http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
-        https://sigmacloud.app/outpost.goauthentik.io/start?rd=$escaped_request_uri
+      https://sigmacloud.app/outpost.goauthentik.io/start?rd=$escaped_request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: |-
-        Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+      Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
     nginx.ingress.kubernetes.io/auth-snippet: |
-        proxy_set_header X-Forwarded-Host $http_host;
+      proxy_set_header X-Forwarded-Host $http_host;
 spec:
   ingressClassName: nginx
   tls:
