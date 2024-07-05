@@ -48,7 +48,7 @@ spec:
             - name: PUBLIC_TELEGRAM_BOT_ID
               value: "6551119896"
             - name: PUBLIC_VK_APP_ID
-              value: "51812041"
+              value: "51986547"
 ---
 apiVersion: v1
 kind: Service

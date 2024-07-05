@@ -70,7 +70,7 @@ spec:
             - name: TELEGRAM_BOT_TOKEN
               value: "SECRET_REMOVED"
             - name: PUBLIC_VK_APP_ID
-              value: "51812041"
+              value: "51986547"
             - name: VK_APP_SECRET
               value: "SECRET_REMOVED"
             - name: VK_SERVICE_TOKEN
