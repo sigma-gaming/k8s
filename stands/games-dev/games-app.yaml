@@ -79,7 +79,7 @@ metadata:
   namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
-    nginx.ingress.kubernetes.io/default-backend: maintenance-app
+    nginx.ingress.kubernetes.io/default-backend-service: maintenance-app
     nginx.ingress.kubernetes.io/auth-url: |-
       http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
@@ -98,6 +98,7 @@ spec:
     - hosts:
         - sigmacloud.app
       secretName: sigmacloud.app-cert
+  
   rules:
     - host: sigmacloud.app
       http:
