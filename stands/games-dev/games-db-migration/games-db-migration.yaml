@@ -1,0 +1,20 @@
+version: batch/v1
+kind: Job
+metadata:
+  name: games-db-migration- # version is appended in kustomization.yaml
+  namespace: games-dev
+spec:
+  ttlSecondsAfterFinished: 86400
+  template:
+    spec:
+      imagePullSecrets:
+        - name: google-registry-creds
+      containers:
+        - name: games-db-migration
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1720353088278 # {"$imagepolicy": "games-dev:games-db-migration"}
+          env:
+            - name: POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: uri

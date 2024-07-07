@@ -1,16 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- 01-namespace.yaml
-- 02-updates-common.yaml
-- 03-storage.yaml
-- 04-games-app.yaml
-- 05-games-app-updates.yaml
-- 06-games-api.yaml
-- 07-games-api-updates.yaml
-- 08-games-ws.yaml
-- 09-games-ws-updates.yaml
-- 10-control-app.yaml
-- 11-control-app-updates.yaml
-- 12-control-api.yaml
-- 13-control-api-updates.yaml
+  - 01-namespace.yaml
+  - 02-updates-common.yaml
+  - 03-storage.yaml
+  - games-app.yaml
+  - games-app-updates.yaml
+  - games-api.yaml
+  - games-api-updates.yaml
+  - games-ws.yaml
+  - games-ws-updates.yaml
+  - control-app.yaml
+  - control-app-updates.yaml
+  - control-api.yaml
+  - control-api-updates.yaml
+  - games-db-migration
+  - games-db-migration-updates.yaml
