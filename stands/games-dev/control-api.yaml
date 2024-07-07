@@ -34,7 +34,12 @@ spec:
             - containerPort: 5051
           livenessProbe:
             httpGet:
-              path: /health
+              path: /healthy
+              port: 5051
+            initialDelaySeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
               port: 5051
             initialDelaySeconds: 5
           resources:
