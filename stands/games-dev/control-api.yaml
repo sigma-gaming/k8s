@@ -18,11 +18,25 @@ spec:
     spec:
       imagePullSecrets:
         - name: google-registry-creds
+      initContainers:
+        - name: wait-for-games-db-migration
+          image: ghcr.io/groundnuty/k8s-wait-for:v1.6
+          args:
+            - "job"
+            - "games-db-migration-$(GAMES_DB_MIGRATION_VERSION)"
+          env:
+            - name: GAMES_DB_MIGRATION_VERSION
+              value: "dev-1720353088278" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
       containers:
         - name: control-api
           image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1720361467870 # {"$imagepolicy": "games-dev:control-api"}
           ports:
             - containerPort: 5051
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5051
+            initialDelaySeconds: 5
           resources:
             limits:
               cpu: "500m"
