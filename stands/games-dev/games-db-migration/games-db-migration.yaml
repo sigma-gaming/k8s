@@ -1,4 +1,4 @@
-version: batch/v1
+apiVersion: batch/v1
 kind: Job
 metadata:
   name: games-db-migration- # version is appended in kustomization.yaml
@@ -18,3 +18,4 @@ spec:
                 secretKeyRef:
                   name: games-db-app
                   key: uri
+      restartPolicy: Never
