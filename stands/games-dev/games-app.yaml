@@ -101,6 +101,8 @@ spec:
   defaultBackend:
     service:
       name: maintenance-app
+      port:
+        number: 80
   rules:
     - host: sigmacloud.app
       http:
