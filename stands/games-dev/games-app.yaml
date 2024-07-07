@@ -23,6 +23,16 @@ spec:
           image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1720353082924 # {"$imagepolicy": "games-dev:games-app"}
           ports:
             - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 80
+            initialDelaySeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 5
           resources:
             limits:
               cpu: "500m"
