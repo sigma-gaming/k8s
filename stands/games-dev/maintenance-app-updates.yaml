@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: maintenance-app
+  namespace: games-dev
+spec:
+  image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app
+  secretRef:
+    name: google-registry-creds
+  interval: 30s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: maintenance-app
+  namespace: games-dev
+spec:
+  imageRepositoryRef:
+    name: maintenance-app
+  filterTags:
+    pattern: '^dev-(?P<timestamp>.*)'
+    extract: '$timestamp'
+  policy:
+    numerical:
+      order: asc
