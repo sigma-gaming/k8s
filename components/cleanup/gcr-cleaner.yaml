@@ -4,7 +4,7 @@ metadata:
   name: gcr-cleaner
   namespace: cleanup
 spec:
-  schedule: "0 */6 * * *"
+  schedule: "0 */1 * * *"
   jobTemplate:
     spec:
       template:
