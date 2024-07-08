@@ -80,7 +80,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
     # nginx.ingress.kubernetes.io/custom-http-errors: '503'
-    # nginx.ingress.kubernetes.io/default-backend: maintenance-app
+    nginx.ingress.kubernetes.io/default-backend: maintenance-app
     nginx.ingress.kubernetes.io/auth-url: |-
       http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
