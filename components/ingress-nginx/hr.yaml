@@ -27,7 +27,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: '4.10.1'
+      version: "4.10.1"
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
@@ -38,7 +38,7 @@ spec:
       admissionWebhooks:
         certManager:
           enabled: true
-      
+
       service:
         type: NodePort
 
@@ -52,3 +52,13 @@ spec:
 
       # for Authentik
       allowSnippetAnnotations: true
+
+      defaultBackend:
+        enabled: true
+        image:
+          registry: europe-west4-docker.pkg.dev/sigma-games/docker
+          image: apps/maintenance-app
+          tag: dev-1720381293580 # {"$imagepolicy": "ingress-nginx:maintenance-app"}
+        imagePullSecrets:
+          - name: google-registry-creds
+        port: 80

@@ -17,5 +17,3 @@ resources:
   - control-api-updates.yaml
   - ./games-db-migration
   - games-db-migration-updates.yaml
-  - maintenance-app.yaml
-  - maintenance-app-updates.yaml
