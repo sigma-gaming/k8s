@@ -58,7 +58,7 @@ spec:
         image:
           registry: europe-west4-docker.pkg.dev/sigma-games/docker
           image: apps/maintenance-app
-          tag: dev-1720381293580 # {"$imagepolicy": "ingress-nginx:maintenance-app"}
+          tag: dev-1720381293580 # {"$imagepolicy": "ingress-nginx:maintenance-app:tag"}
         imagePullSecrets:
           - name: google-registry-creds
         port: 80
