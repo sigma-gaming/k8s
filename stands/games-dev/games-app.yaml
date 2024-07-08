@@ -79,7 +79,12 @@ metadata:
   namespace: games-dev
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
-    nginx.ingress.kubernetes.io/default-backend: maintenance-app
+    ingress.kubernetes.io/server-snippet: |
+      proxy_intercept_errors on;
+      error_page 500 501 502 503 504 @error_pages;
+      location @error_pages {
+        proxy_pass http://maintenance-app.games-dev.svc.cluster.local;
+      }
     nginx.ingress.kubernetes.io/auth-url: |-
       http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
