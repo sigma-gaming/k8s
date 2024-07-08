@@ -20,7 +20,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1720446888917 # {"$imagepolicy": "games-dev:games-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app:dev-1720447784918 # {"$imagepolicy": "games-dev:games-app"}
           ports:
             - containerPort: 80
           livenessProbe:
@@ -50,7 +50,7 @@ spec:
             - name: PUBLIC_GAMES_APP_URL
               value: "https://sigmacloud.app"
             - name: PUBLIC_GAMES_APP_VERSION
-              value: "dev-1720446888917" # {"$imagepolicy": "games-dev:games-app:tag"}
+              value: "dev-1720447784918" # {"$imagepolicy": "games-dev:games-app:tag"}
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
             - name: PUBLIC_GAMES_WS_URL
