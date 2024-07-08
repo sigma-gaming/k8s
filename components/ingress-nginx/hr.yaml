@@ -38,27 +38,21 @@ spec:
       admissionWebhooks:
         certManager:
           enabled: true
-
       service:
         type: NodePort
-
       hostNetwork: true
       hostPort:
         enabled: true
-
       dnsPolicy: ClusterFirstWithHostNet
-
       kind: DaemonSet
-
       # for Authentik
       allowSnippetAnnotations: true
-
       defaultBackend:
         enabled: true
         image:
           registry: europe-west4-docker.pkg.dev/sigma-games/docker
           image: apps/maintenance-app
-          tag: dev-1720381293580 # {"$imagepolicy": "ingress-nginx:maintenance-app:tag"}
+          tag: dev-1720433274947 # {"$imagepolicy": "ingress-nginx:maintenance-app:tag"}
         imagePullSecrets:
           - name: google-registry-creds
         port: 80
