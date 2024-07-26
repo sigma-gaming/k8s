@@ -52,7 +52,7 @@ spec:
             - name: PUBLIC_GAMES_API_URL
               value: "https://api.sigmacloud.app"
             - name: PUBLIC_GAMES_API_VERSION
-              value: "dev-1721497698348" # {"$imagepolicy": "games-dev:games-api:tag"}
+              value: "dev-1722008720120" # {"$imagepolicy": "games-dev:games-api:tag"}
             - name: PUBLIC_GAMES_WS_URL
               value: "https://ws.sigmacloud.app"
             - name: PUBLIC_GAMES_WS_VERSION
