@@ -20,7 +20,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: maintenance-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1722193134782 # {"$imagepolicy": "games-dev:maintenance-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1722257811850 # {"$imagepolicy": "games-dev:maintenance-app"}
           ports:
             - containerPort: 80
           livenessProbe:
