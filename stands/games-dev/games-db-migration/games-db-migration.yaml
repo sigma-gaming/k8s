@@ -11,7 +11,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-db-migration
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1722368265831 # {"$imagepolicy": "games-dev:games-db-migration"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1722370762606 # {"$imagepolicy": "games-dev:games-db-migration"}
           env:
             - name: POSTGRES_URL
               valueFrom:
