@@ -1,5 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-nameSuffix: "dev-1722370762606" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+nameSuffix: "dev-1722427078445" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
 resources:
   - games-db-migration.yaml
