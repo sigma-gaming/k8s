@@ -26,7 +26,7 @@ spec:
             - "games-db-migration-$(GAMES_DB_MIGRATION_VERSION)"
           env:
             - name: GAMES_DB_MIGRATION_VERSION
-              value: "dev-1722588720295" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+              value: "dev-1722595909327" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
       containers:
         - name: control-api
           image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1722588719697 # {"$imagepolicy": "games-dev:control-api"}
