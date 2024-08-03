@@ -29,7 +29,7 @@ spec:
               value: "dev-1722595909327" # {"$imagepolicy": "games-dev:games-db-migration:tag"}
       containers:
         - name: control-api
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1722595905116 # {"$imagepolicy": "games-dev:control-api"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api:dev-1722670173647 # {"$imagepolicy": "games-dev:control-api"}
           ports:
             - containerPort: 5051
           livenessProbe:
@@ -69,7 +69,7 @@ spec:
             - name: PUBLIC_CONTROL_API_URL
               value: "https://control-api.sigmacloud.app"
             - name: PUBLIC_CONTROL_API_VERSION
-              value: "dev-1722595905116" # {"$imagepolicy": "games-dev:control-api:tag"}
+              value: "dev-1722670173647" # {"$imagepolicy": "games-dev:control-api:tag"}
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:
