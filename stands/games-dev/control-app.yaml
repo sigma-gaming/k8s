@@ -20,7 +20,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: control-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1722670175212 # {"$imagepolicy": "games-dev:control-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app:dev-1722677881348 # {"$imagepolicy": "games-dev:control-app"}
           ports:
             - containerPort: 80
           livenessProbe:
@@ -56,7 +56,7 @@ spec:
             - name: PUBLIC_CONTROL_APP_URL
               value: "https://control.sigmacloud.app"
             - name: PUBLIC_CONTROL_APP_VERSION
-              value: "dev-1722670175212" # {"$imagepolicy": "games-dev:control-app:tag"}
+              value: "dev-1722677881348" # {"$imagepolicy": "games-dev:control-app:tag"}
             - name: PUBLIC_CONTROL_API_URL
               value: "https://control-api.sigmacloud.app"
             - name: PUBLIC_TELEGRAM_BOT_ID
