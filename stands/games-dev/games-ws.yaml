@@ -119,6 +119,7 @@ metadata:
       if ($request_method = OPTIONS) {
         return 200;
       }
+    nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
 spec:
   ingressClassName: nginx
   tls:
