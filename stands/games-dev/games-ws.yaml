@@ -86,6 +86,8 @@ spec:
               value: "SECRET_REMOVED"
             - name: VK_SERVICE_TOKEN
               value: "SECRET_REMOVED"
+            - name: VK_GROUP_TOKEN
+              value: "SECRET_REMOVED"
 ---
 apiVersion: v1
 kind: Service
