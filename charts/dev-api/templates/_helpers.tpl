@@ -1,0 +1,26 @@
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "dev-api.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "dev-api.labels" -}}
+helm.sh/chart: {{ include "dev-api.chart" . }}
+{{ include "dev-api.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "dev-api.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "dev-api.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

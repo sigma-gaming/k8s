@@ -1,0 +1,81 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: games-tasks
+  namespace: games-dev
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/dev-api
+      version: '0.1.0'
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 10m
+  values:
+    replicaCount: 1
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
+      tag: dev-1725263575745 # {"$imagepolicy": "games-dev:games-tasks:tag"}
+    ingress:
+      enabled: false
+    service:
+      port: 5053
+    migration:
+      tag: dev-1725263578091 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+    container:
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+        requests:
+          cpu: "125m"
+          memory: "128Mi"
+      env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PUBLIC_STAGE
+          value: "dev"
+        - name: PUBLIC_DOMAIN
+          value: "sigmacloud.app"
+        - name: PUBLIC_GAMES_APP_URL
+          value: "https://sigmacloud.app"
+        - name: PUBLIC_GAMES_API_URL
+          value: "https://api.sigmacloud.app"
+        - name: PUBLIC_GAMES_WS_URL
+          value: "wss://ws.sigmacloud.app"
+        - name: PUBLIC_GAMES_TASKS_VERSION
+          value: "latest" # {"$imagepolicy": "games-dev:games-tasks:tag"}
+        - name: PUBLIC_CONTROL_APP_URL
+          value: "https://control.sigmacloud.app"
+        - name: PUBLIC_CONTROL_API_URL
+          value: "https://control-api.sigmacloud.app"
+        - name: POSTGRES_URL
+          valueFrom:
+            secretKeyRef:
+              name: games-db-app
+              key: uri
+        - name: REDIS_HOST
+          value: "redis-master"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-password
+              key: password
+        - name: JWT_SECRET
+          value: "SECRET_REMOVED"
+        - name: PUBLIC_TELEGRAM_BOT_ID
+          value: "6551119896"
+        - name: TELEGRAM_BOT_TOKEN
+          value: "SECRET_REMOVED"
+        - name: PUBLIC_VK_APP_ID
+          value: "51986547"
+        - name: VK_APP_SECRET
+          value: "SECRET_REMOVED"
+        - name: VK_SERVICE_TOKEN
+          value: "SECRET_REMOVED"
+        - name: VK_GROUP_TOKEN
+          value: "SECRET_REMOVED"
