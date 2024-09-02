@@ -19,3 +19,4 @@ resources:
   - games-db-migration-updates.yaml
   - maintenance-app.yaml
   - maintenance-app-updates.yaml
+  - hr-games-tasks.yaml

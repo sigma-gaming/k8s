@@ -23,7 +23,7 @@ spec:
     ingress:
       enabled: false
     service:
-      port: 5052
+      port: 5053
     migration:
       tag: dev-1725263578091 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
     container:
