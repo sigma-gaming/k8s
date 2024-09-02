@@ -20,7 +20,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1725263575745 # {"$imagepolicy": "games-dev:games-tasks:tag"}
+      tag: latest # {"$imagepolicy": "games-dev:games-tasks:tag"}
     ingress:
       enabled: false
     service:
