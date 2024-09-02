@@ -26,7 +26,7 @@ spec:
     service:
       port: 5053
     migration:
-      tag: dev-1725263578091 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+      tag: dev-1725316978827 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
     container:
       resources:
         limits:
