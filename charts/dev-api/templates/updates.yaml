@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  image: {{ .Values.image.repository }}
+  secretRef:
+    name: google-registry-creds
+  interval: 30s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  imageRepositoryRef:
+    name: {{ .Values.name }}
+  filterTags:
+    pattern: '^dev-(?P<timestamp>.*)'
+    extract: '$timestamp'
+  policy:
+    numerical:
+      order: asc
