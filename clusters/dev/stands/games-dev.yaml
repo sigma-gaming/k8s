@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1m0s
   path: ./stands/games-dev
-  prune: false
+  prune: true
   dependsOn:
   - name: sealed-secrets
   - name: cert-issuers
