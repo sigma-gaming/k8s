@@ -7,8 +7,6 @@ resources:
   - 04-storage.yaml
   - games-app.yaml
   - games-app-updates.yaml
-  - games-api.yaml
-  - games-api-updates.yaml
   - control-app.yaml
   - control-app-updates.yaml
   - control-api.yaml
