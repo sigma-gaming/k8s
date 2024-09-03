@@ -16,3 +16,4 @@ resources:
   - hr-games-api.yaml
   - hr-games-ws.yaml
   - hr-games-tasks.yaml
+  - hr-control-api.yaml
