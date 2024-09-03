@@ -20,7 +20,7 @@ spec:
   values:
     name: games-app
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-app
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
       tag: dev-1725316978547 # {"$imagepolicy": "games-dev:games-app:tag"}
     ingress:
       host: sigmacloud.app
