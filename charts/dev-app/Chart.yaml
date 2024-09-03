@@ -1,0 +1,5 @@
+apiVersion: v2
+name: dev-app
+description: A chart for development stage frontend application
+type: application
+version: 0.1.0

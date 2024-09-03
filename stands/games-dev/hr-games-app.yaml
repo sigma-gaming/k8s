@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: games-app
+  namespace: games-dev
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/dev-app
+      version: '0.1.0'
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  values:
+    name: games-app
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-app
+      tag: dev-1725316978547 # {"$imagepolicy": "games-dev:games-app:tag"}
+    ingress:
+      host: sigmacloud.app
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_STAGE
+        value: "dev"
+      - name: PUBLIC_DOMAIN
+        value: "sigmacloud.app"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigmacloud.app"
+      - name: PUBLIC_GAMES_APP_VERSION
+        value: "dev-1725316978547" # {"$imagepolicy": "games-dev:games-app:tag"}
+      - name: PUBLIC_GAMES_API_URL
+        value: "https://api.sigmacloud.app"
+      - name: PUBLIC_GAMES_WS_URL
+        value: "wss://ws.sigmacloud.app"
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        value: "6551119896"
+      - name: PUBLIC_VK_APP_ID
+        value: "51986547"

@@ -1,10 +1,10 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: control-app
-  namespace: games-dev
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
-  image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app
+  image: {{ .Values.image.repository }}
   secretRef:
     name: google-registry-creds
   interval: 30s
@@ -12,11 +12,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: control-app
-  namespace: games-dev
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   imageRepositoryRef:
-    name: control-app
+    name: {{ .Values.name }}
   filterTags:
     pattern: '^dev-(?P<timestamp>.*)'
     extract: '$timestamp'
