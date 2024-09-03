@@ -9,8 +9,6 @@ resources:
   - games-app-updates.yaml
   - control-app.yaml
   - control-app-updates.yaml
-  - control-api.yaml
-  - control-api-updates.yaml
   - ./games-db-migration
   - games-db-migration-updates.yaml
   - maintenance-app.yaml
