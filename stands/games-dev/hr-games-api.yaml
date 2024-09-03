@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-ws
+  name: games-api
   namespace: games-dev
 spec:
   interval: 10m
@@ -18,17 +18,15 @@ spec:
   driftDetection:
     mode: enabled
   values:
-    name: games-ws
+    name: games-api
     replicaCount: 2
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
-      tag: dev-1725316978435 # {"$imagepolicy": "games-dev:games-ws:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api
+      tag: dev-1725316974284 # {"$imagepolicy": "games-dev:games-api:tag"}
     ingress:
-      host: ws.sigmacloud.app
-      annotations:
-        nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
+      host: api.sigmacloud.app
     service:
-      port: 5052
+      port: 5050
     migration:
       tag: dev-1725316978827 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
     resources:
@@ -53,8 +51,6 @@ spec:
         value: "dev-1725316974284" # {"$imagepolicy": "games-dev:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
-      - name: PUBLIC_GAMES_WS_VERSION
-        value: "dev-1725316978435" # {"$imagepolicy": "games-dev:games-ws:tag"}
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
