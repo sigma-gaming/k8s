@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-tasks
+  name: games-ws
   namespace: games-dev
 spec:
   interval: 10m
@@ -18,15 +18,18 @@ spec:
   driftDetection:
     mode: enabled
   values:
-    name: games-tasks
-    replicaCount: 1
+    name: games-ws
+    replicaCount: 2
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1725316978588 # {"$imagepolicy": "games-dev:games-tasks:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
+      tag: dev-1725316978435 # {"$imagepolicy": "games-dev:games-ws:tag"}
     ingress:
-      enabled: false
+      enabled: true
+      host: ws.sigmacloud.app
+      annotations:
+        nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
     service:
-      port: 5053
+      port: 5052
     migration:
       tag: dev-1725316978827 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
     resources:
@@ -34,8 +37,8 @@ spec:
         cpu: "500m"
         memory: "512Mi"
       requests:
-        cpu: "125m"
-        memory: "128Mi"
+        cpu: "250m"
+        memory: "256Mi"
     env:
       - name: NODE_ENV
         value: "production"
@@ -47,10 +50,12 @@ spec:
         value: "https://sigmacloud.app"
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigmacloud.app"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1725316974284" # {"$imagepolicy": "games-dev:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
-      - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1725316978588" # {"$imagepolicy": "games-dev:games-tasks:tag"}
+      - name: PUBLIC_GAMES_WS_VERSION
+        value: "dev-1725316978435" # {"$imagepolicy": "games-dev:games-ws:tag"}
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL

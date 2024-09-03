@@ -9,8 +9,6 @@ resources:
   - games-app-updates.yaml
   - games-api.yaml
   - games-api-updates.yaml
-  - games-ws.yaml
-  - games-ws-updates.yaml
   - control-app.yaml
   - control-app-updates.yaml
   - control-api.yaml
