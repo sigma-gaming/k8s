@@ -15,5 +15,6 @@ resources:
   - games-db-migration-updates.yaml
   - maintenance-app.yaml
   - maintenance-app-updates.yaml
+  - hr-games-api.yaml
   - hr-games-ws.yaml
   - hr-games-tasks.yaml
