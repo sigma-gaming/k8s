@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api
-      tag: dev-1728049998421 # {"$imagepolicy": "games-dev:control-api:tag"}
+      tag: dev-1728077839499 # {"$imagepolicy": "games-dev:control-api:tag"}
     ingress:
       host: control-api.sigmacloud.app
     service:
@@ -61,7 +61,7 @@ spec:
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_VERSION
-        value: "dev-1728049998421" # {"$imagepolicy": "games-dev:control-api:tag"}
+        value: "dev-1728077839499" # {"$imagepolicy": "games-dev:control-api:tag"}
       - name: POSTGRES_URL
         valueFrom:
           secretKeyRef:
