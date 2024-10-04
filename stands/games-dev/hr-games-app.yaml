@@ -21,7 +21,7 @@ spec:
     name: games-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
-      tag: dev-1728049259920 # {"$imagepolicy": "games-dev:games-app:tag"}
+      tag: dev-1728050000323 # {"$imagepolicy": "games-dev:games-app:tag"}
     ingress:
       host: sigmacloud.app
     resources:
@@ -41,7 +41,7 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigmacloud.app"
       - name: PUBLIC_GAMES_APP_VERSION
-        value: "dev-1728049259920" # {"$imagepolicy": "games-dev:games-app:tag"}
+        value: "dev-1728050000323" # {"$imagepolicy": "games-dev:games-app:tag"}
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigmacloud.app"
       - name: PUBLIC_GAMES_WS_URL

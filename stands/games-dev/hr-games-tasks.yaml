@@ -22,13 +22,13 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1728049256621 # {"$imagepolicy": "games-dev:games-tasks:tag"}
+      tag: dev-1728049995084 # {"$imagepolicy": "games-dev:games-tasks:tag"}
     ingress:
       enabled: false
     service:
       port: 5053
     migration:
-      tag: dev-1728049260114 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+      tag: dev-1728049998945 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
     resources:
       limits:
         cpu: "500m"
@@ -48,11 +48,11 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigmacloud.app"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1728049258523" # {"$imagepolicy": "games-dev:games-api:tag"}
+        value: "dev-1728050000329" # {"$imagepolicy": "games-dev:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
       - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1728049256621" # {"$imagepolicy": "games-dev:games-tasks:tag"}
+        value: "dev-1728049995084" # {"$imagepolicy": "games-dev:games-tasks:tag"}
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
