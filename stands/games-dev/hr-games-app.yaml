@@ -46,6 +46,8 @@ spec:
         value: "https://api.sigmacloud.app"
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
+      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+        value: "https://ref.sigmacloud.app"
       - name: PUBLIC_TELEGRAM_BOT_ID
         value: "6551119896"
       - name: PUBLIC_VK_APP_ID

@@ -51,6 +51,8 @@ spec:
         value: "dev-1728050000329" # {"$imagepolicy": "games-dev:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
+      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+        value: "https://ref.sigmacloud.app"
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
