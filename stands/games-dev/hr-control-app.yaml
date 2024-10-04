@@ -17,6 +17,9 @@ spec:
       interval: 1m
   driftDetection:
     mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
   values:
     name: control-app
     image:
