@@ -22,7 +22,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1725316978588 # {"$imagepolicy": "games-dev:games-tasks:tag"}
+      tag: dev-1728049256621 # {"$imagepolicy": "games-dev:games-tasks:tag"}
     ingress:
       enabled: false
     service:
@@ -52,7 +52,7 @@ spec:
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
       - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1725316978588" # {"$imagepolicy": "games-dev:games-tasks:tag"}
+        value: "dev-1728049256621" # {"$imagepolicy": "games-dev:games-tasks:tag"}
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
