@@ -1,0 +1,88 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: referral-redirect-api
+  namespace: games-dev
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/dev-api
+      version: '0.2.1'
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: referral-redirect-api
+    replicaCount: 1
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/referral-redirect-api
+      tag: latest # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
+    ingress:
+      host: ref.sigmacloud.app
+    service:
+      port: 5054
+    migration:
+      tag: dev-1728077839280 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_STAGE
+        value: "dev"
+      - name: PUBLIC_DOMAIN
+        value: "sigmacloud.app"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigmacloud.app"
+      - name: PUBLIC_GAMES_API_URL
+        value: "https://api.sigmacloud.app"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1728077836693" # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
+      - name: PUBLIC_GAMES_WS_URL
+        value: "wss://ws.sigmacloud.app"
+      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+        value: "https://ref.sigmacloud.app"
+      - name: PUBLIC_CONTROL_APP_URL
+        value: "https://control.sigmacloud.app"
+      - name: PUBLIC_CONTROL_API_URL
+        value: "https://control-api.sigmacloud.app"
+      - name: POSTGRES_URL
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: uri
+      - name: REDIS_HOST
+        value: "redis-master"
+      - name: REDIS_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: redis-password
+            key: password
+      - name: JWT_SECRET
+        value: "SECRET_REMOVED"
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        value: "6551119896"
+      - name: TELEGRAM_BOT_TOKEN
+        value: "SECRET_REMOVED"
+      - name: PUBLIC_VK_APP_ID
+        value: "51986547"
+      - name: VK_APP_SECRET
+        value: "SECRET_REMOVED"
+      - name: VK_SERVICE_TOKEN
+        value: "SECRET_REMOVED"
+      - name: VK_GROUP_TOKEN
+        value: "SECRET_REMOVED"
