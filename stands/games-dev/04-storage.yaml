@@ -54,5 +54,8 @@ spec:
     auth:
       existingSecret: redis-password
       existingSecretPasswordKey: password
+    master:
+      persistence:
+        size: 2Gi
     replica:
       replicaCount: 1
