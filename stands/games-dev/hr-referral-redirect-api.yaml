@@ -32,13 +32,6 @@ spec:
       port: 5054
     migration:
       tag: dev-1728210006010 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
-    resources:
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-      requests:
-        cpu: "250m"
-        memory: "256Mi"
     env:
       - name: NODE_ENV
         value: "production"
