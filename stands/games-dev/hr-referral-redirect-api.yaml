@@ -51,11 +51,13 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigmacloud.app"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1728077839867" # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
+        value: "dev-1728077836693" # {"$imagepolicy": "games-dev:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigmacloud.app"
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
         value: "https://ref.sigmacloud.app"
+      - name: PUBLIC_REFERRAL_REDIRECT_API_VERSION
+        value: "dev-1728077839867" # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
