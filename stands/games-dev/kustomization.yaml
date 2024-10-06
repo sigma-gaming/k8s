@@ -13,5 +13,6 @@ resources:
   - hr-games-api.yaml
   - hr-games-ws.yaml
   - hr-games-tasks.yaml
+  - hr-referral-redirect-api.yaml
   - hr-control-app.yaml
   - hr-control-api.yaml
