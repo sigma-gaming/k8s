@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   encryptedData:
-    token: AgAckN3SwtjSoOrxSdwqOL/3fxVcIbUxLkjm5ZsQ09sNtYnwiXbaW8YXKxuK0nECBcG6HeFxg4HUJ/Fmja+YRP09J+sRzbt+98W4W5GzFCDQ3IL7A4sxy7SMS7XERvjvcaOIEfXgImYS5ZPbIuKn9gUPPDJmyFfp9trjyQXYTtsLnO7AVlEHlT1oaI/eaeeIw7SohZickscta7zcWPV46jLUKaT0iCeEF47j7iWBYNqghfVCJ2HNtp0fJDvFzV1AKHjM/M7t0AtpztbyQayXYfhncxsAmTbyclyJAamKzEusNOFbdkTLX2HjOxuToohtssUAHqEcfJkHGLy8nSxG9YhpMnTP5HY0Li58dh7rlowfpyxLURsg5o2TVujXte39rwmTo/NxJJakhiSeRr2JVVmzz9amIQ+OaWBPfOxsUmsB17+pj7JcQmjU19rswp7wX47wMsmq4MYR9H9edscIJQPJN0i6nTiXMv34C4g4z/VmcI6/0i6LAyKQkdOsdVsVH+7zxV12UdznZ6Gj2okfQULSprCb0lH1mJWyIfozdhAcl+B+JKBa7vCWFd0xkNcn6nWb032/Pcm81CJb8tYz7GsFOALMwCZKNzw8Hxv5dyh3xO6f4W/VlVM++Kh2iFkhx8piTE2OHimKS75AsWJzfAOGtow1EaP/sVBBYRkbSMS10CyBeTZ2rfavJGbZMUFI4flSmqfVZgnVCvO6zerqjJgFuGdckKPQZqTewUDg+33oXnzrvjjCfPtisw==
+    token: AgC6AHqlcH+fE7yftZ5gnw1wW9ymkrZsx3glMaX6py3CqW0njnCLWohVFWVbeyoEib98N7JrUu/OfCn6HD86xvf4llnmaynInIGMSVSkA/ZIzm7WijCj8HmqAT8V3+xTvTVqS2tPmj7i/qdeRTS2468FfEhenIBbFTSZcno/Zw1sq9KPXhoABmIrJQXcZtYO1q+mYU2izExD8xThClQuPnowYQiCkYsTYxPG+0E9aN/ObU0PLkmROL8Jl+tfD/JvJOspRxoaKo4iKX4wAnCa+gAPXjJop0Ku+ntWg1RaatxBKyBfNLYzcnjQuY6F/9u2hPF3yNL8wDs77NT8+vzBkmXzugZqTrZJSGTTKsr/7BgjJ7fzvqntl+qHoBqYq7SkRsUWIKo+uqLADf/NPHJs0o7bQvZN6EHGzRMi1pjBujmS5ZOTnsk1rgeaD1eWCds84R66AW2todTYrtjSaP9i2CU185VOgIsNsZdifxnJmFpnRYn0b6qJiM612vuECSR35woZascn32w3N8bMSBKfaQ9S41iuKKCNuVsi/VHM/g8UqJpeDB9SaVJOssM3uHmx3+ZSMxecXxWzJUYs1k4polfqR3aCPqSIq2c83XlG7plSdcgYm/+gv0goX3vC9+Qf9/n8QUMoQsGLsoh7w49dlJYVBrR71z/LTRcru1TXVLOUrVzcO2GPaMOg7HoD+OJRft/UTSVPk4BaVuEZ7ngo/OHAXZjW0m+aTudNOHoZqwTUXDErKFH0eA2C
   template:
     metadata:
       name: webhook-token
@@ -46,13 +46,13 @@ spec:
         - stage.sigma-k8s.app
       secretName: stage.sigma-k8s.app-cert
   rules:
-  - host: stage.sigma-k8s.app
-    http:
-      paths:
-      - pathType: ImplementationSpecific
-        path: /webhooks/flux(/|$)(.*)
-        backend:
-          service:
-            name: webhook-receiver
-            port:
-              number: 80
+    - host: stage.sigma-k8s.app
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: /webhooks/flux(/|$)(.*)
+            backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
