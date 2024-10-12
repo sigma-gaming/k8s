@@ -26,6 +26,9 @@ patches:
         name: local-path
         annotations:
           storageclass.kubernetes.io/is-default-class: "true"
+      reclaimPolicy: Retain
+      volumeBindingMode: WaitForFirstConsumer
+      allowVolumeExpansion: true
   - patch: |-
       apiVersion: v1
       kind: Namespace

@@ -1,0 +1,58 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: webhook-token
+  namespace: flux-system
+spec:
+  encryptedData:
+    token: AgAjCDq3rtAECqdezdgPYDI8JKtRHqxny3LET5fKCuyRTR/JnBWiDLmq29abDsA59c4dmV6u9uOi7RRNwp3MVliykNb14kQBVZeeSh6zhg3BqYpBNfKb1NyJE9F2L6bJAWbp6zi46f2bEXol0Mm9UrQldH+c4IP76sOB+LJTmPU5y6yLD1YKhBpgjkBWMgydG2jUt+SHeR+gATffiWdDH7u57gJjt38w3wG8oE/voOITOnt8Is7cv8SjcL3imLY63FZdjmAaYTjZrbhcy/7E5dePMsjwerg2q2/mPqEXB6cAduCEbvbYvHzk8PcDpp70bpX0vI7MKccQpyywtbMagjs6sCIXsYsbuiuqQxi3ZRLQdbMtTJ3dagHk7FoQFz47ftv8FFuzjmUy9a0zjYVfnzMh3bHm2F7/i/Byy4vZ7OxX+d+XQJ+JbdTOk6ulufV/JJ3hRmiVGpebKfjHqjJUn6xIzDNlTpi6THCRzHSIARswo8MNfJ8V9++21DP3dmbJcU5H1X/sf0TF6u5a1s3y7kNtQ4xQrlsodvMyul0GuYzxvax20IHnOO00xuTXtMcUTWpUMKhDmCU/wcWTM8UfXuPeUki6kw0D29l4LJBXvKnXlj+B/+JMW0JyYJK0VnKPg4XMvW1bMu9iZnNTmdoxLqy7EFqaQWnE/GovX/I/bVmjaF+UU8zNJeJameIhcb/CZUXRBnE5CpCNy56pwqp84oFWMXoqRcyhiWtD85gNKy4=
+  template:
+    metadata:
+      name: webhook-token
+      namespace: flux-system
+    type: Opaque
+---
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  type: github
+  events:
+    - "ping"
+    - "push"
+  secretRef:
+    name: webhook-token
+  resources:
+    - kind: GitRepository
+      name: flux-system
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webhook-receiver
+  namespace: flux-system
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - stage.sigma-k8s.app
+      secretName: stage.sigma-k8s.app-cert
+  rules:
+  - host: stage.sigma-k8s.app
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: /webhooks/flux(/|$)(.*)
+        backend:
+          service:
+            name: webhook-receiver
+            port:
+              number: 80

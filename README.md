@@ -34,78 +34,6 @@ kubeseal --format=yaml --cert=clusters/<cluster>/pub-sealed-secrets.pem < basic-
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
 ```
 
-## Setup Talos
-
-1. Generate secrets:
-
-    ```bash
-    talosctl gen secrets
-    ```
-
-2. Generate configs:
-
-    ```bash
-    talosctl gen config primary https://entrypoint.sigma-k8s.app:6443 \
-      --config-patch @patches/all.yaml \
-      --config-patch-control-plane @patches/control.yaml \
-      --with-secrets ./secrets.yaml
-    ```
-
-3. Set talosconfig globally:
-
-    ```bash
-    CONTROL_NODE_IP=<control-node-ip>
-    sed -i '' "s/\[\]/\[$CONTROL_NODE_IP\]/g" talosconfig
-    cp talosconfig ~/.talos/config
-    ```
-
-4. Apply configs:
-
-    ```bash
-    talosctl apply-config -i -f ./controlplane.yaml -n <control-node-ip>
-    talosctl apply-config -i -f ./worker.yaml -n <worker-node-ip>
-    ```
-
-5. Bootstrap kubernetes:
-
-    ```bash
-    talosctl bootstrap -n <node-ip>
-    ```
-
-6. Update kubeconfig:
-
-    ```bash
-    talosctl kubeconfig -n <node-ip>
-    ```
-
-### Update machine configs
-
-```bash
-talosctl gen config primary https://entrypoint.sigma-k8s.app:6443 \
-  -t controlplane -t worker \
-  --config-patch @patches/all.yaml \
-  --config-patch-control-plane @patches/control.yaml \
-  --with-secrets ./secrets.yaml \
-  --force
-```
-
-## Setup Cilium
-
-```bash
-helm install cilium cilium/cilium --version 1.15.6 \
-  --namespace kube-system \
-  --set ipam.mode=kubernetes \
-  --set kubeProxyReplacement=true \
-  --set securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
-  --set securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
-  --set cgroup.autoMount.enabled=false \
-  --set cgroup.hostRoot=/sys/fs/cgroup \
-  --set k8sServiceHost=localhost \
-  --set k8sServicePort=7445 \
-  --set hubble.relay.enabled=true \
-  --set hubble.ui.enabled=true
-```
-
 ## Setup Flux
 
 Bootstrap:
@@ -116,7 +44,7 @@ flux bootstrap github \
   --owner=sigma-gaming \
   --repository=k8s \
   --branch=main \
-  --path=clusters/primary \
+  --path=clusters/<cluster> \
   --components-extra image-reflector-controller,image-automation-controller
 ```
 
