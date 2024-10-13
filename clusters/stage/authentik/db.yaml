@@ -1,0 +1,13 @@
+apiVersion: stackgres.io/v1
+kind: SGCluster
+metadata:
+  name: authentik-db
+  namespace: authentik
+spec:
+  instances: 1
+  postgres:
+    version: '16.4'
+  pods:
+    persistentVolume:
+      size: '512Mi'
+  sgInstanceProfile: 'size-xs'

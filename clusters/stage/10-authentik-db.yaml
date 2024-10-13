@@ -1,13 +1,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: stackgres
+  name: authentik-db
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./components/stackgres
+  path: ./clusters/stage/authentik/db.yaml
   prune: true
+  dependsOn:
+  - name: stackgres
+  - name: stackgres-instances
+  - name: authentik-shared
   sourceRef:
     kind: GitRepository
     name: flux-system
-  

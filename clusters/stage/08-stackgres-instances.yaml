@@ -1,17 +1,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: authentik
+  name: stackgres-instances
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./clusters/stage/authentik
+  path: ./components/stackgres-instances
   prune: true
   dependsOn:
-  - name: sealed-secrets
-  - name: cert-manager
-  - name: cert-issuers
-  - name: ingress-nginx
+  - name: stackgres
   sourceRef:
     kind: GitRepository
     name: flux-system

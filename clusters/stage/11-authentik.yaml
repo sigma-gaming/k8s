@@ -1,16 +1,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: authentik-nginx
+  name: authentik
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./clusters/stage/authentik-nginx
+  path: ./clusters/stage/authentik/hr.yaml
   prune: true
   dependsOn:
-  - name: ingress-nginx
-  - name: authentik
+  - name: sealed-secrets
+  - name: cert-manager
+  - name: cert-issuers
+  - name: authentik-shared
+  - name: authentik-db
   sourceRef:
     kind: GitRepository
     name: flux-system
-  
