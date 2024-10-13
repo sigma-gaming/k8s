@@ -23,6 +23,7 @@ metadata:
   namespace: netdata
 spec:
   encryptedData:
+    NETDATA_CLAIM_ROOMS: AgAPQC3s53RXE9BwV17pykkMc3bLdf8JBUWjuzhI1av4P/mzle+GozgrUzj10wk3MXxO0peADmAdNT9pVmy8n8W05jCI6U88YnbALcIcd6T5dn3nRywwyJl3rmgM+QvJntevM2Y8US7zV1CmrI1KiDm4sPoO8KU5pU46asAp1NMEfk9w/wLXDhqm7am4VsBi8U1j7T9Z8u70p84pWWDd6Zy/yCooPEiut+O6nZZ8BKDhTobcmsm9ACjwHQHfL6Szf1UOj+/jt+kxPe8zbcTb3vpPxnpFxtuWLOZGiKqFP3k/xI3ZAPxN+JnxxlhYH23e5wKP8v2NpwokNjelCiFTMYFSCNQFfIHCgIhhlRNTlZ06WEWnQNRgBxodySp5QdmYaNM1zjdWz6Bk9EFK9hsE8aS8mEYvzGeLHGqm0qMhmT+N/d73jB/VxdeOtVl2xD0ZjkDH62pCkr3BqVonL//mlzqluj5Z6K4AM7LzOIcD8ybcv/Dcc61LZth+dSSWCeQW3EO/OH1vDGZLJaFusqgRJCq2tkZ+d22pkvfptyK4miSH6A23mn1VgB7a43r17pagX8fIbAfkYMJxt1Jz56eJSqm8sLTejGBI4HaVC0CN3SHzBL15G794G1725oY0Scl9LOka3WRmo68g5enapshxbkJ2jULFtHTsYOZMK5D4VU6stTlFFjpYz42koPQ513xYjfpHzVggv4Ghu/aBVWt+UAhnuZ68xBt3G8K/Zl1C5/qsoSJpgKE=
     NETDATA_CLAIM_TOKEN: AgDKO2NT68tVWvmFYU19cimR6DpKsgEkpr+USOBmFqGOny/QeNqmhD2qPho26MjjkJNiMK2ZKK4ZU79z9afsWD5U3qjT/n4QjA5gmeyC6M6+RSHQ+kRYnkOsdFAExRSNwkifqZgkz4yMawEVnWynTVjYyrah8ayjIcg64CINcJ60BSU0qybbKXCcv3+cPV2ScU7xUaHniJKVQgx/Z5nAQthTcMTRzwUOx5cBNnUOFrbqYEizkSdaDhTzzPlAJFsyShOtZOqUkcJE2/p0pTp+NCXqRwHfDinOwV7/CTIaZh6JFFKBwsv3yMnsj3RCdHrabAwjUlDJksLw9qIBTF2t71aHV2DmBhUTwGhH2CTf3UMNoO08dOak3EudgQ1ETklvjST5ohh2RoqGp9QgYnc3O4jp8mD7kB1DSdFyP3ZRGwqJp+dal9fTLx0nVLh7nRyG93iNLUWKen0+XtBxKbg5droEaJXkuIss/6+k3B4r2rtXdS1ARDDOEZl1EQb65V410w+M5Tx7N75xJ/CGzh8UvCZN/42MxvjMp6fb9UWxViQNRGx11DIL4K2y3nnwssVfgVwpBSY/UznhKcRwDZObqJa/d2urpECPVtQ/6anWuL89knESUGQTfMrInPK+R2OV3SoggoYtH5kULL51y1X5VggWH7tOEgZGz8dqtgWHroe+GJZZzchLaIpreaZpMd+wg9jLoacD68DfJv6BIt3/itriq5uXXLD2SyWLgTkEalw+zeHGQ2/IqlkxAj6mu1ctOtDuDqXuLUOBE6m3UvIjYDyyUJJiSwo00BZ2hhrSP8BovGMnt8m+DuX2wRa+rF7eyBGhUm14WqAZoyITBLk23OLy5bHzqln5lOigBWIdb9mxGnbUwt7WIzo=
   template:
     metadata:
@@ -57,15 +58,13 @@ spec:
     parent:
       claiming:
         enabled: true
-        rooms: 819bc223-d427-479e-a942-2c5f6c312175
-        envFrom:
-          - secretRef:
-              name: netdata
+      envFrom:
+        - secretRef:
+            name: netdata
 
     child:
       claiming:
         enabled: true
-        rooms: 819bc223-d427-479e-a942-2c5f6c312175
-        envFrom:
-          - secretRef:
-              name: netdata
+      envFrom:
+        - secretRef:
+            name: netdata
