@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./clusters/stage/authentik/db.yaml
+  path: ./cluster-components/stage/authentik/db
   prune: true
   dependsOn:
   - name: stackgres

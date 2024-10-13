@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./clusters/stage/flux-webhook
+  path: ./cluster-components/stage/flux-webhook
   prune: true
   dependsOn:
   - name: cert-issuers

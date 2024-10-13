@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./clusters/stage/authentik/nginx.yaml
+  path: ./cluster-components/stage/authentik/nginx
   prune: true
   dependsOn:
   - name: ingress-nginx
