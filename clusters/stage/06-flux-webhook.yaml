@@ -8,9 +8,8 @@ spec:
   path: ./cluster-components/stage/flux-webhook
   prune: true
   dependsOn:
-  - name: cert-issuers
-  - name: ingress-nginx
+    - name: cert-issuers
+    - name: ingress-nginx
   sourceRef:
     kind: GitRepository
     name: flux-system
-  

@@ -8,11 +8,11 @@ spec:
   path: ./cluster-components/stage/authentik/hr
   prune: true
   dependsOn:
-  - name: sealed-secrets
-  - name: cert-manager
-  - name: cert-issuers
-  - name: authentik-shared
-  - name: authentik-db
+    - name: sealed-secrets
+    - name: cert-manager
+    - name: cert-issuers
+    - name: authentik-shared
+    - name: authentik-db
   sourceRef:
     kind: GitRepository
     name: flux-system

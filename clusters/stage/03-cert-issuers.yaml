@@ -8,8 +8,7 @@ spec:
   path: ./shared/cert-issuers
   prune: true
   dependsOn:
-  - name: cert-manager
+    - name: cert-manager
   sourceRef:
     kind: GitRepository
     name: flux-system
-  

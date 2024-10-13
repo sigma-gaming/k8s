@@ -8,8 +8,8 @@ spec:
   path: ./cluster-components/stage/authentik/db
   prune: true
   dependsOn:
-  - name: stackgres
-  - name: authentik-shared
+    - name: stackgres
+    - name: authentik-shared
   sourceRef:
     kind: GitRepository
     name: flux-system

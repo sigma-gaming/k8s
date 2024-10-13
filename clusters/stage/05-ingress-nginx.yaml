@@ -8,9 +8,8 @@ spec:
   path: ./shared/ingress-nginx
   prune: true
   dependsOn:
-  - name: cert-manager
-  - name: registry-creds
+    - name: cert-manager
+    - name: registry-creds
   sourceRef:
     kind: GitRepository
     name: flux-system
-  
