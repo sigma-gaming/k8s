@@ -29,7 +29,7 @@ spec:
       env:
         - name: AUTHENTIK_POSTGRESQL__HOST
           value: authentik-db-primary.authentik
-        - name: AUTHENTIK_POSTGRESQL__DATABASE
+        - name: AUTHENTIK_POSTGRESQL__NAME
           value: postgres
         - name: AUTHENTIK_POSTGRESQL__USER
           valueFrom:
@@ -60,7 +60,7 @@ spec:
       env:
         - name: AUTHENTIK_POSTGRESQL__HOST
           value: authentik-db-primary.authentik
-        - name: AUTHENTIK_POSTGRESQL__DATABASE
+        - name: AUTHENTIK_POSTGRESQL__NAME
           value: postres
         - name: AUTHENTIK_POSTGRESQL__USER
           valueFrom:
