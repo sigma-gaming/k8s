@@ -9,5 +9,5 @@ spec:
     version: '16.4'
   pods:
     persistentVolume:
-      size: '512Mi'
+      size: '2Gi'
   sgInstanceProfile: 'size-xs'
