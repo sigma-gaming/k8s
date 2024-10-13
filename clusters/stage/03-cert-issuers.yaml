@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./components/cert-issuers
+  path: ./shared/cert-issuers
   prune: true
   dependsOn:
   - name: cert-manager

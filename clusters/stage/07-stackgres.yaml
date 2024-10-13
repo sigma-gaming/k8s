@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./components/stackgres
+  path: ./shared/stackgres
   prune: true
   sourceRef:
     kind: GitRepository
