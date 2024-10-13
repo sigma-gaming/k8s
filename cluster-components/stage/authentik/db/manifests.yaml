@@ -1,13 +1,4 @@
 apiVersion: stackgres.io/v1
-kind: SGInstanceProfile
-metadata:
-  name: size-xs
-  namespace: authentik
-spec:
-  cpu: 100m
-  memory: 128Mi
----
-apiVersion: stackgres.io/v1
 kind: SGCluster
 metadata:
   name: authentik-db
