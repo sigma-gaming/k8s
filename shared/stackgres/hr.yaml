@@ -33,3 +33,7 @@ spec:
         name: stackgres
         namespace: flux-system
       interval: 10m
+  values:
+    adminui:
+      service:
+        exposeHTTP: true
