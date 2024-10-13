@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./shared/registry-creds
+  path: ./cluster-components/stage/registry-creds
   prune: true
   dependsOn:
     - name: sealed-secrets
