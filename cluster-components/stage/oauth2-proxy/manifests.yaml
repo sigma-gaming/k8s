@@ -51,12 +51,13 @@ spec:
       existingSecret: oauth2-proxy-github
 
     extraArgs:
-      - --provider=github
-      - --github-org=sigma-gaming
-      - --cookie-domain=.sigmacloud.app
-      - --whitelist-domain=.sigmacloud.app
-      - --reverse-proxy
-      - --skip-auth-preflight
+      provider: github
+      github-org: sigma-gaming
+      cookie-domain: .sigmacloud.app
+      whitelist-domain: .sigmacloud.app
+      reverse-proxy: true
+      skip-auth-preflight: true
+      skip-auth-strip-headers: true
 
     ingress:
       enabled: true
