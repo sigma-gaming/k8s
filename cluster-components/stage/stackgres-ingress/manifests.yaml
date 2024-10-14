@@ -11,11 +11,12 @@ metadata:
     nginx.ingress.kubernetes.io/auth-response-headers: Authorization
 
     # Set x-forwarded headers for redirect
-    nginx.ingress.kubernetes.io/auth-snippet: |
-      auth_request_set $x_forwarded_proto $scheme;
-      auth_request_set $x_forwarded_uri $request_uri;
-      auth_request_set $x_forwarded_host $host;
-    
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Uri $request_uri;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Auth-Request-Redirect $scheme://$host$request_uri;
+
 spec:
   ingressClassName: nginx
   tls:
