@@ -47,7 +47,7 @@ spec:
       interval: 10m
   values:
     config:
-      cookieName: '__Secure-sso_github_org'
+      cookieName: sso
       existingSecret: oauth2-proxy-github
 
     extraArgs:
