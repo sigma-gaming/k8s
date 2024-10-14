@@ -2,8 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: stackgres
-  namespace: {{ .Release.Namespace }}
+  name: stackgres-ui
+  namespace: stackgres
   annotations:
     cert-manager.io/cluster-issuer: selfsigned
     nginx.ingress.kubernetes.io/auth-url: https://sigmacloud.app/oauth2/auth
