@@ -49,11 +49,25 @@ spec:
     config:
       cookieName: '__Secure-sso_github_org'
       existingSecret: oauth2-proxy-github
+
     extraArgs:
       - --provider=github
       - --github-org=sigma-gaming
       - --cookie-domain=.sigmacloud.app
-      - --redirect-url=https://sigmacloud.app/oauth2/callback
+      - --redirect-url=https://auth.sigmacloud.app/oauth2/callback
       - --reverse-proxy
       - --skip-auth-preflight
       - --skip-provider-button
+
+    ingress:
+      enabled: true
+      path: /
+      hosts:
+        - auth.sigmacloud.app
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: selfsigned
+      tls:
+        - hosts:
+            - auth.sigmacloud.app
+          secretName: auth.sigmacloud.app-cert
