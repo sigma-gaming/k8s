@@ -9,14 +9,6 @@ metadata:
     nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
     nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: Authorization
-    nginx.ingress.kubernetes.io/auth-snippet: |
-      auth_request_set $sso_upstream_1 $upstream_cookie_sso_1;
-
-      access_by_lua_block {
-        if ngx.var.sso_upstream_1 ~= "" then
-          ngx.header["Set-Cookie"] = "sso_1=" .. ngx.var.sso_upstream_1 .. ngx.var.auth_cookie:match("(; .*)")
-        end
-      }
 spec:
   ingressClassName: nginx
   tls:
