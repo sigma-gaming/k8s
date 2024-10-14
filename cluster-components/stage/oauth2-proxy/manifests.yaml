@@ -57,7 +57,7 @@ spec:
       whitelist-domain: .sigmacloud.app
       reverse-proxy: true
       skip-auth-preflight: true
-      skip-auth-strip-headers: true
+      skip-auth-strip-headers: false
 
     ingress:
       enabled: true
