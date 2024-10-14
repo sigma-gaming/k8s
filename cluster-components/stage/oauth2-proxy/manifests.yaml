@@ -54,10 +54,8 @@ spec:
       - --provider=github
       - --github-org=sigma-gaming
       - --cookie-domain=.sigmacloud.app
-
       - --reverse-proxy
       - --skip-auth-preflight
-      - --skip-provider-button
 
     ingress:
       enabled: true
