@@ -50,8 +50,9 @@ spec:
       cookieName: '__Secure-sso_github_org'
       existingSecret: oauth2-proxy-github
     extraArgs:
+      - --provider=github
       - --github-org=sigma-gaming
       - --cookie-domain=.sigmacloud.app
-      - --redirect-url=https://auth.sigmacloud.app/oauth2/callback
+      - --redirect-url=https://sigmacloud.app/oauth2/callback
       - --skip-auth-preflight
       - --skip-provider-button
