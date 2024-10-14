@@ -54,6 +54,7 @@ spec:
       - --provider=github
       - --github-org=sigma-gaming
       - --cookie-domain=.sigmacloud.app
+      - --whitelist-domain=.sigmacloud.app
       - --reverse-proxy
       - --skip-auth-preflight
 
