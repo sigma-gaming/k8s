@@ -54,5 +54,6 @@ spec:
       - --github-org=sigma-gaming
       - --cookie-domain=.sigmacloud.app
       - --redirect-url=https://sigmacloud.app/oauth2/callback
+      - --reverse-proxy
       - --skip-auth-preflight
       - --skip-provider-button
