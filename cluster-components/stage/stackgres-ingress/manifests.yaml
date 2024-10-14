@@ -9,6 +9,13 @@ metadata:
     nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
     nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: Authorization
+
+    # Set x-forwarded headers for redirect
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      auth_request_set $x_forwarded_proto $scheme;
+      auth_request_set $x_forwarded_uri $request_uri;
+      auth_request_set $x_forwarded_host $host;
+    
 spec:
   ingressClassName: nginx
   tls:
