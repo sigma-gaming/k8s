@@ -13,9 +13,16 @@ spec:
         - name: games-db-migration
           image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1728210006010 # {"$imagepolicy": "games-stage:games-db-migration"}
           env:
-            - name: POSTGRES_URL
+            - name: GAMES_DB_HOST
+              value: "games-db.games-stage"
+            - name: GAMES_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: games-db-app
-                  key: uri
+                  name: games-db
+                  key: superuser-username
+            - name: GAMES_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: games-db
+                  key: superuser-password
       restartPolicy: Never

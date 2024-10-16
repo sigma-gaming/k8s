@@ -55,11 +55,18 @@ spec:
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_VERSION
         value: "dev-1728210007789" # {"$imagepolicy": "games-dev:control-api:tag"}
-      - name: POSTGRES_URL
+      - name: GAMES_DB_HOST
+        value: "games-db.games-stage"
+      - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
-            name: games-db-app
-            key: uri
+            name: games-db
+            key: superuser-username
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-password
       - name: REDIS_HOST
         value: "redis-master"
       - name: REDIS_PASSWORD
