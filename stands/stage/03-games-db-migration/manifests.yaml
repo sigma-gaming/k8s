@@ -13,6 +13,8 @@ spec:
         - name: games-db-migration
           image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1729113007308 # {"$imagepolicy": "games-stage:games-db-migration"}
           env:
+            - name: NODE_ENV
+              value: "production"
             - name: GAMES_DB_HOST
               value: "games-db-primary.games-stage"
             - name: GAMES_DB_USER
