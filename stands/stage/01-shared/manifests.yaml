@@ -3,6 +3,32 @@ kind: Namespace
 metadata:
   name: games-stage
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: games-stage-updates
+  namespace: games-stage
+spec:
+  interval: 30s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: '{{range .Changed.Changes}}{{print .OldValue}} -> {{println .NewValue}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./stands/stage
+    strategy: Setters
+---
 apiVersion: stackgres.io/v1
 kind: SGInstanceProfile
 metadata:
