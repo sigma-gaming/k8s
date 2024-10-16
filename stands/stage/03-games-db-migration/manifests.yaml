@@ -14,7 +14,7 @@ spec:
           image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1729112382142 # {"$imagepolicy": "games-stage:games-db-migration"}
           env:
             - name: GAMES_DB_HOST
-              value: "games-db.games-stage"
+              value: "games-db-primary.games-stage"
             - name: GAMES_DB_USER
               valueFrom:
                 secretKeyRef:

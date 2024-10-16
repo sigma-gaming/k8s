@@ -58,7 +58,7 @@ spec:
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: GAMES_DB_HOST
-        value: "games-db.games-stage"
+        value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
