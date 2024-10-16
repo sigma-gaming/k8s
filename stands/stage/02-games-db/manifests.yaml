@@ -1,0 +1,13 @@
+apiVersion: stackgres.io/v1
+kind: SGCluster
+metadata:
+  name: games-db
+  namespace: games-stage
+spec:
+  instances: 1
+  postgres:
+    version: '16.4'
+  pods:
+    persistentVolume:
+      size: '5Gi'
+  sgInstanceProfile: 'size-sm'
