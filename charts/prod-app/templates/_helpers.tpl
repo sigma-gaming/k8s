@@ -16,3 +16,11 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "prod-app.selectorLabels" -}}
+app.kubernetes.io/name: {{ .Values.name }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
