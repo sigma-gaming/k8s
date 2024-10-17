@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: maintenance-app
-  namespace: games-dev
+  namespace: games-stage
   labels:
     app: maintenance-app
 spec:
@@ -12,7 +12,7 @@ spec:
       app: maintenance-app
   template:
     metadata:
-      namespace: games-dev
+      namespace: games-stage
       labels:
         app: maintenance-app
     spec:
@@ -20,7 +20,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: maintenance-app
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1728210007754 # {"$imagepolicy": "games-dev:maintenance-app"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1728210007754 # {"$imagepolicy": "games-stage:maintenance-app"}
           ports:
             - containerPort: 80
           livenessProbe:
@@ -42,7 +42,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: maintenance-app
-  namespace: games-dev
+  namespace: games-stage
 spec:
   selector:
     app: maintenance-app

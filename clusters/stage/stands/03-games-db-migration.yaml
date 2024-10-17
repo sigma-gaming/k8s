@@ -8,6 +8,7 @@ spec:
   path: ./stands/stage/03-games-db-migration
   prune: true
   dependsOn:
+    - name: registry-creds
     - name: stackgres
     - name: stage-shared
     - name: stage-games-db
