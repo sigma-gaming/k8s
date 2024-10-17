@@ -1,0 +1,35 @@
+
+{{- if .Values.ingress.enabled -}}
+{{- $name := .Values.name -}}
+{{- $host := .Values.ingress.host -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "prod-app.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+    nginx.ingress.kubernetes.io/default-backend: maintenance-app
+    {{- if .Values.ingress.annotations }}
+      {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ $host }}
+      secretName: {{ $host }}-cert
+  rules:
+    - host: {{ $host }}
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: {{ $name }}
+                port:
+                  number: 80
+{{- end }}

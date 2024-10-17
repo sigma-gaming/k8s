@@ -1,0 +1,26 @@
+replicaCount: 1
+
+name: "example"
+
+image:
+  repository: example-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  port: 80
+
+ingress:
+  enabled: true
+  host: "example.com"
+  annotations: {}
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "125m"
+    memory: "128Mi"
+
+env: []

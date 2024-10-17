@@ -2,13 +2,13 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: games-app
-  namespace: games-dev
+  namespace: games-stage
 spec:
   interval: 10m
   timeout: 15m
   chart:
     spec:
-      chart: ./charts/dev-app
+      chart: ./charts/prod-app
       version: '0.1.0'
       sourceRef:
         kind: GitRepository
@@ -24,27 +24,27 @@ spec:
     name: games-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
-      tag: dev-1728210007804 # {"$imagepolicy": "games-dev:games-app:tag"}
+      tag: dev-1728210007804 # {"$imagepolicy": "games-stage:games-app:tag"}
     ingress:
-      host: sigmacloud.app
+      host: sigma1.games
     env:
       - name: NODE_ENV
         value: "production"
       - name: PUBLIC_STAGE
-        value: "dev"
+        value: "production"
       - name: PUBLIC_DOMAIN
-        value: "sigmacloud.app"
+        value: "sigma1.games"
       - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigmacloud.app"
+        value: "https://sigma1.games"
       - name: PUBLIC_GAMES_APP_VERSION
-        value: "dev-1728210007804" # {"$imagepolicy": "games-dev:games-app:tag"}
+        value: "dev-1728210007804" # {"$imagepolicy": "games-stage:games-app:tag"}
       - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigmacloud.app"
+        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_WS_URL
-        value: "wss://ws.sigmacloud.app"
+        value: "wss://ws.sigma1.games"
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
-        value: "https://ref.sigmacloud.app"
+        value: "https://sigm.to"
       - name: PUBLIC_TELEGRAM_BOT_ID
-        value: "6551119896"
+        value: "6842518979"
       - name: PUBLIC_VK_APP_ID
-        value: "51986547"
+        value: "12345"
