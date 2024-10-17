@@ -1,0 +1,50 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://charts.bitnami.com/bitnami
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: redis-password
+  namespace: games-stage
+spec:
+  encryptedData:
+    password: AgCFWd3WMzcy2/4YYfbXJ8N6cgAxIa+vaASrZZMaFUJI+MixNs61tgZjKiphZjTCd4+FJiIkeHixCXvpgKRMj71YOJwK5XzCthT1+l7J79Hp3c3UMaoVHmM2IIrFU+G0N3Rc1KRXgVDwqW1RtEIg1ReCkwF5rYc6kSB4BmODlErTW8X/migYZKRT4nvelCxvcSHaSysN0CfMNrWlPrO9vBEMVy7iHIgv7LHomfQVdAYfI+eOs8f0DKdhNbwabXY7b5fG1tRrdVtrMmqmXjBrDyEcW7eOt7oPjnPvy98fhchVZwSytrzCX+HK35Z7GDrHrxXgnGBgd5QUScg6llqmm2EoyMq3vofQWO5LoTnsePNoKJEE66TpqOcV4UIuUlt0+MKG/XiuikrLQK6/rJshjxTFwGS4c9Qr23ZzW2hCdx52UPxbqd2J0Hc2/x+ujXPP64d2lyiWPOIJcz7BNidjhdlb3suyxsa4/b23UyE2/ZprenVSiBCZ4bZ9gNuayFBBwxXEIilZ38rVE7667xsrtTtWrJGlL56jqEe9rSSaje6FqAD+YFpLjxBPwU5uQKpD5I++n+loaYh87IlcmuPigs2n8nClFl9FHKKcy+oeA8VCveLQ1Nlajb1tj7UC13Jgt0kEQGUjCH2MvaDCaM3zr4wmmqieQpNoZ1s7LCujH77CZaRauW5fXOn+OS0eZPp29kbXoXFSGdo5zxy1CBFh6B9jFTHDBmb1+AX2epY0QFeXlA==
+  template:
+    metadata:
+      name: redis-password
+      namespace: games-stage
+    type: Opaque
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: games-stage
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: redis
+      version: '19.6.0'
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 10m
+  values:
+    architecture: standalone
+    auth:
+      existingSecret: redis-password
+      existingSecretPasswordKey: password
+    master:
+      persistence:
+        size: 2Gi
+    replica:
+      replicaCount: 1

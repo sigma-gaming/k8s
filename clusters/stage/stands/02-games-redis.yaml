@@ -1,0 +1,14 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: stage-games-redis
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./stands/stage/02-games-redis
+  prune: true
+  dependsOn:
+    - name: stage-shared
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
