@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegram
+  namespace: games-stage
+data:
+  bot-id: "6842518979"

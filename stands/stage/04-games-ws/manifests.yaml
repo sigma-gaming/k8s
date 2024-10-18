@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-api
+  name: games-ws
   namespace: games-stage
 spec:
   interval: 10m
@@ -21,15 +21,17 @@ spec:
     remediation:
       retries: -1
   values:
-    name: games-api
+    name: games-ws
     replicaCount: 1
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1729116613743 # {"$imagepolicy": "games-stage:games-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
+      tag: dev-1728210008022 # {"$imagepolicy": "games-stage:games-ws:tag"}
     ingress:
-      host: api.sigma1.games
+      host: ws.sigma1.games
+      annotations:
+        nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
     service:
-      port: 5050
+      port: 5052
     migration:
       tag: dev-1729116613814 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
@@ -47,6 +49,8 @@ spec:
         value: "dev-1729116613743" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
+      - name: PUBLIC_GAMES_WS_VERSION
+        value: "dev-1728210008022" # {"$imagepolicy": "games-stage:games-ws:tag"}
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_CONTROL_APP_URL
