@@ -15,6 +15,7 @@ spec:
     - name: stage-shared
     - name: stage-maintenance-app
     - name: stage-games-api
+    - name: stage-games-ws
   sourceRef:
     kind: GitRepository
     name: flux-system
