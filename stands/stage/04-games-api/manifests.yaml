@@ -1,0 +1,94 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: games-api
+  namespace: games-stage
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/prod-api
+      version: "0.2.1"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: games-api
+    replicaCount: 1
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api
+      tag: dev-1728210008002 # {"$imagepolicy": "games-stage:games-api:tag"}
+    ingress:
+      host: api.sigma1.games
+    service:
+      port: 5050
+    migration:
+      tag: dev-1728210006010 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_STAGE
+        value: "production"
+      - name: PUBLIC_DOMAIN
+        value: "sigma1.games"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigma1.games"
+      - name: PUBLIC_GAMES_API_URL
+        value: "https://api.sigma1.games"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1728210008002" # {"$imagepolicy": "games-stage:games-api:tag"}
+      - name: PUBLIC_GAMES_WS_URL
+        value: "wss://ws.sigma1.games"
+      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+        value: "https://sigm.to"
+      - name: PUBLIC_CONTROL_APP_URL
+        value: "https://control.sigma1.games"
+      - name: PUBLIC_CONTROL_API_URL
+        value: "https://control-api.sigma1.games"
+      - name: GAMES_DB_HOST
+        value: "games-db-primary.games-stage"
+      - name: GAMES_DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-username
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-password
+      - name: REDIS_HOST
+        value: "games-redis-master"
+      - name: REDIS_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-redis-password
+            key: password
+      - name: JWT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        value: "6842518979"
+      - name: TELEGRAM_BOT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
+      - name: PUBLIC_VK_APP_ID
+        value: "12345"
+      - name: VK_APP_SECRET
+        value: "12345"
+      - name: VK_SERVICE_TOKEN
+        value: "12345"
+      - name: VK_GROUP_TOKEN
+        value: "54321"

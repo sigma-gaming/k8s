@@ -1,0 +1,30 @@
+replicaCount: 1
+
+name: "example"
+
+image:
+  repository: example-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  port: 5050
+
+ingress:
+  enabled: true
+  host: "example.com"
+  annotations: {}
+
+migration:
+  enabled: true
+  tag: ""
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+env: []
