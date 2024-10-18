@@ -1,14 +1,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: referral-redirect-api
-  namespace: games-dev
+  name: games-tasks
+  namespace: games-stage
 spec:
   interval: 10m
   timeout: 15m
   chart:
     spec:
-      chart: ./charts/dev-api
+      chart: ./charts/prod-api
       version: "0.2.1"
       sourceRef:
         kind: GitRepository
@@ -21,40 +21,47 @@ spec:
     remediation:
       retries: -1
   values:
-    name: referral-redirect-api
+    name: games-tasks
     replicaCount: 1
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/referral-redirect-api
-      tag: dev-1728210008154 # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
+      tag: dev-1728210004295 # {"$imagepolicy": "games-stage:games-tasks:tag"}
     ingress:
-      host: ref.sigmacloud.app
+      enabled: false
     service:
-      port: 5054
+      port: 5053
     migration:
-      tag: dev-1728210006010 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+      tag: dev-1728210006010 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+      requests:
+        cpu: "125m"
+        memory: "128Mi"
     env:
       - name: NODE_ENV
         value: "production"
       - name: PUBLIC_STAGE
-        value: "dev"
+        value: "production"
       - name: PUBLIC_DOMAIN
-        value: "sigmacloud.app"
+        value: "sigma1.games"
       - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigmacloud.app"
+        value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigmacloud.app"
+        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1728210008002" # {"$imagepolicy": "games-dev:games-api:tag"}
+        value: "dev-1729116613743" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
-        value: "wss://ws.sigmacloud.app"
+        value: "wss://ws.sigma1.games"
+      - name: PUBLIC_GAMES_TASKS_VERSION
+        value: "dev-1728210004295" # {"$imagepolicy": "games-stage:games-tasks:tag"}
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
-        value: "https://ref.sigmacloud.app"
-      - name: PUBLIC_REFERRAL_REDIRECT_API_VERSION
-        value: "dev-1728210008154" # {"$imagepolicy": "games-dev:referral-redirect-api:tag"}
+        value: "https://sigm.to"
       - name: PUBLIC_CONTROL_APP_URL
-        value: "https://control.sigmacloud.app"
+        value: "https://control.sigma1.games"
       - name: PUBLIC_CONTROL_API_URL
-        value: "https://control-api.sigmacloud.app"
+        value: "https://control-api.sigma1.games"
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
@@ -68,23 +75,32 @@ spec:
             name: games-db
             key: superuser-password
       - name: REDIS_HOST
-        value: "redis-master"
+        value: "games-redis-master"
       - name: REDIS_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: redis-password
+            name: games-redis-password
             key: password
       - name: JWT_SECRET
-        value: "SECRET_REMOVED"
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret
       - name: PUBLIC_TELEGRAM_BOT_ID
-        value: "6551119896"
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
       - name: TELEGRAM_BOT_TOKEN
-        value: "SECRET_REMOVED"
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
       - name: PUBLIC_VK_APP_ID
-        value: "51986547"
+        value: "12345"
       - name: VK_APP_SECRET
-        value: "SECRET_REMOVED"
+        value: "12345"
       - name: VK_SERVICE_TOKEN
-        value: "SECRET_REMOVED"
+        value: "12345"
       - name: VK_GROUP_TOKEN
-        value: "SECRET_REMOVED"
+        value: "54321"
