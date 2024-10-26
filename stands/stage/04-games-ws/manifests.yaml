@@ -46,7 +46,7 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1729354114148" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1729941119661" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_GAMES_WS_VERSION
