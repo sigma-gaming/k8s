@@ -74,9 +74,9 @@ spec:
           secretKeyRef:
             name: games-db
             key: superuser-password
-      - name: REDIS_HOST
+      - name: GAMES_REDIS_HOST
         value: "games-redis-master"
-      - name: REDIS_PASSWORD
+      - name: GAMES_REDIS_PASSWORD
         valueFrom:
           secretKeyRef:
             name: games-redis-password
