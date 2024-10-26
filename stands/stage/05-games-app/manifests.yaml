@@ -38,6 +38,10 @@ spec:
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_APP_VERSION
         value: "dev-1729354124222" # {"$imagepolicy": "games-stage:games-app:tag"}
+      - name: PUBLIC_AUTH_API_DOMAIN
+        value: "letsauth.app"
+      - name: PUBLIC_AUTH_API_URL
+        value: "https://letsauth.app"
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_WS_URL
@@ -45,6 +49,9 @@ spec:
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_TELEGRAM_BOT_ID
-        value: "6842518979"
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
       - name: PUBLIC_VK_APP_ID
         value: "12345"

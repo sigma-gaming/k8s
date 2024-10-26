@@ -2,14 +2,14 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: control-app
-  namespace: games-dev
+  namespace: games-stage
 spec:
   interval: 10m
   timeout: 15m
   chart:
     spec:
-      chart: ./charts/dev-app
-      version: '0.1.0'
+      chart: ./charts/prod-app
+      version: '0.1.1'
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -24,29 +24,40 @@ spec:
     name: control-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app
-      tag: dev-1728210007783 # {"$imagepolicy": "games-dev:control-app:tag"}
+      tag: dev-1728210007783 # {"$imagepolicy": "games-stage:control-app:tag"}
     ingress:
       host: control.sigmacloud.app
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$escaped_request_uri
     env:
       - name: NODE_ENV
         value: "production"
       - name: PUBLIC_STAGE
-        value: "dev"
+        value: "production"
       - name: PUBLIC_DOMAIN
         value: "sigmacloud.app"
       - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigmacloud.app"
+        value: "https://sigma1.games"
+      - name: PUBLIC_AUTH_API_DOMAIN
+        value: "letsauth.app"
+      - name: PUBLIC_AUTH_API_URL
+        value: "https://letsauth.app"
       - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigmacloud.app"
+        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_WS_URL
-        value: "wss://ws.sigmacloud.app"
+        value: "wss://ws.sigma1.games"
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_APP_VERSION
-        value: "dev-1728210007783" # {"$imagepolicy": "games-dev:control-app:tag"}
+        value: "dev-1728210007783" # {"$imagepolicy": "games-stage:control-app:tag"}
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_TELEGRAM_BOT_ID
-        value: "6551119896"
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
       - name: PUBLIC_VK_APP_ID
-        value: "51986547"
+        value: "12345"

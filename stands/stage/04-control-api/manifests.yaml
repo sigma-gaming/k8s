@@ -2,14 +2,14 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: control-api
-  namespace: games-dev
+  namespace: games-stage
 spec:
   interval: 10m
   timeout: 15m
   chart:
     spec:
-      chart: ./charts/dev-api
-      version: '0.2.1'
+      chart: ./charts/prod-api
+      version: "0.2.1"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -25,36 +25,40 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api
-      tag: dev-1728210007789 # {"$imagepolicy": "games-dev:control-api:tag"}
+      tag: dev-1728210007789 # {"$imagepolicy": "games-stage:control-api:tag"}
     ingress:
       host: control-api.sigmacloud.app
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$escaped_request_uri
     service:
       port: 5051
     migration:
-      tag: dev-1728210006010 # {"$imagepolicy": "games-dev:games-db-migration:tag"}
+      tag: dev-1729116613814 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
       - name: PUBLIC_STAGE
-        value: "dev"
+        value: "production"
       - name: PUBLIC_DOMAIN
         value: "sigmacloud.app"
       - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigmacloud.app"
+        value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigmacloud.app"
+        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1728210008002" # {"$imagepolicy": "games-dev:games-api:tag"}
+        value: "dev-1729116613743" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
-        value: "wss://ws.sigmacloud.app"
+        value: "wss://ws.sigma1.games"
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
-        value: "https://ref.sigmacloud.app"
+        value: "https://sigm.to"
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_VERSION
-        value: "dev-1728210007789" # {"$imagepolicy": "games-dev:control-api:tag"}
+        value: "dev-1728210007789" # {"$imagepolicy": "games-stage:control-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
@@ -68,23 +72,32 @@ spec:
             name: games-db
             key: superuser-password
       - name: REDIS_HOST
-        value: "redis-master"
+        value: "games-redis-master"
       - name: REDIS_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: redis-password
+            name: games-redis-password
             key: password
       - name: JWT_SECRET
-        value: "SECRET_REMOVED"
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret
       - name: PUBLIC_TELEGRAM_BOT_ID
-        value: "6551119896"
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
       - name: TELEGRAM_BOT_TOKEN
-        value: "SECRET_REMOVED"
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
       - name: PUBLIC_VK_APP_ID
-        value: "51986547"
+        value: "12345"
       - name: VK_APP_SECRET
-        value: "SECRET_REMOVED"
+        value: "12345"
       - name: VK_SERVICE_TOKEN
-        value: "SECRET_REMOVED"
+        value: "12345"
       - name: VK_GROUP_TOKEN
-        value: "SECRET_REMOVED"
+        value: "54321"

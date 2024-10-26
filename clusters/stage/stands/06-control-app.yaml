@@ -1,0 +1,20 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: stage-control-app
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./stands/stage/05-control-app
+  prune: true
+  dependsOn:
+    - name: registry-creds
+    - name: ingress-nginx
+    - name: cert-manager
+    - name: cert-issuers
+    - name: stage-shared
+    - name: stage-maintenance-app
+    - name: stage-control-api
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
