@@ -1,0 +1,85 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: letsauth
+  namespace: games-stage
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/prod-api
+      version: "0.2.1"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: letsauth
+    replicaCount: 1
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/letsauth
+      tag: dev-1729965294848 # {"$imagepolicy": "games-stage:letsauth:tag"}
+    ingress:
+      host: letsauth.app
+    service:
+      port: 4321
+    migration:
+      tag: dev-1729965370544 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_AUTH_API_DOMAIN
+        value: "letsauth.app"
+      - name: PUBLIC_AUTH_API_URL
+        value: "https://letsauth.app"
+      - name: PUBLIC_AUTH_API_VERSION
+        value: "dev-1729965294848" # {"$imagepolicy": "games-stage:letsauth:tag"}
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigma1.games"
+      - name: PUBLIC_CONTROL_APP_URL
+        value: "https://control.sigmacloud.app"
+      - name: GAMES_DB_HOST
+        value: "games-db-primary.games-stage"
+      - name: GAMES_DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-username
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-password
+      - name: REDIS_HOST
+        value: "games-redis-master"
+      - name: REDIS_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-redis-password
+            key: password
+      - name: JWT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
+      - name: TELEGRAM_BOT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
+      - name: PUBLIC_VK_APP_ID
+        value: "12345"
+      - name: VK_SERVICE_TOKEN
+        value: "12345"
