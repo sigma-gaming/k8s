@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
-      tag: dev-1729976996031 # {"$imagepolicy": "games-stage:games-ws:tag"}
+      tag: dev-1730062666731 # {"$imagepolicy": "games-stage:games-ws:tag"}
     ingress:
       host: ws.sigma1.games
       annotations:
@@ -50,7 +50,7 @@ spec:
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_GAMES_WS_VERSION
-        value: "dev-1729976996031" # {"$imagepolicy": "games-stage:games-ws:tag"}
+        value: "dev-1730062666731" # {"$imagepolicy": "games-stage:games-ws:tag"}
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_CONTROL_APP_URL
