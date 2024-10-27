@@ -41,10 +41,6 @@ spec:
         value: "https://letsauth.app"
       - name: PUBLIC_AUTH_API_VERSION
         value: "dev-1730069164107" # {"$imagepolicy": "games-stage:letsauth:tag"}
-      - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigma1.games"
-      - name: PUBLIC_CONTROL_APP_URL
-        value: "https://control.sigmacloud.app"
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
