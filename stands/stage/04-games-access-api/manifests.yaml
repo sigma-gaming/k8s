@@ -1,0 +1,67 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: games-access-api
+  namespace: games-stage
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/prod-api
+      version: "0.2.1"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: games-access-api
+    replicaCount: 1
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/access-api
+      tag: dev-1730062282500 # {"$imagepolicy": "games-stage:games-access-api:tag"}
+    ingress:
+      host: access.sigma1.games
+    service:
+      port: 5055
+    migration:
+      tag: dev-1730062833105 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1730062282512" # {"$imagepolicy": "games-stage:games-api:tag"}
+      - name: PUBLIC_ACCESS_DOMAIN
+        value: "sigma1.games"
+      - name: PUBLIC_ACCESS_API_URL
+        value: "https://access.sigma1.games"
+      - name: GAMES_DB_HOST
+        value: "games-db-primary.games-stage"
+      - name: GAMES_DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-username
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db
+            key: superuser-password
+      - name: GAMES_REDIS_HOST
+        value: "games-redis-master"
+      - name: GAMES_REDIS_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-redis-password
+            key: password
+      - name: JWT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret
