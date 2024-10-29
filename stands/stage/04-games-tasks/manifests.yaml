@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1730147195410 # {"$imagepolicy": "games-stage:games-tasks:tag"}
+      tag: dev-1730217140830 # {"$imagepolicy": "games-stage:games-tasks:tag"}
     ingress:
       enabled: false
     service:
@@ -47,7 +47,7 @@ spec:
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1730216655260" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1730147195410" # {"$imagepolicy": "games-stage:games-tasks:tag"}
+        value: "dev-1730217140830" # {"$imagepolicy": "games-stage:games-tasks:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
