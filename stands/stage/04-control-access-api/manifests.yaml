@@ -43,6 +43,10 @@ spec:
     env:
       - name: NODE_ENV
         value: "production"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigma1.games"
+      - name: PUBLIC_CONTROL_APP_URL
+        value: "https://control.sigmacloud.app"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1730216655260" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_ACCESS_DOMAIN
