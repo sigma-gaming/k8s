@@ -54,11 +54,11 @@ spec:
             name: games-db
             key: superuser-password
       - name: GAMES_REDIS_HOST
-        value: "games-redis-master"
+        value: "games-dragonfly"
       - name: GAMES_REDIS_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: games-redis-password
+            name: games-dragonfly-auth
             key: password
       - name: JWT_SECRET
         valueFrom:
