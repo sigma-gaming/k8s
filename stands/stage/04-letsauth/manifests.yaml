@@ -53,13 +53,6 @@ spec:
           secretKeyRef:
             name: games-db
             key: superuser-password
-      - name: GAMES_REDIS_HOST
-        value: "games-dragonfly"
-      - name: GAMES_REDIS_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: games-dragonfly-auth
-            key: password
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD
