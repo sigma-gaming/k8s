@@ -1,0 +1,58 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: arc-charts
+  namespace: flux-system
+spec:
+  interval: 1m
+  type: oci
+  url: oci://ghcr.io/actions/actions-runner-controller-charts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: arc-runners
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: github-secret
+  namespace: arc-runners
+spec:
+  encryptedData:
+    github_app_id: AgBcwV9M3pnqb6woLbGVVUcisl0aBTWTVe2kMrzTF4tpxSpsgLsLLfnw4BEYDilfqs6syNOiOzGpx3VfKaey1xh94WltyWBWNKrG7Q7Bkk93hoU5Q63gzlwbzBN9KzOEawcfdTU4pFLfwrS3l2feGRV98kf2GGErjRf/IkfueGloqYwgZ7usL95MxCo/t6/L/NAgnjfU0JX7MOXpQLGrIVn2N1UM4fT3EXWA/KsCFv3ao7Y0rW26hzJZwYkButlWZMk8QM8BAVYxt4eR+9InWCaJ/W70Tm8la69eg0Fv8gNotZgYtO2OOd/zsOatePlIk/bzVh3EPWFQq7Czb5jYuBatsO4MsEiUrR0q4BAkWRQ1XQpXOxVxJ4u4+LkhcTT5pAJxuFLkzkayGL2LQwGI8IQY2IGq6YVoa9/btfTONd2/QmlBGHn9kYO2UICasy6Dq0QSDizjBiXJB9w/AwDy0FMIDOui4dASgjYRaFZDaPPEEAeC/jbqI5v5IUEz9eqfuEaxM8ESGQJ1FEwle2HL++G8qqaNBaO2FfrgtYoIO43A5MN1aQ0ij1PTcFr7XSSOYtUSfixB1RJqP6D1kjuJyLBJoNpX+thn7iTN09gdz0T6bqtZ3T5hu7X7vav1ecWUUgH9e9AjK6T9lS2KyyDMyvmNQQPikVs8U/ObG+J2K2inCBjD4MinVQvABt1PsW2uoBKJIJmnbzGj
+    github_app_installation_id: AgBUhe7eiP4MQqQy1gGCf4JX3sLiyOVAOmQBnpyy3dKdQdGxSUmxjwKSb7wuW7XJBhIlEyrBNTM2kRyp7oh9mFgThwlU8HU5bI3tHPsHV1nlwokIXoB7ByC0vzbO6JNPUIaaHlHE80Q+0hskdH8tocBTg3UgOinKg2ruyy8Wr/F1URleC1GqHb0wK1yBwJygKegBnn+ArhBBJ0oHMapN9agRLJWXLr3cS6nhpuEfmFTWU1SFWK87Erh8ZZw7Mt0ix94woQJdZsNJr57jr1sJ++LKurTvXoO/Jy4kifOZJ4gO47TFq0AgW6BOm7h0uTrHRpBiUY7mmS0znAlImWy9e3Q1dA0LsXjtRjhGcEScvfT2fx3E9dYDWiKRrX3NuwNW9ftRjvY5Z4aS4aT6bvvz1MawsiuMygMAAKuziN5mV6ONmi0hJZcPy414JfZVKmBPgfZHChEeq06KQ8Ou7kPsZbZ4c4kQNqBzJuGvQ4+rkmQkVfN6pDlsOwidnqVnFETj7ih2w19Z86NG+diyZqdA0vj8nOokB1HniLEHcdb+0d8PioxvPnMHygywpY/GGPy70Ub7WpjmGs1EkU+tVMe92ABZh1lOIu+kbTLeh7DJsL0yUI7TginuYQjbPb/8YB1fwrlM14cDywmsbRk/FKl8pM0aUqMA64v1SMEY17Ux3ta4D6whz9tvjzOOLTAexgfvqv/j5G7P0fvgMw==
+    github_app_private_key: AgCTgkTBHaElrvAKyYolM42RwiZwK06v2nfpcZZUpNfLns3X4zpR41L3oxj/h4WQa/pRjpHhuZjZ3SEbNG8K+hyeJCenN1zQ7dlyvkbKR2VV6V+HL6H3VisstNlUwtxQ2gpsOYlZTO7CrbluYZ273RDK5EH2Uut69ULOv7ASALkFZ1Y8KmC1sHSIbg5ozcPzfptCu7icl977vN2oqmvHnG2J3tF1s2ASjOJt43QM+Ei+lvrpxSIf/thACa2o/ur0zbpbscCiFfB8KbEVe+ZZi6jLaAFzDgnCL+8xoVvukKBnvb5Lpblymn5kOSpBhGZ5qr6wXKVXNF4ER/d8a8wyYFaT1VF9V9093aCiVqGkqTfyVfPPsBqT7Jq/k5LziAEqIqiLfyEEognc+JnvshH++8yW7WtTfWkIZcwKdTCvFMQdNhD1crD8sE2HkbJsl3inL4Doy1NkDHiONf9ILSAoKljo3GDXGM19JYmKa/3ZC22ORb/7Q61BiYZLJkxEmoUxH5lDXr0MOytqPSBQqUViNEP9regscsTn6iZ8Vkh87OYZHH4/FC/VQ5bYtVuVg9n6e82wOhbTkqIbwzwNq1FrT9kGx0FZloeK38rZYC0tKI7h+3lbG9ppuirBpp16TGdyVmcu1Z96fQUOKL49a6DEvJ9r8tCB78KXiPg26keMjfXw50CTSTS94CgS6VdC+m9ctqqetPhGP2V278xoS3oomnO5K1ZQQxwmqYzW8uOjVFWkMxb/VCJp3deJ5pJhmDkA2qeSKnY5uL6qLXTcDlSlAjuGUqnr7icryNZ/GMnxtExrMtNR1LqM97BQjcOU8h57tePWey3/c5cVvUKcfck8ZA4Vm3rogbCx1JPCX0IfHszMOD3LM6Zvg0p8rrDEzbyhim5D23NdfpF/qMwtLGAYPjug/g5MEyDjMTV9FArGRb6VOcLB8rl/xenIk+N0cCZi0gDjs0u2SqlyV7zyzc3x5yaq59s0kdely2wFsu/w+pIN3/SDrdfvKT9FF9drxapn0Nqvhezh/l9P6L/mGHsHpzIDbi3MTwibD9qot0k+Oien4ID2waBmJUjwbf+aZZCswzanGWlY9m0/MyawIXV0uSpBJOCBVzGGYMRaq2QLN4rHeknrSZ+TqzeQEJ87ZvmA5wHwbl1H6K+IidrxqLABUMKtqC1FQdW0Y8cMxMZOVOptVEYeJRTj1ZI4J/AJHaXxSLS5rVhSuXRJYRC8rk80aynLiYapZTqb0aTAA4oY3TtM1646+ot2hNSEqoCqm+JR1jojzTL7v5lE2Y1mXFpoitagUEbSyK4k+Y7iHWbfi327TpAFedCG8pT6bGCp7kPz8R1ENkjBIx6vtu2+q+YFdkkaz1fKvK052aKgF9gQpWmphgRa+Ks4Xe0FhkawcBcsoWKpDe6hB2ZFyGGQcVWNB9cOWHqgNgr/sxy+Ri37Ctepqj0GVqq5YKfG59klUWlHfkF1Lgc8ZvZczR5nX1mPcLVZwFH07OV/riCbHPca4gSOzf2n9mFodpAcx4tSYrwKlQ+BxN98+DQIU9Ib8l2AOOWM5Y0kIfrNljf1s2iJsAZ+BKRsWfan5oCN9dq9jtr6anRqr6SXr9U4BHKJpn37BD8aEKo0mtOUmvzu381WztsN95yDQdFHJPek+jVRDjguk/MbITKgmq+0dOkHI1WHJSn9n4aqXSfTMwJBPTgVM03CRU5vqMqUV0xIQzs/l2Mt3wye1rfU0z+hPgUwefurDDmmkO+GnSb75D9qQEJTMPVKU63Rq1ywZ010tCuf+HSOigIRAzLg9MNSftYUfjaPkDAF10Pn0C3RQSMr8+jPqkw7ukksbi/gmh4i/9Ap18vl05rv1YysKYNWOupNKSsOtR+w3iySQLYfqAneZRjveVZ1gwQtXZYwefwz9Tv5wT74H7e1h7fnARvfjMmhOJyBDAom0uTwprpWamy4MnZBlBydY5B3XKV+ofptqZnx/DWpNNxbLrBrThLzLeaxKJh+ffT109fmPx1/uY+TuOf2wZ86OvUkU2rmjvURVHa1XQLtlldwp2n2bLPDmew/X278hOOgPtuun8yp5MKq9byEVNxObzbUNoR01VTOm6EEo869G+4p7hklnqX1jN+Js1CFGMXsg0qA4qsMd2X5YPCiElqO7CyRhsl52VKgVc/GgiZNSYm1Pu722o4uVuaiQhxs42qovqJZGMUahdsAL3B3gCmhrdpPjXJMaJkcqYloGCbmbKN6TQAcf610rIiiLIdwz0Sp82bw0xjlWDNLzDF/mGER69RH09oNQOaVgwciVU5x6brjK53x52cRUdfzWPKh42hfxCp4h0anwcF2GD6nxDfWBwumu/YzMMnlXI5wYYFkW0hzG1MIZvN2LB6kgeefRltg+ID3zK4ShrkpOfw5EGXv0MQWND+k7XWUCPsENoxs3GrT0HrOxoQEBHLGwEzmhg2QRD3OVoWuvwG4Z9HBXcy3Y0r+oxX1Lo5fUhk4LkA3KJkHbjQHBRHmZKbVg1SuWF2AHBzU9JezjPmSDs4iQlUKq+Edd9moJC5Atw71XvHOhIE9wpfPzHq/MnCI0LGo9jklZEDxz4eSrfzCWyTJpODigJbmawTocxqtLM1oSfqAfE8/I6UkA4ykxYQ+IkPY7zg/MSDwlC/gtUsh96A8i7ltujHFcmun4ZTWTY/JlfJU/WhM0UN7zap17i5UqgM2fSok5kLWxer9kKnzLymo7xWV+n0xWBVO5nN2BbJRmu9KTpwhUsP3JKQeKdGvWdr3z9kjwcoXiSa+WJhKXorjnNvqqiqUWzNPXSe6Is84vIQzvDUQ0SJ9HNI2+ak3a3ZK62INQ+KgXLgNIscp+awLSu4iI64hgDQ7DA0OtQDaQVzb4QnjExRLvSVSi71HoM1a3tbakjA4jJIl/Lxm9yNlwrH6Sh0nrb36ExCQpZU=
+  template:
+    metadata:
+      name: github-secret
+      namespace: arc-runners
+    type: Opaque
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: arc-runner-set
+  namespace: arc-runners
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: gha-runner-scale-set
+      version: "0.9.3"
+      sourceRef:
+        kind: HelmRepository
+        name: arc-charts
+        namespace: flux-system
+      interval: 10m
+  values:
+    nodeSelector:
+      role: ci-cd
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "ci-cd"
+        effect: "NoSchedule"
+    githubConfigUrl: https://github.com/sigma-gaming
+    githubConfigSecret: github-token
