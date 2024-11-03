@@ -13,7 +13,6 @@ metadata:
       if ($request_method = OPTIONS) {
         return 200;
       }
-
 spec:
   ingressClassName: nginx
   tls:
@@ -24,8 +23,8 @@ spec:
     - host: stackgres.sigmacloud.app
       http:
         paths:
-          - pathType: Prefix
-            path: /
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: stackgres-restapi
