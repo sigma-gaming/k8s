@@ -5,6 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
+  type: oci
   url: oci://ghcr.io/actions/actions-runner-controller-charts
 ---
 apiVersion: v1
