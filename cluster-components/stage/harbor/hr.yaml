@@ -68,7 +68,7 @@ spec:
         enabled: true
         certSource: secret
         secret:
-          name: harbor.sigmacloud.app-cert
+          secretName: harbor.sigmacloud.app-cert
       ingress:
         hosts:
           core: harbor.sigmacloud.app
