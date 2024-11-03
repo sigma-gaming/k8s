@@ -8,6 +8,10 @@ spec:
   postgres:
     version: '16.4'
   pods:
+    scheduling:
+      nodeSelector:
+        role: application
+        environment: stage
     persistentVolume:
       size: '5Gi'
   sgInstanceProfile: 'size-sm'

@@ -18,6 +18,9 @@ spec:
       labels:
         app: {{ $name }}
     spec:
+      nodeSelector:
+        role: application
+        environment: stage
       imagePullSecrets:
         - name: google-registry-creds
       {{- if .Values.migration.enabled }}

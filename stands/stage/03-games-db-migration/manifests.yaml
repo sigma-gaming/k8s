@@ -7,6 +7,9 @@ spec:
   ttlSecondsAfterFinished: 86400
   template:
     spec:
+      nodeSelector:
+        role: application
+        environment: stage
       imagePullSecrets:
         - name: google-registry-creds
       containers:

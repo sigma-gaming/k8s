@@ -19,6 +19,9 @@ metadata:
   namespace: games-stage
 spec:
   replicas: 1
+  nodeSelector:
+    role: application
+    environment: stage
   authentication:
     passwordFromSecret:
       name: games-dragonfly-auth

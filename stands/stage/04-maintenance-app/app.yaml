@@ -16,6 +16,9 @@ spec:
       labels:
         app: maintenance-app
     spec:
+      nodeSelector:
+        role: application
+        environment: stage
       imagePullSecrets:
         - name: google-registry-creds
       containers:
