@@ -1,0 +1,143 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: harbor
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://helm.goharbor.io
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harbor
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: harbor-admin-password
+  namespace: harbor
+spec:
+  encryptedData:
+    password: AgA20fhACOWqSYSN4d2MX6uejbtM8XHO76d084lav2eqPDIEpPnBuOhHjmthWQl+fJ9u272TWwgEXNVnExcEM337s9gLzuIKWdGjfTrQNf3EeMaLnd4G0jK/RehqeHXYQF7Bgoas3bAjlZcLXlpjVY9LHRmUj2BXT8glCkcKBGVGxs+X3FrWROD0rkPJMc8dNXGgokLtIScMB5LhO5IJF5G2AioQB+3ZbgoLYiU/rygbwFL7r+auQKy9BXNLxkkaqVk+D+K97tBAkxsU/zjHcLoOfhwCpRRFQyGlN4WUilfN8+Kxnhw2vNzpCypUFbDB8yfDAegGnH5nIOXcqnDpB8reajGoy+GaaMFFdwPPFgh2KLg6sVVb3+Pz2wsJwydxHon2LRwz8PDMHLWHoMEzIb1Coa7NqGrS5WqtTWFvdkpFcBtSMz5NeqsWu5AphL4kEGPwgmX7S3SUqP56vi3iszCkgpsizoiNyCH3QdAGIjve81jnxRBI8Y22GqTSWyTGE+nYWkXZNvLvUbpgGac/QxTeOVVg0Tz2Ai5gfOs0TCyr9P/4KeuBYN1zuaf41mbK+DAb5RPTngXhoWoCcNlz5vGxmfbXjE0VafUZBFoBlaHytQZYaXFYij1EqmjxCZSBXumyQ1L4ZFaIx+8rYhPp813uPCNTN3/XEnwDj7QKATLwqHYOwb47+u26uib1aHAUKGfrBeedTOFwwTV6uRJBF+YjSJWCrgaHVDVkpDEsshKjOA==
+  template:
+    metadata:
+      name: harbor-admin-password
+      namespace: harbor
+    type: Opaque
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: harbor-secret-key
+  namespace: harbor
+spec:
+  encryptedData:
+    secretKey: AgAvXelDUXO8/+wCSNb9xGbQeD7DkevDICQ7Q02i9WuS2vVRR8gBi6AwWVo5uLW5DwktCTUPsUnmZfXI4Xq6QwG/m89rmKiz8D5a0OiQ7oL/OLhB354NGhVxA4QcaZjuc+8EZvFcoXSSlHJBY9Y1oRszxlL567+GHkWc1bnhD4YPv5Yqcav9TAZriY5dJ8kBEzHF43Ace0/MpcXLz1of4GpvILBLvINPwAq7NCWEUc2WXyTvWCukMLZFEy4ZTAKWEOXG737ozcmX7mSNzgtjLjGYzSiyp4JzexFeF46oJR9zjbDeA3X0W+MrQXUeOg5/+myByDQ0uyw1hmrJu/3iI5muialmKAIZFhLI7i5wScNqSNRsL0MUrZrR1dDgFYG8HDAOmDRfF6Zz65bYdzZTrG4c/RUzhLg9DIOnoRqtRETfGLWOXVERg0RG598W/CuqDTcbc/u0vT2XNtspCds+b1qcm9egRMnL87cg6CObtkRcG/r4j0bNEUwPYNQkCBcO281a9yQbRPUhrql9tQLkxbrgi4BbCLktIty6qs12ZaRR/wH4T7q5b98QxZIY8UoTqtVkEVx4abimhSlabFrYb8RcpDE+RD3dZJbV0wM5BqXp2pPU4AcDahx0U8HAmRdVF0Wbb4GmHLTtrqR4+Veo+HUFpyU03vu76JagyJPrquDWjqleKJzgd2NQBDO5fNuPYCU8djzEv/Hm/GkvOxFOi1YF
+  template:
+    metadata:
+      name: harbor-secret-key
+      namespace: harbor
+    type: Opaque
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: harbor
+      version: "24.0.1"
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: flux-system
+      interval: 10m
+  values:
+    externalURL: https://harbor.sigmacloud.app
+    existingSecretAdminPassword: harbor-admin-password
+    existingSecretAdminPasswordKey: password
+    existingSecretSecretKey: harbor-secret-key
+    expose:
+      type: ingress
+      tls:
+        enabled: true
+        certSource: secret
+        secret:
+          name: harbor.sigmacloud.app-cert
+      ingress:
+        hosts:
+          core: harbor.sigmacloud.app
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned
+          nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+          nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            if ($request_method = OPTIONS) {
+              return 200;
+            }
+    trivy:
+      enabled: false
+    portal:
+      nodeSelector:
+        role: ci-cd
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
+    core:
+      nodeSelector:
+        role: ci-cd
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
+    jobservice:
+      nodeSelector:
+        role: ci-cd
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
+    registry:
+      nodeSelector:
+        role: ci-cd
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
+    exporter:
+      nodeSelector:
+        role: ci-cd
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
+    database:
+      internal:
+        nodeSelector:
+          role: ci-cd
+        tolerations:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "ci-cd"
+            effect: "NoSchedule"
+    redis:
+      internal:
+        nodeSelector:
+          role: ci-cd
+        tolerations:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "ci-cd"
+            effect: "NoSchedule"
