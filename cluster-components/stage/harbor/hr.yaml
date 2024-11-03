@@ -70,6 +70,7 @@ spec:
         secret:
           secretName: harbor.sigmacloud.app-cert
       ingress:
+        className: nginx
         hosts:
           core: harbor.sigmacloud.app
         annotations:
