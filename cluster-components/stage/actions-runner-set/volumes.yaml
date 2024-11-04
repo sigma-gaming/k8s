@@ -7,9 +7,6 @@ spec:
   storageClassName: local-path
   accessModes:
   - ReadWriteOnce
-  selector:
-    matchLabels:
-      type: workspace
   resources:
     requests:
       storage: 20Gi
