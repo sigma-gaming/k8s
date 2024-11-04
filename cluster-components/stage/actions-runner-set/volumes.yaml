@@ -9,6 +9,7 @@ spec:
   storageClassName: local-path
   accessModes:
   - ReadWriteOnce
+  volumeMode: Filesystem
   capacity:
     storage: 20Gi
 ---
