@@ -14,7 +14,7 @@ spec:
     - name: cert-issuers
     - name: stage-shared
     - name: stage-games-db
-    - name: stage-games-redis
+    - name: stage-games-dragonfly
     - name: stage-games-db-migration
   sourceRef:
     kind: GitRepository
