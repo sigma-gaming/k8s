@@ -87,3 +87,6 @@ spec:
                   resources:
                     requests:
                       storage: 1Gi
+          - name: workspace
+            persistentVolumeClaim:
+              claimName: workspace
