@@ -1,19 +1,4 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: workspace
-  namespace: arc-runners
-  labels:
-    type: workspace
-spec:
-  storageClassName: local-path
-  accessModes:
-  - ReadWriteOnce
-  volumeMode: Filesystem
-  capacity:
-    storage: 20Gi
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: workspace
