@@ -78,6 +78,10 @@ spec:
               return 200;
             }
 
+            if ($request_uri ~ ^/service) {
+              return 200;
+            }
+
             if ($request_method = OPTIONS) {
               return 200;
             }
