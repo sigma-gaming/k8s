@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./shared/ingress-nginx
+  path: ./cluster-components/stage/ingress-nginx
   prune: true
   dependsOn:
     - name: cert-manager

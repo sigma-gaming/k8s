@@ -47,3 +47,8 @@ spec:
       kind: DaemonSet
       # for Authentik
       allowSnippetAnnotations: true
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "ci-cd"
+          effect: "NoSchedule"
