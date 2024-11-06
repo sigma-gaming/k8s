@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api
-      tag: dev-1730582715452 # {"$imagepolicy": "games-stage:control-api:tag"}
+      tag: dev-1730889520641 # {"$imagepolicy": "games-stage:control-api:tag"}
     ingress:
       host: control-api.sigmacloud.app
       annotations:
@@ -39,7 +39,7 @@ spec:
     service:
       port: 5051
     migration:
-      tag: dev-1730552855572 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1730889521549 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
@@ -52,7 +52,7 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1730582363733" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1730889520758" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
@@ -62,7 +62,7 @@ spec:
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_VERSION
-        value: "dev-1730582715452" # {"$imagepolicy": "games-stage:control-api:tag"}
+        value: "dev-1730889520641" # {"$imagepolicy": "games-stage:control-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
