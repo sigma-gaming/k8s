@@ -81,18 +81,15 @@ spec:
           env:
             - name: DOCKER_HOST
               value: unix:///var/run/docker.sock
-            - name: RUNNER_ALLOW_RUNASROOT
-              value: "1"
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
+            - name: PNPM_STORE_PATH
+              value: /usr/local/share/.pnpm-store
           volumeMounts:
             - name: work
               mountPath: /home/runner/_work
-            - name: workspace
-              mountPath: /workspace
             - name: dind-sock
               mountPath: /var/run
+            - name: pnpm-store
+              mountPath: /usr/local/share/.pnpm-store
         - name: dind
           image: docker:dind
           args:
@@ -111,8 +108,6 @@ spec:
               mountPath: /var/run
             - name: dind-externals
               mountPath: /home/runner/externals
-            - name: workspace
-              mountPath: /workspace
         volumes:
         - name: work
           emptyDir: {}
@@ -120,6 +115,6 @@ spec:
           emptyDir: {}
         - name: dind-externals
           emptyDir: {}
-        - name: workspace
+        - name: pnpm-store
           persistentVolumeClaim:
-            claimName: workspace
+            claimName: pnpm-store
