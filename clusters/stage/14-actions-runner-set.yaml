@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: actions-runner-set
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./cluster-components/stage/actions-runner-set
+  prune: true
+  dependsOn:
+    - name: sealed-secrets
+    - name: actions-runner-controller
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

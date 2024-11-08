@@ -54,6 +54,7 @@ spec:
         operator: "Equal"
         value: "ci-cd"
         effect: "NoSchedule"
+
     githubConfigUrl: https://github.com/sigma-gaming
     githubConfigSecret: github-secret
 
@@ -76,6 +77,8 @@ spec:
           volumeMounts:
             - name: work
               mountPath: /home/runner/_work
+            - name: workspace
+              mountPath: /workspace
             - name: dind-sock
               mountPath: /var/run
         - name: dind
@@ -97,7 +100,7 @@ spec:
             - name: dind-externals
               mountPath: /home/runner/externals
             - name: workspace
-              mountPath: /home/runner/workspace
+              mountPath: /workspace
         volumes:
         - name: work
           emptyDir: {}
