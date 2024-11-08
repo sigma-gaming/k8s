@@ -47,8 +47,8 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
-    minRunners: 2
-    maxRunners: 5
+    minRunners: 3
+    maxRunners: 3
 
     nodeSelector:
       role: ci-cd
