@@ -60,6 +60,13 @@ spec:
 
     template:
       spec:
+        nodeSelector:
+          role: ci-cd
+        tolerations:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "ci-cd"
+            effect: "NoSchedule"
         initContainers:
         - name: init-dind-externals
           image: ghcr.io/actions/actions-runner:latest
