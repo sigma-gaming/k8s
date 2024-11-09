@@ -25,13 +25,13 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/letsauth
-      tag: dev-1731168824796 # {"$imagepolicy": "games-stage:letsauth:tag"}
+      tag: dev-1730889520117 # {"$imagepolicy": "games-stage:letsauth:tag"}
     ingress:
       host: letsauth.app
     service:
       port: 4321
     migration:
-      tag: dev-1731168824796 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1730889521549 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
@@ -40,7 +40,7 @@ spec:
       - name: PUBLIC_AUTH_API_URL
         value: "https://letsauth.app"
       - name: PUBLIC_AUTH_API_VERSION
-        value: "dev-1731168824796" # {"$imagepolicy": "games-stage:letsauth:tag"}
+        value: "dev-1730889520117" # {"$imagepolicy": "games-stage:letsauth:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER

@@ -24,7 +24,7 @@ spec:
     name: games-app
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apps/games-app
-      tag: dev-1731168824796 # {"$imagepolicy": "games-stage:games-app:tag"}
+      tag: dev-1730889519933 # {"$imagepolicy": "games-stage:games-app:tag"}
     ingress:
       host: sigma1.games
     env:
@@ -37,7 +37,7 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_APP_VERSION
-        value: "dev-1731168824796" # {"$imagepolicy": "games-stage:games-app:tag"}
+        value: "dev-1730889519933" # {"$imagepolicy": "games-stage:games-app:tag"}
       - name: PUBLIC_AUTH_API_URL
         value: "https://letsauth.app"
       - name: PUBLIC_ACCESS_API_URL
