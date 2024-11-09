@@ -30,7 +30,7 @@ metadata:
   name: gcr-cleaner
   namespace: cleanup
 spec:
-  image: europe-north1-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner
+  image: europe-west1-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner
   secretRef:
     name: google-registry-creds
   interval: 30s

@@ -4,7 +4,7 @@ metadata:
   name: maintenance-app
   namespace: games-stage
 spec:
-  image: europe-north1-docker.pkg.dev/sigma-games/docker/apps/maintenance-app
+  image: europe-west1-docker.pkg.dev/sigma-games/docker/apps/maintenance-app
   secretRef:
     name: google-registry-creds
   interval: 30s
