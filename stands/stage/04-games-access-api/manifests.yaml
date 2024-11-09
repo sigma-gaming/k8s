@@ -24,14 +24,14 @@ spec:
     name: games-access-api
     replicaCount: 1
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1730889519712 # {"$imagepolicy": "games-stage:games-access-api:tag"}
+      repository: europe-north1-docker.pkg.dev/sigma-games/docker/apis/access-api
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-access-api:tag"}
     ingress:
       host: access.sigma1.games
     service:
       port: 5055
     migration:
-      tag: dev-1730889521549 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
@@ -40,7 +40,7 @@ spec:
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1730889520758" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1731149791720" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_ACCESS_DOMAIN
         value: "sigma1.games"
       - name: PUBLIC_ACCESS_API_URL

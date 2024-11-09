@@ -24,14 +24,14 @@ spec:
     name: games-tasks
     replicaCount: 1
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1730889521428 # {"$imagepolicy": "games-stage:games-tasks:tag"}
+      repository: europe-north1-docker.pkg.dev/sigma-games/docker/apis/games-tasks
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-tasks:tag"}
     ingress:
       enabled: false
     service:
       port: 5053
     migration:
-      tag: dev-1730889521549 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     resources:
       limits:
         cpu: "500m"
@@ -45,9 +45,9 @@ spec:
       - name: PUBLIC_STAGE
         value: "production"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1730889520758" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1731149791720" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1730889521428" # {"$imagepolicy": "games-stage:games-tasks:tag"}
+        value: "dev-1731149791720" # {"$imagepolicy": "games-stage:games-tasks:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER

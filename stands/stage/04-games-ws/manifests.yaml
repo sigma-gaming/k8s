@@ -24,8 +24,8 @@ spec:
     name: games-ws
     replicaCount: 1
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-ws
-      tag: dev-1730889520071 # {"$imagepolicy": "games-stage:games-ws:tag"}
+      repository: europe-north1-docker.pkg.dev/sigma-games/docker/apis/games-ws
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-ws:tag"}
     ingress:
       host: ws.sigma1.games
       annotations:
@@ -33,7 +33,7 @@ spec:
     service:
       port: 5052
     migration:
-      tag: dev-1730889521549 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1731149791720 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
@@ -44,11 +44,11 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1730889520758" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1731149791720" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_GAMES_WS_VERSION
-        value: "dev-1730889520071" # {"$imagepolicy": "games-stage:games-ws:tag"}
+        value: "dev-1731149791720" # {"$imagepolicy": "games-stage:games-ws:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-primary.games-stage"
       - name: GAMES_DB_USER
