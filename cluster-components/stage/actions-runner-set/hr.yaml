@@ -47,8 +47,7 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
-    minRunners: 3
-    maxRunners: 3
+    maxRunners: 6
 
     nodeSelector:
       role: ci-cd
@@ -91,15 +90,11 @@ spec:
             env:
               - name: DOCKER_HOST
                 value: unix:///var/run/docker.sock
-              - name: PNPM_STORE_PATH
-                value: /usr/local/share/.pnpm-store
             volumeMounts:
               - name: work
                 mountPath: /home/runner/_work
               - name: dind-sock
                 mountPath: /var/run
-              - name: pnpm-store
-                mountPath: /usr/local/share/.pnpm-store
           - name: dind
             image: docker:dind
             args:
@@ -132,6 +127,3 @@ spec:
             emptyDir: {}
           - name: dind-externals
             emptyDir: {}
-          - name: pnpm-store
-            persistentVolumeClaim:
-              claimName: pnpm-store
