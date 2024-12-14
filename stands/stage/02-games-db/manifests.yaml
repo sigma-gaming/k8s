@@ -14,3 +14,17 @@ spec:
       labels:
         cnpg.io/reload: "true"
     type: Opaque
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: games-db
+  namespace: games-stage
+spec:
+  instances: 1
+
+  superuserSecret:
+    name: games-db-superuser
+
+  storage:
+    size: 10Gi
