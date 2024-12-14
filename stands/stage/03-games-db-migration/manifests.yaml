@@ -18,16 +18,9 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: GAMES_DB_HOST
-              value: "games-db-primary.games-stage"
-            - name: GAMES_DB_USER
+            - name: GAMES_DB_URL
               valueFrom:
                 secretKeyRef:
-                  name: games-db
-                  key: superuser-username
-            - name: GAMES_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: games-db
-                  key: superuser-password
+                  name: games-db-app
+                  key: uri
       restartPolicy: Never

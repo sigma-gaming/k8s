@@ -49,18 +49,11 @@ spec:
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_GAMES_WS_VERSION
         value: "dev-1731183606194" # {"$imagepolicy": "games-stage:games-ws:tag"}
-      - name: GAMES_DB_HOST
-        value: "games-db-primary.games-stage"
-      - name: GAMES_DB_USER
+      - name: GAMES_DB_URL
         valueFrom:
           secretKeyRef:
-            name: games-db
-            key: superuser-username
-      - name: GAMES_DB_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: games-db
-            key: superuser-password
+            name: games-db-app
+            key: uri
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD
