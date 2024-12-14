@@ -13,7 +13,7 @@ spec:
       namespace: games-stage
       labels:
         cnpg.io/reload: "true"
-    type: Opaque
+    type: kubernetes.io/basic-auth
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
