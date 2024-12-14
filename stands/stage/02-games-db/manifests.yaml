@@ -1,3 +1,19 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: games-db-superuser
+  namespace: games-stage
+spec:
+  encryptedData:
+    password: AgBwA95gcrdkNCEo+DvA/+xZiUJIpDBAafU1zYdCQcsVU/cypgpIerUK2VpZU7bAt36FjxYUWGhG4hrj4lwOq0SPGatazt3YBnGWuJSsXwgzR17s41y8n9fTMgg+XpN9OFHP+pbPjqmymdM6QnzZvGyKGAqOSJFqVjVGZDxB/ebNB59YxOLDrfSWbUZdVW3ftM4sdTdggTloKRGOPfAHaJnNM2pPHioOROcDw8S+Xa+f42n6YvJaP5zdROeOzEpX1TL8VjpM+147ei/2ZP4tIueq5UjsWE75xJkhat9x5XlC3DiLm3t10Xpb4dQEqkU8HM9A+6/V8LVc0KNf/QozXe3JURYEww7DdUXMpCTKg8PNALY5C6vGZNiNNBniZXHvHtLadgaGpeyvvAs8MyJ/UP5+B1E3Hfo2xN4nqMTAtxnMxiPucwBVBh6o21lWkYsLIQOl4AzWzluBnXHmgHESo+QY0S7L8lWD0gHnb/vZ2jDcBrw4BnBid7cylWdEIBJO4QaWXUpQShB/WETCWtPOytCPZRIzf6trt56KqIv3bYpifuuPnWHfjsg51KJXWf1d9guAbNRAnorMeJR2ujBqVX525HsJaLv0MaBHRzE9/DgfLi60q7B6eb3emmmX7kIywZm9pEJTq8XgcAwGsrg4e2KQkN3rrjlLHOYxOeJtJENLZ4o2z4z+rF1H03yY4FkTDi3bx+NRV8vOepxq
+  template:
+    metadata:
+      name: games-db-superuser
+      namespace: games-stage
+      labels:
+        cnpg.io/reload: "true"
+    type: Opaque
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -5,6 +21,9 @@ metadata:
   namespace: games-stage
 spec:
   instances: 1
+
+  superuserSecret:
+    name: games-db-superuser
 
   storage:
     size: 10Gi
