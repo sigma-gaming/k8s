@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-api
+  name: payment-api
   namespace: games-stage
 spec:
   interval: 10m
@@ -21,15 +21,15 @@ spec:
     remediation:
       retries: -1
   values:
-    name: games-api
+    name: payment-api
     replicaCount: 1
     image:
-      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1734199813253 # {"$imagepolicy": "games-stage:games-api:tag"}
+      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/payment-api
+      tag: latest # {"$imagepolicy": "games-stage:payment-api:tag"}
     ingress:
-      host: api.sigma1.games
+      host: payment.sigmacloud.app
     service:
-      port: 5050
+      port: 5070
     migration:
       tag: dev-1734209245923 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
@@ -41,10 +41,12 @@ spec:
         value: "sigma1.games"
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
-      - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1734199813253" # {"$imagepolicy": "games-stage:games-api:tag"}
+      - name: PAYMENT_API_URL
+        value: "https://payment.sigmacloud.app"
+      - name: PAYMENT_API_VERSION
+        value: "latest" # {"$imagepolicy": "games-stage:payment-api:tag"}
       - name: GAMES_DB_URL
         valueFrom:
           secretKeyRef:
@@ -57,11 +59,6 @@ spec:
           secretKeyRef:
             name: games-dragonfly-auth
             key: password
-      - name: JWT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: jwt-secret
-            key: secret
       - name: BOVAPAY_API_URL
         value: "https://bovatech.cc"
       - name: BOVAPAY_API_KEY
