@@ -32,7 +32,7 @@ spec:
     service:
       port: 5050
     migration:
-      tag: dev-1734287907405 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1734302242340 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
