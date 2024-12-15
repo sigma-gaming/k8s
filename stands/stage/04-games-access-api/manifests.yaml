@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1734287907405 # {"$imagepolicy": "games-stage:games-access-api:tag"}
+      tag: dev-1734302242340 # {"$imagepolicy": "games-stage:games-access-api:tag"}
     ingress:
       hosts:
         - access.sigma1.games
