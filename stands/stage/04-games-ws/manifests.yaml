@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.2.1"
+      version: "0.3.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -27,7 +27,8 @@ spec:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-ws
       tag: dev-1734287907405 # {"$imagepolicy": "games-stage:games-ws:tag"}
     ingress:
-      host: ws.sigma1.games
+      hosts:
+        - ws.sigma1.games
       annotations:
         nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
     service:

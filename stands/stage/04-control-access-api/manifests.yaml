@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.2.1"
+      version: "0.3.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -27,7 +27,8 @@ spec:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
       tag: dev-1734287907405 # {"$imagepolicy": "games-stage:control-access-api:tag"}
     ingress:
-      host: access.sigmacloud.app
+      hosts:
+        - access.sigmacloud.app
       annotations:
         nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
         nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth

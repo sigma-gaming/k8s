@@ -12,7 +12,8 @@ service:
 
 ingress:
   enabled: true
-  host: "example.com"
+  hosts:
+    - "example.com"
   annotations: {}
 
 migration:

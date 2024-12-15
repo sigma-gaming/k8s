@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-app
-      version: '0.1.1'
+      version: '0.2.0'
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -26,7 +26,8 @@ spec:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apps/games-app
       tag: dev-1734287907405 # {"$imagepolicy": "games-stage:games-app:tag"}
     ingress:
-      host: sigma1.games
+      hosts:
+        - sigma1.games
     env:
       - name: NODE_ENV
         value: "production"

@@ -1,4 +1,3 @@
-
 {{- if .Values.ingress.enabled -}}
 {{- $name := .Values.name -}}
 {{- $host := .Values.ingress.host -}}
@@ -17,10 +16,13 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
+    {{- range $i, $host := .Values.ingress.hosts }}
     - hosts:
         - {{ $host }}
       secretName: {{ $host }}-cert
+    {{- end }}
   rules:
+    {{- range $i, $host := .Values.ingress.hosts }}
     - host: {{ $host }}
       http:
         paths:
@@ -31,4 +33,5 @@ spec:
                 name: {{ $name }}
                 port:
                   number: 80
+    {{- end }}
 {{- end }}
