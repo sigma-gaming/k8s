@@ -31,7 +31,7 @@ spec:
     service:
       port: 4321
     migration:
-      tag: dev-1734268486982 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1734287907405 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
