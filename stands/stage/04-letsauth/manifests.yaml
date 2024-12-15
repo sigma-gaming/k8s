@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/letsauth
-      tag: dev-1734215348191 # {"$imagepolicy": "games-stage:letsauth:tag"}
+      tag: dev-1734287907405 # {"$imagepolicy": "games-stage:letsauth:tag"}
     ingress:
       host: letsauth.app
     service:
@@ -40,7 +40,7 @@ spec:
       - name: PUBLIC_AUTH_API_URL
         value: "https://letsauth.app"
       - name: PUBLIC_AUTH_API_VERSION
-        value: "dev-1734215348191" # {"$imagepolicy": "games-stage:letsauth:tag"}
+        value: "dev-1734287907405" # {"$imagepolicy": "games-stage:letsauth:tag"}
       - name: GAMES_DB_URL
         valueFrom:
           secretKeyRef:
