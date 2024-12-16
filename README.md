@@ -28,10 +28,22 @@ Seal a secret:
 kubeseal --format=yaml --cert=clusters/<cluster>/pub-sealed-secrets.pem < basic-auth.yaml > basic-auth-sealed.yaml
 ```
 
-## Setup dev k3s cluster
+## Setup k3s cluster
 
 ```bash
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
+```
+
+### Add node to cluster
+
+1. Copy token from `/var/lib/rancher/k3s/server/node-token`
+2. Run:
+
+```bash
+K3S_NODE_NAME=<node-name>
+K3S_TOKEN=<token>
+K3S_URL=https://<control-plane-hostname>:6443
+curl -sfL https://get.k3s.io | K3S_NODE_NAME=$K3S_NODE_NAME K3S_URL=$K3S_URL K3S_TOKEN=$K3S_TOKEN sh -s -
 ```
 
 ## Setup Flux
