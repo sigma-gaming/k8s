@@ -41,7 +41,7 @@ spec:
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1734306606200" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1734347639548" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: PUBLIC_ACCESS_DOMAIN
         value: "sigma1.games"
       - name: PUBLIC_ACCESS_API_URL
