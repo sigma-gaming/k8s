@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   name: {{ $job.name }}
 spec:
   schedule: {{ $job.schedule }}
@@ -17,7 +17,7 @@ spec:
             environment: stage
           imagePullSecrets:
             - name: google-registry-creds
-          {{- if .Values.migration.enabled }}
+          {{- if $.Values.migration.enabled }}
           initContainers:
             - name: wait-for-games-db-migration
               image: ghcr.io/groundnuty/k8s-wait-for:v1.6
@@ -26,16 +26,16 @@ spec:
                 - "games-db-migration-$(GAMES_DB_MIGRATION_TAG)"
               env:
                 - name: GAMES_DB_MIGRATION_TAG
-                  value: {{ .Values.migration.tag }}
+                  value: {{ $.Values.migration.tag }}
           {{- end }}
           containers:
             - name: {{ $job.name }}
-              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
               resources:
-                {{- toYaml .Values.resources | nindent 16 }}
+                {{- toYaml $.Values.resources | nindent 16 }}
               env:
-                {{- toYaml .Values.env | nindent 16 }}
-                - name: "{{ .Values.jobEnvName }}"
+                {{- toYaml $.Values.env | nindent 16 }}
+                - name: "{{ $.Values.jobEnvName }}"
                   value: "{{ $job.name }}"
 ---
 {{- end }}
