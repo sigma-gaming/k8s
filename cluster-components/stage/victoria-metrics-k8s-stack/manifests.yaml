@@ -49,6 +49,10 @@ spec:
       spec:
         nodeSelector:
           role: monitoring
+    kube-state-metrics:
+      image:
+        registry: docker.io
+        repository: bitnami/kube-state-metrics
     grafana:
       nodeSelector:
         role: monitoring
