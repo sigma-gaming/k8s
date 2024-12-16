@@ -60,6 +60,8 @@ spec:
     victoria-metrics-operator:
       nodeSelector:
         role: monitoring
+      crds:
+        enabled: false # installed separately with crds.yaml
     vmsingle:
       spec:
         nodeSelector:
