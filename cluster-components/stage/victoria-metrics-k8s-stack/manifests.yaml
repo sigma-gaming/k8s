@@ -53,6 +53,7 @@ spec:
       image:
         registry: docker.io
         repository: bitnami/kube-state-metrics
+        tag: "2.14.0"
     grafana:
       nodeSelector:
         role: monitoring
