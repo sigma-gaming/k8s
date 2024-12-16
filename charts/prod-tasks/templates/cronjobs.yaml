@@ -12,6 +12,7 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           nodeSelector:
             role: application
             environment: stage
