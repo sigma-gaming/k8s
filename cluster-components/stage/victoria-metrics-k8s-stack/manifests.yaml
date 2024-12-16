@@ -33,6 +33,11 @@ spec:
         name: victoria-metrics
         namespace: flux-system
       interval: 10m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
   values:
     victoria-metrics-operator:
       nodeSelector:
