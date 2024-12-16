@@ -5,7 +5,7 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   name: {{ $job.name }}
 spec:
-  schedule: {{ $job.schedule }}
+  schedule: "{{ $job.schedule }}"
   timeZone: "Europe/Moscow"
   concurrencyPolicy: Forbid
   jobTemplate:
