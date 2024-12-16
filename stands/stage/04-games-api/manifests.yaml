@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1734302242340 # {"$imagepolicy": "games-stage:games-api:tag"}
+      tag: dev-1734306606200 # {"$imagepolicy": "games-stage:games-api:tag"}
     ingress:
       hosts:
         - api.sigma1.games
@@ -45,7 +45,7 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1734302242340" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1734306606200" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: GAMES_DB_URL
         valueFrom:
           secretKeyRef:
