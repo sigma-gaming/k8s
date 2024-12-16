@@ -62,6 +62,7 @@ spec:
         role: monitoring
       crds:
         enabled: false # installed separately with crds.yaml
+        plain: false
     vmsingle:
       spec:
         nodeSelector:
