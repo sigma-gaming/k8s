@@ -5,6 +5,8 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
+jobEnvName: "TASKS_JOB"
+
 jobs:
   - name: "example-1"
     schedule: "0 * * * *"

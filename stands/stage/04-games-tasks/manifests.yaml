@@ -8,8 +8,8 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: ./charts/prod-api
-      version: "0.3.0"
+      chart: ./charts/prod-tasks
+      version: "0.1.1"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -22,16 +22,25 @@ spec:
       retries: -1
   values:
     name: games-tasks
-    replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-tasks
       tag: dev-1734347639548 # {"$imagepolicy": "games-stage:games-tasks:tag"}
-    ingress:
-      enabled: false
-    service:
-      port: 5053
     migration:
       tag: dev-1734306606200 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+    jobEnvName: GAMES_TASKS_JOB
+    jobs:
+      - name: InitializeChatMessages
+        schedule: "0 */1 * * *" # every 1 hour
+      - name: ProcessReferrerPayouts
+        schedule: "0 */1 * * *" # every 1 hour
+      - name: ProcessStaleDeposits
+        schedule: "*/10 * * * *" # every 10 minutes
+      - name: ProcessStaleWithdrawals
+        schedule: "*/10 * * * *" # every 10 minutes
+      - name: SyncBudget
+        schedule: "*/5 * * * *" # every 5 minutes
+      - name: UpdateCurrencyRates
+        schedule: "*/5 * * * *" # every 5 minutes
     resources:
       limits:
         cpu: "500m"
@@ -46,6 +55,8 @@ spec:
         value: "production"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1734347639548" # {"$imagepolicy": "games-stage:games-api:tag"}
+      - name: GAMES_TASKS_MODE
+        value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION
         value: "dev-1734347639548" # {"$imagepolicy": "games-stage:games-tasks:tag"}
       - name: GAMES_DB_URL

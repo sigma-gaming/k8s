@@ -35,5 +35,7 @@ spec:
                 {{- toYaml .Values.resources | nindent 16 }}
               env:
                 {{- toYaml .Values.env | nindent 16 }}
+                - name: "{{ .Values.jobEnvName }}"
+                  value: "{{ $job.name }}"
 ---
 {{- end }}
