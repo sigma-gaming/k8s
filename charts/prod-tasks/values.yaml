@@ -1,0 +1,26 @@
+name: "example"
+
+image:
+  repository: example-tasks
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+jobs:
+  - name: "example-1"
+    schedule: "0 * * * *"
+  - name: "example-2"
+    schedule: "0 * * * *"
+
+migration:
+  enabled: true
+  tag: ""
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+env: []
