@@ -63,6 +63,9 @@ spec:
       crds:
         enabled: false # installed separately with crds.yaml
         plain: false
+      admissionWebhooks:
+        certManager:
+          enabled: true
     vmsingle:
       spec:
         nodeSelector:
