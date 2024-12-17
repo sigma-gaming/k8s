@@ -4,7 +4,6 @@ metadata:
   name: games-db-migration- # version is appended in kustomization.yaml
   namespace: games-stage
 spec:
-  ttlSecondsAfterFinished: 86400
   template:
     spec:
       nodeSelector:
