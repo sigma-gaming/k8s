@@ -54,21 +54,4 @@ spec:
   update:
     path: ./stands/stage
     strategy: Setters
----
-apiVersion: stackgres.io/v1
-kind: SGInstanceProfile
-metadata:
-  name: size-xs
-  namespace: games-stage
-spec:
-  cpu: 250m
-  memory: 256Mi
----
-apiVersion: stackgres.io/v1
-kind: SGInstanceProfile
-metadata:
-  name: size-sm
-  namespace: games-stage
-spec:
-  cpu: 500m
-  memory: 512Mi
+

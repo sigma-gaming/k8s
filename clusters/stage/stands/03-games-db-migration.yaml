@@ -9,7 +9,7 @@ spec:
   prune: true
   dependsOn:
     - name: registry-creds
-    - name: stackgres
+    - name: cloudnative-pg
     - name: stage-shared
     - name: stage-games-db
   sourceRef:

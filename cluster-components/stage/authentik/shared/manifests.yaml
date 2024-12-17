@@ -19,12 +19,3 @@ spec:
       name: authentik-env
       namespace: authentik
     type: Opaque
----
-apiVersion: stackgres.io/v1
-kind: SGInstanceProfile
-metadata:
-  name: size-xs
-  namespace: authentik
-spec:
-  cpu: 250m
-  memory: 256Mi

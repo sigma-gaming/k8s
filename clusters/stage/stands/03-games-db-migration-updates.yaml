@@ -8,7 +8,7 @@ spec:
   path: ./stands/stage/03-games-db-migration-updates
   prune: true
   dependsOn:
-    - name: stackgres
+    - name: cloudnative-pg
     - name: stage-shared
     - name: stage-games-db
   sourceRef:

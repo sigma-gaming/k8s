@@ -8,7 +8,7 @@ spec:
   path: ./stands/stage/01-shared
   prune: true
   dependsOn:
-    - name: stackgres
+    - name: cloudnative-pg
   sourceRef:
     kind: GitRepository
     name: flux-system

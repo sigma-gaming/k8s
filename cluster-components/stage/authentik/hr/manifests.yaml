@@ -27,20 +27,20 @@ spec:
   values:
     server:
       env:
-        - name: AUTHENTIK_POSTGRESQL__HOST
-          value: authentik-db-primary.authentik
-        - name: AUTHENTIK_POSTGRESQL__NAME
-          value: postgres
-        - name: AUTHENTIK_POSTGRESQL__USER
-          valueFrom:
-            secretKeyRef:
-              name: authentik-db
-              key: superuser-username
-        - name: AUTHENTIK_POSTGRESQL__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik-db
-              key: superuser-password
+        # - name: AUTHENTIK_POSTGRESQL__HOST
+        #   value: authentik-db-primary.authentik
+        # - name: AUTHENTIK_POSTGRESQL__NAME
+        #   value: postgres
+        # - name: AUTHENTIK_POSTGRESQL__USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: authentik-db
+        #       key: superuser-username
+        # - name: AUTHENTIK_POSTGRESQL__PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: authentik-db
+        #       key: superuser-password
       envFrom:
         - secretRef:
             name: authentik-env
@@ -58,20 +58,20 @@ spec:
     
     worker:
       env:
-        - name: AUTHENTIK_POSTGRESQL__HOST
-          value: authentik-db-primary.authentik
-        - name: AUTHENTIK_POSTGRESQL__NAME
-          value: postgres
-        - name: AUTHENTIK_POSTGRESQL__USER
-          valueFrom:
-            secretKeyRef:
-              name: authentik-db
-              key: superuser-username
-        - name: AUTHENTIK_POSTGRESQL__PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: authentik-db
-              key: superuser-password
+        # - name: AUTHENTIK_POSTGRESQL__HOST
+        #   value: authentik-db-primary.authentik
+        # - name: AUTHENTIK_POSTGRESQL__NAME
+        #   value: postgres
+        # - name: AUTHENTIK_POSTGRESQL__USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: authentik-db
+        #       key: superuser-username
+        # - name: AUTHENTIK_POSTGRESQL__PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: authentik-db
+        #       key: superuser-password
       envFrom:
         - secretRef:
             name: authentik-env
