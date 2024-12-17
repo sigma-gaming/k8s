@@ -97,7 +97,7 @@ spec:
 
       plugins:
       - "https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource"
-      - "https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.12.0/victoriametrics-logs-datasource-v0.12.0.zip;victoriametrics-logs-datasource"
+      - "https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.12.0/victorialogs-datasource-v0.12.0.zip;victorialogs-datasource"
 
       grafana.ini:
         plugins:
