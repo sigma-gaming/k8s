@@ -1,0 +1,18 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: victoria-logs
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./cluster-components/stage/victoria-logs
+  prune: true
+  dependsOn:
+    - name: ingress-nginx
+    - name: oauth2-proxy
+    - name: cert-manager
+    - name: cert-issuers
+    - name: victoria-metrics-k8s-stack
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
