@@ -89,6 +89,8 @@ spec:
       enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     kubeEtcd:
       enabled: false # impossible to scrape on k3s without hardcoding the node IPs
+    kubeScheduler:
+      enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     grafana:
       nodeSelector:
         role: monitoring
