@@ -42,7 +42,7 @@ spec:
     access: proxy
     type: victoriametrics-logs-datasource
     name: VictoriaLogs
-    url: http://victoria-logs-victoria-logs-single-server:8428
+    url: http://victoria-logs-victoria-logs-single-server:9428
   instanceSelector:
     matchLabels:
       dashboards: grafana
