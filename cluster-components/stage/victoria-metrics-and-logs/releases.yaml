@@ -91,67 +91,11 @@ spec:
       enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     kubeScheduler:
       enabled: false # impossible to scrape on k3s without hardcoding the node IPs
+    defaultDashboards:
+      grafanaOperator:
+        enabled: true
     grafana:
       enabled: false
-
-      nodeSelector:
-        role: monitoring
-
-      plugins:
-      - "https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.3/victoriametrics-datasource-v0.10.3.zip;victoriametrics-datasource"
-      - "https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.12.0/victorialogs-datasource-v0.12.0.zip;victorialogs-datasource"
-
-      grafana.ini:
-        plugins:
-          allow_loading_unsigned_plugins: victoriametrics-datasource,victorialogs-datasource
-
-      defaultDatasourceType: "prometheus"
-
-      sidecar:
-        datasources:
-          enabled: true
-          # -- List of default prometheus compatible datasource configurations.
-          # VM `url` will be added to each of them in templates and `type` will be set to defaultDatasourceType if not defined
-          default:
-            - name: VictoriaMetrics
-              isDefault: true
-            - name: VictoriaMetrics (DS)
-              isDefault: false
-              type: victoriametrics-datasource
-          initDatasources: true
-          createVMReplicasDatasources: false
-          searchNamespace: ALL
-
-      datasources:
-        datasources.yaml:
-          apiVersion: 1
-          datasources:
-          - name: VictoriaLogs
-            type: victorialogs-datasource
-            access: proxy
-            url: http://victoria-logs-victoria-logs-single-server.monitoring.svc.cluster.local:9428
-
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: selfsigned
-          nginx.ingress.kubernetes.io/proxy-body-size: "0"
-          nginx.ingress.kubernetes.io/proxy-buffering: "off"
-          nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
-          nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$escaped_request_uri
-          nginx.ingress.kubernetes.io/auth-snippet: |
-            if ($request_method = OPTIONS) {
-              return 200;
-            }
-        hosts:
-          - grafana.sigmacloud.app
-        tls:
-          - hosts:
-              - grafana.sigmacloud.app
-            secretName: grafana.sigmacloud.app-cert
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -185,3 +129,5 @@ spec:
       enabled: true
     dashboards:
       enabled: true
+      grafanaOperator:
+        enabled: true
