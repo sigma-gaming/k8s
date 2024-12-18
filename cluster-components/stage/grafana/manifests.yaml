@@ -1,18 +1,3 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  name: grafana-admin-credentials
-  namespace: monitoring
-spec:
-  encryptedData:
-    username: AgAnNnyYNgGTis9BxIL/5dO8i9QA2S16LXUBMvD38HsbVhvCHbV1Ro83PVm5T/aunHywRSshMwoG8Gtxu19EoBkCQD+T7WSZZYXQBoUv+uDZBpXl+hN4KTi15Fu+Wdivxj54+2WNixYI6r/fdEl0LED7YpXppXWaDcg4nQB50gqzX6Dl/bG9ke7QkcZHDd1uhYn6Vvq1sQ1iqThEX4/Xt6TlsTWp6rfCrz+Jp+5Wna7gRfY7OBOvphLtOOFAgYWye+Ljvvitkd/22DnGF7i1iyGOw3FtPvPb9/Gl65xYIRoi7pRleFtkf4y0yIRBj5H6DqfVSils+bDeQQtLiLZiT/D0g/3maKUcynvYcrp07EyRI4V8qo3deDWPckPxyMTDL1TWFZZQ/ytzzd7T4enkG176f3MxLgNjOTxmO7vq48K3qxLRfMvTLLKsk5pk3nIzyC94dIS2Waxmh7mjNhfK6jG9K5jhXqfR+BGadZEXI0bJGzqTUc6EwFMqzPQNF5Rb9+bbK5e8N/y/renLswaPKixw0zM+dydzkHbjFbI87/mZaVw0nBdAuBgMGAoXl22HJyY5R4RaaHT/fsb/liQaUS/avuuCs+gOKv5c1LmcKz1txSLk6xBdNals9/KNpkTIuaLxlFqrkZIa6UTVSS3ltw0XKamKODmjGs/DbLMxSDInootO0zlOWy7gIgEz8iACq8B5rGeOBQ==
-    password: AgCEUyHDo8Gs9qMK/b2Uuytyz/vUfQovnCqUrl1yBmiuS5/CY0q83FeyU5Hm79wQk1aZE3udbokhMWnpyqyhaC4PzgTg2t09d0dpL5GA4jl99p/+DfoVyKQM2JqDJkRBS1TzcKpcqKjV61CTau/Y+VdL9I9dCft48Yip99WoUlDnVYJoUcgCZ6mYdyxZzfiMGBEXeN1KqKKSjE2/SjqAItDDcsuTIXwXw15ojz03KDLJD8szlm6pzkGGUXIldmwcRBvv5oMg1Rws4peA2aB+w+xnRYKHFbjALH/6DMFdQzjAb3cxRzFN+bQRJVFyxe5NKsgn2dzYL/4X4AG7P6bbn0ReNZ2AJaGV459JWkIAM43D0LNeZDlkbUMJVwXGmk0staFSpYYq9+Nx/K75BVYIs3gb4UhDYP35ru+5FU8wetPkTtNrpgwg2tyXIz0JzsBUlQQvROC5NfnkyjzghGWAOfodSNOFBbCfRsyfbvsrjd/n1KDlbUDko57ec6vkjWKhFaZGApFGy0X069WJOx+GwYt6tXOUgzehIfm8ny0WFe9kXDXn2EnYB5M8UpMziiuuTWZSF1Clog1FRHt3dX/gs7F+gxO8aHj1tnA6Z4kmWY5fhxfkXWSfX5smYB6PmhkRj61kYMasLXuuZ3KlzdAyrCqF1wRn43dmpgUIEo3WuHCW0H/V8ij/wiPsJAMvwnbYyvWRG+UGSyunq9li+Lo=
-  template:
-    metadata:
-      name: grafana-admin-credentials
-      namespace: monitoring
-    type: Opaque
----
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
@@ -28,23 +13,6 @@ spec:
       disable_login_form: "false"
     plugins:
       allow_loading_unsigned_plugins: "victoriametrics-datasource,victoriametrics-logs-datasource"
-  deployment:
-    spec:
-      template:
-        spec:
-          containers:
-            - name: grafana
-              env:
-                - name: GF_SECURITY_ADMIN_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin-credentials
-                      key: username
-                - name: GF_SECURITY_ADMIN_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin-credentials
-                      key: password
   ingress:
     metadata:
       annotations:
