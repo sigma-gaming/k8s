@@ -21,7 +21,7 @@ metadata:
 spec:
   endpoints:
     - path: /metrics
-      port: http
+      port: prom-exporter
   selector:
     matchLabels:
       app.kubernetes.io/component: Agent
