@@ -92,6 +92,8 @@ spec:
     kubeScheduler:
       enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     grafana:
+      enabled: false
+
       nodeSelector:
         role: monitoring
 
