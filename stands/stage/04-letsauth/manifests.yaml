@@ -39,7 +39,7 @@ spec:
       - name: NODE_ENV
         value: "production"
       - name: PORT
-        value: 8080
+        value: "8080"
       - name: PUBLIC_AUTH_API_DOMAIN
         value: "letsauth.app"
       - name: PUBLIC_AUTH_API_URL
