@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/control-api
-      tag: dev-1734347639548 # {"$imagepolicy": "games-stage:control-api:tag"}
+      tag: dev-1734629164630 # {"$imagepolicy": "games-stage:control-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -68,7 +68,7 @@ spec:
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_CONTROL_API_VERSION
-        value: "dev-1734347639548" # {"$imagepolicy": "games-stage:control-api:tag"}
+        value: "dev-1734629164630" # {"$imagepolicy": "games-stage:control-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_USER
