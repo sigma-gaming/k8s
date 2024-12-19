@@ -32,7 +32,7 @@ spec:
             path: /
             backend:
               service:
-                name: {{ .Values.name }}
+                name: {{ $.Values.name }}
                 port:
                   name: public
     {{- end }}
