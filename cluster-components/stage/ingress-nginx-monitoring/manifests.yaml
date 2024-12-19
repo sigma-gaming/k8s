@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   endpoints:
-    - port: prometheus
+    - port: metrics
       path: /metrics
   namespaceSelector:
     matchNames:
