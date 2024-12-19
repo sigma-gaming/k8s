@@ -7,8 +7,16 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
+ports:
+  # public: 8080
+  # internal: 9090
+
+healthchecks:
+  enabled: true
+  port: internal
+
 service:
-  port: 80
+  enabled: true
 
 ingress:
   enabled: true

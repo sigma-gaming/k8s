@@ -1,11 +1,13 @@
 
 {{- if .Values.ingress.enabled -}}
-{{- $name := .Values.name -}}
+  {{- if or (not .Values.service.enabled) (not .Values.ports.public) -}}
+    {{- fail "When ingress is enabled, 'service.enabled' and 'ports.public' must be set" -}}
+  {{- end -}}
 {{- $host := .Values.ingress.host -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $name }}
+  name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "prod-app.labels" . | nindent 4 }}
@@ -32,8 +34,8 @@ spec:
             path: /
             backend:
               service:
-                name: {{ $name }}
+                name: {{ $.Values.name }}
                 port:
-                  number: 80
+                  name: public
     {{- end }}
 {{- end }}
