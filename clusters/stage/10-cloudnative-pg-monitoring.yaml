@@ -10,6 +10,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg
     - name: grafana-operator
+    - name: victoria-metrics-crds
   sourceRef:
     kind: GitRepository
     name: flux-system
