@@ -14,4 +14,20 @@ spec:
     matchLabels:
       cnpg.io/cluster: games-db
       cnpg.io/podRole: instance
-      cnpg.io/instanceRole: primary
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: stage-games-db-pooler
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - games-stage
+  selector:
+    matchLabels:
+      cnpg.io/cluster: games-db
+      cnpg.io/podRole: pooler
