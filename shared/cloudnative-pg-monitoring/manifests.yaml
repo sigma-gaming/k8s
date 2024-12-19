@@ -2,7 +2,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMPodScrape
 metadata:
   name: cloudnative-pg
-  namespace: cnpg-system
+  namespace: monitoring
 spec:
   podMetricsEndpoints:
     - port: metrics
@@ -18,7 +18,7 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: cloudnative-pg
-  namespace: cnpg-system
+  namespace: monitoring
 spec:
   instanceSelector:
     matchLabels:
