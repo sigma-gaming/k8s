@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.3.0"
+      version: "0.4.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -26,13 +26,14 @@ spec:
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-ws
       tag: dev-1734347639548 # {"$imagepolicy": "games-stage:games-ws:tag"}
+    ports:
+      public: 8080
+      internal: 9090
     ingress:
       hosts:
         - ws.sigma1.games
       annotations:
         nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
-    service:
-      port: 5052
     migration:
       tag: dev-1734472573841 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
@@ -42,6 +43,10 @@ spec:
         value: "production"
       - name: PUBLIC_DOMAIN
         value: "sigma1.games"
+      - name: GAMES_WS_PORT
+        value: 8080
+      - name: GAMES_WS_INTERNAL_PORT
+        value: 9090
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
@@ -50,11 +55,23 @@ spec:
         value: "wss://ws.sigma1.games"
       - name: PUBLIC_GAMES_WS_VERSION
         value: "dev-1734347639548" # {"$imagepolicy": "games-stage:games-ws:tag"}
-      - name: GAMES_DB_URL
+      - name: GAMES_DB_HOST
+        value: "games-db-pooler-rw"
+      - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
             name: games-db-app
-            key: uri
+            key: user
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: password
+      - name: GAMES_DB_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: dbname
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD

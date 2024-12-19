@@ -59,11 +59,23 @@ spec:
         value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION
         value: "dev-1734347639548" # {"$imagepolicy": "games-stage:games-tasks:tag"}
-      - name: GAMES_DB_URL
+      - name: GAMES_DB_HOST
+        value: "games-db-pooler-rw"
+      - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
             name: games-db-app
-            key: uri
+            key: user
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: password
+      - name: GAMES_DB_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: dbname
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD

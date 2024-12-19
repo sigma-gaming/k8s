@@ -17,9 +17,24 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: GAMES_DB_URL
+            - name: GAMES_DB_HOST
               valueFrom:
                 secretKeyRef:
                   name: games-db-app
-                  key: uri
+                  key: host
+            - name: GAMES_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: user
+            - name: GAMES_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: password
+            - name: GAMES_DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: games-db-app
+                  key: dbname
       restartPolicy: Never

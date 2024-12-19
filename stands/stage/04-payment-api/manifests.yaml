@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.3.0"
+      version: "0.4.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -26,11 +26,12 @@ spec:
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/payment-api
       tag: latest # {"$imagepolicy": "games-stage:payment-api:tag"}
+    ports:
+      public: 8080
+      internal: 9090
     ingress:
       hosts:
         - payment.sigmacloud.app
-    service:
-      port: 5070
     migration:
       tag: dev-1734472573841 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
@@ -40,6 +41,10 @@ spec:
         value: "production"
       - name: PUBLIC_DOMAIN
         value: "sigma1.games"
+      - name: PAYMENT_API_PORT
+        value: 8080
+      - name: PAYMENT_API_INTERNAL_PORT
+        value: 9090
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
@@ -48,11 +53,23 @@ spec:
         value: "https://payment.sigmacloud.app"
       - name: PAYMENT_API_VERSION
         value: "latest" # {"$imagepolicy": "games-stage:payment-api:tag"}
-      - name: GAMES_DB_URL
+      - name: GAMES_DB_HOST
+        value: "games-db-pooler-rw"
+      - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
             name: games-db-app
-            key: uri
+            key: user
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: password
+      - name: GAMES_DB_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: dbname
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD

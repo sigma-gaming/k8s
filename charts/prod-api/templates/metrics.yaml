@@ -1,0 +1,20 @@
+{{- if .Values.metrics.enabled -}}
+  {{- if and (not .Values.ports.public) (not .Values.ports.internal) -}}
+    {{- fail "When metrics is enabled, at least one of ports must be set" -}}
+  {{- end -}}
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: {{ .Values.name }}
+  namespace: monitoring
+spec:
+  endpoints:
+    - port: {{ .Values.metrics.port }}
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+{{- end }}

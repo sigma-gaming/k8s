@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.3.0"
+      version: "0.4.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -26,27 +26,43 @@ spec:
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/letsauth
       tag: dev-1734306606200 # {"$imagepolicy": "games-stage:letsauth:tag"}
+    ports:
+      public: 8080
+    healthchecks:
+      port: public
     ingress:
       hosts:
         - letsauth.app
-    service:
-      port: 4321
     migration:
       tag: dev-1734472573841 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
+      - name: PORT
+        value: 8080
       - name: PUBLIC_AUTH_API_DOMAIN
         value: "letsauth.app"
       - name: PUBLIC_AUTH_API_URL
         value: "https://letsauth.app"
       - name: PUBLIC_AUTH_API_VERSION
         value: "dev-1734306606200" # {"$imagepolicy": "games-stage:letsauth:tag"}
-      - name: GAMES_DB_URL
+      - name: GAMES_DB_HOST
+        value: "games-db-pooler-rw"
+      - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
             name: games-db-app
-            key: uri
+            key: user
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: password
+      - name: GAMES_DB_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: dbname
       - name: GAMES_CACHE_HOST
         value: "games-dragonfly"
       - name: GAMES_CACHE_PASSWORD
