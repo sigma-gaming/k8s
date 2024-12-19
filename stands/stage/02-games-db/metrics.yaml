@@ -1,0 +1,17 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: games-db
+  namespace: games-stage
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - games-stage
+  selector:
+    matchLabels:
+      cnpg.io/cluster: games-db
+      cnpg.io/podRole: instance
+      cnpg.io/instanceRole: primary
