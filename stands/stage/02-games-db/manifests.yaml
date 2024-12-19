@@ -10,3 +10,19 @@ spec:
 
   storage:
     size: 10Gi
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: games-db-pooler-rw
+  namespace: games-stage
+spec:
+  cluster:
+    name: games-db
+
+  type: rw
+  pgbouncer:
+    poolMode: session
+    parameters:
+      max_client_conn: "1000"
+      default_pool_size: "10"
