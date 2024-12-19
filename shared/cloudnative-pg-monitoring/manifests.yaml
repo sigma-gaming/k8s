@@ -15,11 +15,23 @@ spec:
       app.kubernetes.io/name: cloudnative-pg
 ---
 apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: cloudnative-pg
+  namespace: monitoring
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: "CloudNativePG"
+---
+apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: cloudnative-pg
   namespace: monitoring
 spec:
+  folderRef: cloudnative-pg
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
