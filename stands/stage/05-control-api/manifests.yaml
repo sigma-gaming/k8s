@@ -51,6 +51,7 @@ spec:
               http:
                 paths:
                   - path: /access(/|$)(.*)
+                    pathType: ImplementationSpecific
                     backend:
                       service:
                         name: access-api
