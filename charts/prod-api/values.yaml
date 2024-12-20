@@ -23,7 +23,7 @@ ingress:
   hosts:
     - "example.com"
   annotations: {}
-  extraPaths: []
+  extraTemplates: []
 
 metrics:
   enabled: false

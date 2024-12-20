@@ -35,6 +35,45 @@ spec:
                 name: {{ $.Values.name }}
                 port:
                   name: public
-          {{- toYaml $.Values.ingress.extraPaths | nindent 10 }}
+    {{- end }}
+{{- end }}
+
+{{- range $i, $template := .Values.ingress.extraTemplates }}
+  {{- if not $template.metadata -}}
+    {{- fail "'metadata' must be set for each ingress extra template" -}}
+  {{- end -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $template.metadata.name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "prod-api.labels" . | nindent 4 }}
+    {{- if $template.metadata.labels }}
+      {{- toYaml $template.metadata.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+    {{- if $.Values.ingress.annotations }}
+      {{- toYaml $.Values.ingress.annotations | nindent 4 }}
+    {{- end }}
+    {{- if $template.metadata.annotations }}
+      {{- toYaml $template.metadata.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: nginx
+  tls:
+    {{- range $i, $host := $.Values.ingress.hosts }}
+    - hosts:
+        - {{ $host }}
+      secretName: {{ $host }}-cert
+    {{- end }}
+  rules:
+    {{- range $i, $host := $.Values.ingress.hosts }}
+    - host: {{ $host }}
+      http:
+        paths:
+          {{- toYaml $template.spec.rules.http.paths | nindent 10 }}
     {{- end }}
 {{- end }}
