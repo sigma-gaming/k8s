@@ -97,6 +97,20 @@ spec:
           secretKeyRef:
             name: jwt-secret
             key: secret
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
+      - name: TELEGRAM_BOT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
+      - name: VK_SERVICE_TOKEN
+        value: "12345"
+      - name: VK_GROUP_TOKEN
+        value: "54321"
       - name: BOVAPAY_API_URL
         value: "https://bovatech.cc"
       - name: BOVAPAY_API_KEY
