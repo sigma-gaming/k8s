@@ -35,5 +35,6 @@ spec:
                 name: {{ $.Values.name }}
                 port:
                   name: public
+          {{- toYaml $.Values.ingress.extraPaths | nindent 10 }}
     {{- end }}
 {{- end }}

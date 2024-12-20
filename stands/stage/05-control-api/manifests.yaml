@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.4.1"
+      version: "0.5.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -30,9 +30,9 @@ spec:
       public: 8080
       internal: 9090
     ingress:
-      hosts:
-        - control-api.sigmacloud.app
       annotations:
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
         nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
         nginx.ingress.kubernetes.io/auth-url: https://auth.sigmacloud.app/oauth2/auth
         nginx.ingress.kubernetes.io/auth-signin: https://auth.sigmacloud.app/oauth2/start?rd=$scheme://$host$escaped_request_uri
@@ -40,6 +40,16 @@ spec:
           if ($request_method = OPTIONS) {
             return 200;
           }
+      hosts:
+        - control-api.sigmacloud.app
+      extraPaths:
+        - path: /access(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: access-api
+              port:
+                name: public
     migration:
       tag: dev-1734649464037 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:

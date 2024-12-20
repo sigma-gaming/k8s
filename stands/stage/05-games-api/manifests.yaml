@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-access-api
+  name: games-api
   namespace: games-stage
 spec:
   interval: 10m
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.4.1"
+      version: "0.5.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -21,36 +21,47 @@ spec:
     remediation:
       retries: -1
   values:
-    name: games-access-api
+    name: games-api
     replicaCount: 1
     image:
-      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-access-api:tag"}
+      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
+      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-api:tag"}
     ports:
       public: 8080
       internal: 9090
     ingress:
+      annotations:
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
       hosts:
-        - access.sigma1.games
+        - api.sigma1.games
+      extraPaths:
+        - path: /access(/|$)(.*)
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: access-api
+              port:
+                name: public
     migration:
       tag: dev-1734649464037 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
-      - name: ACCESS_API_PORT
+      - name: PUBLIC_STAGE
+        value: "production"
+      - name: PUBLIC_DOMAIN
+        value: "sigma1.games"
+      - name: GAMES_API_PORT
         value: "8080"
-      - name: ACCESS_API_INTERNAL_PORT
+      - name: GAMES_API_INTERNAL_PORT
         value: "9090"
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
-      - name: PUBLIC_CONTROL_APP_URL
-        value: "https://control.sigmacloud.app"
+      - name: PUBLIC_GAMES_API_URL
+        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1734701831912" # {"$imagepolicy": "games-stage:games-api:tag"}
-      - name: PUBLIC_ACCESS_DOMAIN
-        value: "sigma1.games"
-      - name: PUBLIC_ACCESS_API_URL
-        value: "https://access.sigma1.games"
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_USER
@@ -80,3 +91,12 @@ spec:
           secretKeyRef:
             name: jwt-secret
             key: secret
+      - name: BOVAPAY_API_URL
+        value: "https://bovatech.cc"
+      - name: BOVAPAY_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: bovapay
+            key: api-key
+      - name: BOVAPAY_CALLBACK_URL
+        value: "https://payment.sigmacloud.app/bovapay"

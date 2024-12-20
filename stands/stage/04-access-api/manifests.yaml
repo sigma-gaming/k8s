@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: games-api
+  name: access-api
   namespace: games-stage
 spec:
   interval: 10m
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.4.1"
+      version: "0.5.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -21,34 +21,25 @@ spec:
     remediation:
       retries: -1
   values:
-    name: games-api
+    name: access-api
     replicaCount: 1
     image:
-      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-api:tag"}
+      repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
+      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-access-api:tag"}
     ports:
       public: 8080
       internal: 9090
     ingress:
-      hosts:
-        - api.sigma1.games
+      enabled: false
     migration:
       tag: dev-1734649464037 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
-      - name: PUBLIC_STAGE
-        value: "production"
-      - name: PUBLIC_DOMAIN
-        value: "sigma1.games"
-      - name: GAMES_API_PORT
+      - name: ACCESS_API_PORT
         value: "8080"
-      - name: GAMES_API_INTERNAL_PORT
+      - name: ACCESS_API_INTERNAL_PORT
         value: "9090"
-      - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigma1.games"
-      - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1734701831912" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: GAMES_DB_HOST
@@ -80,12 +71,3 @@ spec:
           secretKeyRef:
             name: jwt-secret
             key: secret
-      - name: BOVAPAY_API_URL
-        value: "https://bovatech.cc"
-      - name: BOVAPAY_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: bovapay
-            key: api-key
-      - name: BOVAPAY_CALLBACK_URL
-        value: "https://payment.sigmacloud.app/bovapay"
