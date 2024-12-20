@@ -37,12 +37,12 @@ spec:
                   name: public
     {{- end }}
 {{- end }}
+---
 
 {{- range $i, $template := .Values.ingress.extraTemplates }}
   {{- if not $template.metadata -}}
     {{- fail "'metadata' must be set for each ingress extra template" -}}
   {{- end -}}
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -76,4 +76,5 @@ spec:
         paths:
           {{- toYaml $template.spec.rules.http.paths | nindent 10 }}
     {{- end }}
+---
 {{- end }}
