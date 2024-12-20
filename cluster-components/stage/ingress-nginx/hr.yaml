@@ -45,13 +45,19 @@ spec:
         enabled: true
       dnsPolicy: ClusterFirstWithHostNet
       kind: DaemonSet
-      # for Authentik
+
+      # for auth proxies
       allowSnippetAnnotations: true
+
+      nodeSelector:
+        kubernetes.io/os: linux
+        has-ingress: "true"
       tolerations:
         - key: "dedicated"
           operator: "Equal"
           value: "ci-cd"
           effect: "NoSchedule"
+
       metrics:
         enabled: true
       podAnnotations:
