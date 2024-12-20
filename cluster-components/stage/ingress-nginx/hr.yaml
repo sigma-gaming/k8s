@@ -35,7 +35,8 @@ spec:
       interval: 10m
   values:
     controller:
-      repository: docker.io/bitnami/nginx-ingress-controller:1.11.3
+      image:
+        repository: docker.io/bitnami/nginx-ingress-controller:1.11.3
       admissionWebhooks:
         certManager:
           enabled: true
