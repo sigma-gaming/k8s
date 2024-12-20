@@ -1,0 +1,16 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: ingress-nginx
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+    - port: admin
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - games-stage
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dragonfly
+      app: games-dragonfly
