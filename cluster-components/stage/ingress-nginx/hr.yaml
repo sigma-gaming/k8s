@@ -36,7 +36,7 @@ spec:
   values:
     controller:
       image:
-        repository: docker.io
+        registry: docker.io
         image: bitnami/nginx-ingress-controller
         tag: 1.11.3
         digest: sha256:f3a3172f15e92ddf38b1a1a13aa8d9a9c28df4c5bec62ae39aa7a4081a925d6e
