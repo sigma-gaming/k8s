@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/referral-redirect-api
-      tag: dev-1734649464037 # {"$imagepolicy": "games-stage:referral-redirect-api:tag"}
+      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:referral-redirect-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -48,7 +48,7 @@ spec:
       - name: PUBLIC_REFERRAL_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_REFERRAL_REDIRECT_API_VERSION
-        value: "dev-1734649464037" # {"$imagepolicy": "games-stage:referral-redirect-api:tag"}
+        value: "dev-1734701831912" # {"$imagepolicy": "games-stage:referral-redirect-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_USER
