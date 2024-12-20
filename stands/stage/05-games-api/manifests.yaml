@@ -34,7 +34,7 @@ spec:
         - api.sigma1.games
       extraTemplates:
         - metadata:
-            name: control-api-access
+            name: games-api-access
             annotations:
               nginx.ingress.kubernetes.io/use-regex: "true"
               nginx.ingress.kubernetes.io/rewrite-target: /$2
