@@ -49,7 +49,7 @@ metadata:
   name: {{ $template.metadata.name }}
   namespace: {{ $.Release.Namespace }}
   labels:
-    {{- include "prod-api.labels" . | nindent 4 }}
+    {{- include "prod-api.labels" $ | nindent 4 }}
     {{- if $template.metadata.labels }}
       {{- toYaml $template.metadata.labels | nindent 4 }}
     {{- end }}
