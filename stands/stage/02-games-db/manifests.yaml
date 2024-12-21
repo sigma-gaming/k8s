@@ -41,6 +41,7 @@ spec:
       work_mem: "8MB"
 
   backup:
+    retentionPolicy: "7d"
     barmanObjectStore:
       destinationPath: gs://stage-games-db-backups
       googleCredentials:
