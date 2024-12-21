@@ -90,7 +90,7 @@ metadata:
   name: games-db-backup
   namespace: games-stage
 spec:
-  schedule: "0 * * * *"
+  schedule: "*/15 * * * *"
   backupOwnerReference: self
   cluster:
     name: games-db
