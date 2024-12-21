@@ -49,6 +49,7 @@ spec:
           key: gcs-credentials
       wal:
         compression: snappy
+        maxParallel: 8
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
