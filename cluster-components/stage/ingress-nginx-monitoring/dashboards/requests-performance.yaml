@@ -425,7 +425,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"  sum by (method, host, path)(\n    rate(\n      nginx_ingress_controller_request_duration_seconds_count{\n        ingress =~ \"$ingress\"\n        exported_namespace =~ \"$namespace\"\n      }[5m]\n    )\n  )\n",
+              "expr":"  sum by (method, host, path)(\n    rate(\n      nginx_ingress_controller_request_duration_seconds_count{\n        ingress =~ \"$ingress\",\n        exported_namespace = \"$namespace\"\n      }[5m]\n    )\n  )\n",
               "interval":"",
               "intervalFactor":1,
               "legendFormat":"{{ method }} {{ host }}{{path }}",
@@ -637,7 +637,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"sum by (method, host, path) (rate(nginx_ingress_controller_request_duration_seconds_count{\n  ingress =~ \"$ingress\",\n  status =~ \"[4-5].*\"\n}[5m])) / sum by (method, host, path) (rate(nginx_ingress_controller_request_duration_seconds_count{\n  ingress =~ \"$ingress\",\n}[5m]))",
+              "expr":"sum by (method, host, path) (rate(nginx_ingress_controller_request_duration_seconds_count{\n  ingress =~ \"$ingress\",\n  exported_namespace = \"$namespace\",\n  status =~ \"[4-5].*\"\n}[5m])) / sum by (method, host, path) (rate(nginx_ingress_controller_request_duration_seconds_count{\n  ingress =~ \"$ingress\",\n  exported_namespace = \"$namespace\"\n}[5m]))",
               "interval":"",
               "intervalFactor":1,
               "legendFormat":"{{ method }} {{ host }}{{path }}",
@@ -848,7 +848,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"  sum (\n    rate(\n      nginx_ingress_controller_request_duration_seconds_count{\n        ingress =~ \"$ingress\",\n        status =~\"[4-5].*\",\n      }[5m]\n    )\n  ) by(method, host, path, status)\n",
+              "expr":"  sum (\n    rate(\n      nginx_ingress_controller_request_duration_seconds_count{\n        ingress =~ \"$ingress\",\n        exported_namespace = \"$namespace\",\n        status =~\"[4-5].*\",\n      }[5m]\n    )\n  ) by(method, host, path, status)\n",
               "interval":"",
               "intervalFactor":1,
               "legendFormat":"{{ method }} {{ host }}{{path }} {{ status }}",
@@ -953,7 +953,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"sum (\n  rate (\n      nginx_ingress_controller_response_size_sum {\n        ingress =~ \"$ingress\",\n      }[5m]\n  )\n)  by (method, host, path) / sum (\n  rate(\n      nginx_ingress_controller_response_size_count {\n        ingress =~ \"$ingress\",\n      }[5m]\n  )\n) by (method, host, path)\n",
+              "expr":"sum (\n  rate (\n      nginx_ingress_controller_response_size_sum {\n        ingress =~ \"$ingress\",\n        exported_namespace = \"$namespace\",\n      }[5m]\n  )\n)  by (method, host, path) / sum (\n  rate(\n      nginx_ingress_controller_response_size_count {\n        ingress =~ \"$ingress\",\n        exported_namespace = \"$namespace\",\n      }[5m]\n  )\n) by (method, host, path)\n",
               "hide":false,
               "instant":false,
               "interval":"",
@@ -966,7 +966,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"    sum (rate(nginx_ingress_controller_response_size_bucket{\n        ingress =~ \"$ingress\",\n    }[5m])) by (le)\n",
+              "expr":"    sum (rate(nginx_ingress_controller_response_size_bucket{\n        ingress =~ \"$ingress\",\n        exported_namespace = \"$namespace\",\n    }[5m])) by (le)\n",
               "hide":true,
               "legendFormat":"{{le}}",
               "refId":"A"
