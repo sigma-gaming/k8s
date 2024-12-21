@@ -194,7 +194,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"histogram_quantile(\n  0.99,\n  sum by (le)(\n    rate(\n      nginx_ingress_controller_request_duration_seconds_bucket{\n        ingress =~ \"$ingress\"\n      }[5m]\n    )\n  )\n)",
+              "expr":"histogram_quantile(\n  0.99,\n  sum by (le)(\n    rate(\n      nginx_ingress_controller_request_duration_seconds_bucket{\n        ingress =~ \"$ingress\",\n        exported_namespace =~ \"$namespace\",\n      }[5m]\n    )\n  )\n)",
               "interval":"",
               "legendFormat":".99",
               "refId":"A"
@@ -321,7 +321,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"histogram_quantile(\n  0.99,\n  sum by (le)(\n    rate(\n      nginx_ingress_controller_response_duration_seconds_bucket{\n        ingress =~ \"$ingress\"\n      }[5m]\n    )\n  )\n)",
+              "expr":"histogram_quantile(\n  0.99,\n  sum by (le)(\n    rate(\n      nginx_ingress_controller_response_duration_seconds_bucket{\n        ingress =~ \"$ingress\",\n        exported_namespace =~ \"$namespace\",\n      }[5m]\n    )\n  )\n)",
               "interval":"",
               "legendFormat":".99",
               "refId":"A"
@@ -531,7 +531,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"histogram_quantile(\n  .5,\n  sum by (le, method, host, path)(\n    rate(\n      nginx_ingress_controller_response_duration_seconds_bucket{\n        ingress =~ \"$ingress\"\n      }[5m]\n    )\n  )\n)",
+              "expr":"histogram_quantile(\n  .5,\n  sum by (le, method, host, path)(\n    rate(\n      nginx_ingress_controller_response_duration_seconds_bucket{\n        ingress =~ \"$ingress\",\n        exported_namespace =~ \"$namespace\",\n      }[5m]\n    )\n  )\n)",
               "interval":"",
               "intervalFactor":1,
               "legendFormat":"{{ method }} {{ host }}{{path }}",
@@ -743,7 +743,7 @@ spec:
                 "type":"prometheus",
                 "uid":"${DS_PROMETHEUS}"
               },
-              "expr":"sum by (method, host, path) (rate(nginx_ingress_controller_response_duration_seconds_sum{ingress =~ \"$ingress\"}[5m]))",
+              "expr":"sum by (method, host, path) (rate(nginx_ingress_controller_response_duration_seconds_sum{ingress =~ \"$ingress\", exported_namespace =~ \"$namespace\"}[5m]))",
               "interval":"",
               "intervalFactor":1,
               "legendFormat":"{{ method }} {{ host }}{{path }}",
