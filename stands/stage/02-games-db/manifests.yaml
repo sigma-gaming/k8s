@@ -47,6 +47,8 @@ spec:
         applicationCredentials:
           name: backup-creds
           key: gcs-credentials
+      wal:
+        compression: snappy
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
@@ -79,3 +81,14 @@ spec:
             limits:
               cpu: "1"
               memory: "512Mi"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: games-db-backup
+  namespace: games-stage
+spec:
+  schedule: "*/30 * * * *"
+  backupOwnerReference: self
+  cluster:
+    name: games-db
