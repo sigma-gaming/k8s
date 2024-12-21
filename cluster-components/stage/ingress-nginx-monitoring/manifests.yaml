@@ -26,27 +26,3 @@ spec:
     matchLabels:
       dashboards: "grafana"
   title: "Ingress NGINX Controller"
----
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDashboard
-metadata:
-  name: ingress-nginx
-  namespace: monitoring
-spec:
-  folderRef: ingress-nginx
-  instanceSelector:
-    matchLabels:
-      dashboards: "grafana"
-  url: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/heads/main/deploy/grafana/dashboards/nginx.json"
----
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDashboard
-metadata:
-  name: ingress-nginx-requests-performance
-  namespace: monitoring
-spec:
-  folderRef: ingress-nginx
-  instanceSelector:
-    matchLabels:
-      dashboards: "grafana"
-  url: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/heads/main/deploy/grafana/dashboards/request-handling-performance.json"
