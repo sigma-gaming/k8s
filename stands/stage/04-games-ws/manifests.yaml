@@ -34,6 +34,8 @@ spec:
         - ws.sigma1.games
       annotations:
         nginx.ingress.kubernetes.io/upstream-hash-by: "$cookie_sticky"
+    metrics:
+      enabled: true
     migration:
       tag: dev-1734890128233 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:

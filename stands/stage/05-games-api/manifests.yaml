@@ -49,6 +49,8 @@ spec:
                         name: access-api
                         port:
                           name: public
+    metrics:
+      enabled: true
     migration:
       tag: dev-1734890128233 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
