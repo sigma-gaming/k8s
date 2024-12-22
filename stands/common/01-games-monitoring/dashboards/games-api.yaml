@@ -9,7 +9,7 @@ spec:
     matchLabels:
       dashboards: "grafana"
   jsonnet: |
-    local grafana = import 'grafonnet-lib/grafonnet.libsonnet';
+    local grafana = import 'grafonnet/grafana.libsonnet';
 
     local dashboard = grafana.dashboard;
     local row = grafana.row;
