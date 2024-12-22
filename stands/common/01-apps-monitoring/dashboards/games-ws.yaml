@@ -100,6 +100,12 @@ spec:
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
           "targets": [
             {
               "expr": "games_ws_online_users{user_type=~\"$user_type\"}",
@@ -138,6 +144,12 @@ spec:
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
           "targets": [
             {
