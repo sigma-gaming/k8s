@@ -8,100 +8,278 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  jsonnet: |
-    local grafana = import 'grafonnet/grafana.libsonnet';
-
-    local dashboard = grafana.dashboard;
-    local row = grafana.row;
-    local graphPanel = grafana.graphPanel;
-    local tablePanel = grafana.tablePanel;
-
-    local betsMetric = 'games_api_bets_amount';
-    local winsMetric = 'games_api_wins_amount';
-    local lossesMetric = 'games_api_losses_amount';
-    local diceSidesMetric = 'games_api_dice_sides';
-
+  json: >
     {
-      apiVersion: 1,
-      overwrite: true,
-      dashboard: dashboard.new(
-        'Games API Overview',
-        [
-          row.new('Filters', [
-            grafana.templateVar.new('Datasource', {
-              type: 'datasource',
-              query: 'prometheus',
-              label: 'Datasource',
-            }),
-            grafana.templateVar.new('Game', {
-              type: 'query',
-              query: 'label_values(games_api_bets_amount, game)',
-              label: 'Game',
-              includeAll: true,
-              allValue: '.+',
-            }),
-          ]),
-
-          row.new('Bet Statistics', [
-            graphPanel.new('Bets, Wins, and Losses', {
-              datasource: '$Datasource',
-              targets: [
-                {
-                  expr: betsMetric + '{game="$Game"}',
-                  legendFormat: 'Bets',
-                  refId: 'A',
-                },
-                {
-                  expr: winsMetric + '{game="$Game"}',
-                  legendFormat: 'Wins',
-                  refId: 'B',
-                },
-                {
-                  expr: lossesMetric + '{game="$Game"}',
-                  legendFormat: 'Losses',
-                  refId: 'C',
-                },
-              ],
-              yaxes: [
-                { format: 'short', label: 'Count', min: 0 },
-                { format: 'short' },
-              ],
-            }),
-          ]),
-
-          row.new('Dice Statistics', [
-            graphPanel.new('Dice Sides Distribution', {
-              datasource: '$Datasource',
-              targets: [
-                {
-                  expr: diceSidesMetric + '_bucket{game="$Game"}',
-                  legendFormat: '{{le}} sides',
-                  refId: 'A',
-                },
-              ],
-              stacked: true,
-              tooltip: { shared: true },
-              yaxes: [
-                { format: 'short', label: 'Count', min: 0 },
-                { format: 'short' },
-              ],
-            }),
-
-            graphPanel.new('Average Dice Sides', {
-              datasource: '$Datasource',
-              targets: [
-                {
-                  expr: 'sum(' + diceSidesMetric + '_sum{game="$Game"}) / sum(' + diceSidesMetric + '_count{game="$Game"})',
-                  legendFormat: 'Average Sides',
-                  refId: 'A',
-                },
-              ],
-              yaxes: [
-                { format: 'short', label: 'Sides', min: 0 },
-                { format: 'short' },
-              ],
-            }),
-          ]),
+      "__inputs": [
+        {
+          "name": "DS_PROMETHEUS",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
+        }
+      ],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "10.4.3"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "timeseries",
+          "name": "Time series",
+          "version": ""
+        }
+      ],
+      "title": "Games API Metrics",
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "refresh": "30s",
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "datasource",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
         ]
-      ),
+      },
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "Prometheus",
+              "value": "${DS_PROMETHEUS}"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "datasource",
+            "multi": false,
+            "name": "DS_PROMETHEUS",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "type": "query",
+            "name": "namespace",
+            "query": "label_values(games_api_bets_amount, namespace)",
+            "label": "Namespace",
+            "includeAll": true,
+            "allValue": ".+"
+          },
+          {
+            "type": "query",
+            "name": "game",
+            "query": "label_values(games_api_bets_amount, game)",
+            "label": "Game",
+            "includeAll": true,
+            "allValue": ".+"
+          }
+        ]
+      },
+      "panels": [
+        {
+          "type": "timeseries",
+          "title": "Amount of Bets",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "games_api_bets_amount{namespace=~\"$namespace\",game=~\"$game\"}",
+              "legendFormat": "Bets ({{game}})",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "timeseries",
+          "title": "Amount of Wins",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "games_api_wins_amount{namespace=~\"$namespace\",game=~\"$game\"}",
+              "legendFormat": "Wins ({{game}})",
+              "refId": "B"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          }
+        },
+        {
+          "type": "timeseries",
+          "title": "Amount of Losses",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "games_api_losses_amount{namespace=~\"$namespace\",game=~\"$game\"}",
+              "legendFormat": "Losses ({{game}})",
+              "refId": "C"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "type": "timeseries",
+          "title": "Dice Sides Distribution",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "expr": "games_api_dice_sides_bucket{namespace=~\"$namespace\"}",
+              "legendFormat": "Bucket {{le}}",
+              "refId": "D"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 24
+          }
+        }
+      ]
     }
