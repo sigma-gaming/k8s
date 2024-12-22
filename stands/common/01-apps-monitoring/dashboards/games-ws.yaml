@@ -4,7 +4,7 @@ metadata:
   name: games-ws
   namespace: monitoring
 spec:
-  folderRef: games
+  folderRef: applications
   instanceSelector:
     matchLabels:
       dashboards: "grafana"

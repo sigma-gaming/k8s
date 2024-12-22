@@ -1,10 +1,10 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaFolder
 metadata:
-  name: games
+  name: applications
   namespace: monitoring
 spec:
+  title: "Applications"
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  title: "Games"

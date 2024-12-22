@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: games-monitoring
+  name: apps-monitoring
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/common/01-games-monitoring
+  path: ./stands/common/01-apps-monitoring
   prune: true
   dependsOn:
     - name: grafana-operator
