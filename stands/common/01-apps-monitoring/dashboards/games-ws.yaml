@@ -10,74 +10,70 @@ spec:
       dashboards: "grafana"
   json: >
     {
-      "apiVersion": 1,
-      "overwrite": true,
-      "dashboard": {
-        "title": "Games WebSocket Overview",
-        "panels": [
-          {
-            "type": "row",
-            "title": "Filters",
-            "collapsed": false,
-            "panels": []
-          },
-          {
-            "type": "row",
-            "title": "WebSocket Statistics",
-            "collapsed": false,
-            "panels": [
-              {
-                "type": "graph",
-                "title": "Online Users by User Type",
-                "datasource": "$Datasource",
-                "targets": [
-                  {
-                    "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
-                    "legendFormat": "Online Users ({{user_type}})",
-                    "refId": "A"
-                  }
-                ],
-                "yaxes": [
-                  { "format": "short", "label": "Users", "min": 0 },
-                  { "format": "short" }
-                ]
-              },
-              {
-                "type": "graph",
-                "title": "Connections by User Type",
-                "datasource": "$Datasource",
-                "targets": [
-                  {
-                    "expr": "games_ws_connections{user_type=\"$User_Type\"}",
-                    "legendFormat": "Connections ({{user_type}})",
-                    "refId": "B"
-                  }
-                ],
-                "yaxes": [
-                  { "format": "short", "label": "Connections", "min": 0 },
-                  { "format": "short" }
-                ]
-              }
-            ]
-          }
-        ],
-        "templating": {
-          "list": [
+      "title": "Games WebSocket Overview",
+      "panels": [
+        {
+          "type": "row",
+          "title": "Filters",
+          "collapsed": false,
+          "panels": []
+        },
+        {
+          "type": "row",
+          "title": "WebSocket Statistics",
+          "collapsed": false,
+          "panels": [
             {
-              "type": "datasource",
-              "name": "Datasource",
-              "query": "prometheus",
-              "label": "Datasource"
+              "type": "graph",
+              "title": "Online Users by User Type",
+              "datasource": "$Datasource",
+              "targets": [
+                {
+                  "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
+                  "legendFormat": "Online Users ({{user_type}})",
+                  "refId": "A"
+                }
+              ],
+              "yaxes": [
+                { "format": "short", "label": "Users", "min": 0 },
+                { "format": "short" }
+              ]
             },
             {
-              "type": "query",
-              "name": "User_Type",
-              "query": "label_values(games_ws_online_users, user_type)",
-              "label": "User Type",
-              "includeAll": true,
-              "allValue": ".+"
+              "type": "graph",
+              "title": "Connections by User Type",
+              "datasource": "$Datasource",
+              "targets": [
+                {
+                  "expr": "games_ws_connections{user_type=\"$User_Type\"}",
+                  "legendFormat": "Connections ({{user_type}})",
+                  "refId": "B"
+                }
+              ],
+              "yaxes": [
+                { "format": "short", "label": "Connections", "min": 0 },
+                { "format": "short" }
+              ]
             }
           ]
         }
+      ],
+      "templating": {
+        "list": [
+          {
+            "type": "datasource",
+            "name": "Datasource",
+            "query": "prometheus",
+            "label": "Datasource"
+          },
+          {
+            "type": "query",
+            "name": "User_Type",
+            "query": "label_values(games_ws_online_users, user_type)",
+            "label": "User Type",
+            "includeAll": true,
+            "allValue": ".+"
+          }
+        ]
       }
     }
