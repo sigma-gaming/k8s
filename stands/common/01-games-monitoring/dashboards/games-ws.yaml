@@ -11,26 +11,19 @@ spec:
   jsonnet: |
     local grafana = import 'grafonnet/grafana.libsonnet';
 
-    local dashboard = grafana.dashboard;
-    local row = grafana.row;
-    local graphPanel = grafana.graphPanel;
-    local tablePanel = grafana.tablePanel;
-
     local onlineUsersMetric = 'games_ws_online_users';
     local connectionsMetric = 'games_ws_connections';
 
-    // Создаем дэшборд
     {
       apiVersion: 1,
       overwrite: true,
-      dashboard: dashboard.new(
+      dashboard: grafana.dashboard.new(
         'Games WebSocket Overview',
-        // Ряды дэшборда
         [
-          row.new('Filters', []),
+          grafana.row.new('Filters', []),
 
-          row.new('WebSocket Statistics', [
-            graphPanel.new('Online Users by User Type', {
+          grafana.row.new('WebSocket Statistics', [
+            grafana.graphPanel.new('Online Users by User Type', {
               datasource: '$Datasource',
               targets: [
                 {
@@ -45,7 +38,7 @@ spec:
               ],
             }),
 
-            graphPanel.new('Connections by User Type', {
+            grafana.graphPanel.new('Connections by User Type', {
               datasource: '$Datasource',
               targets: [
                 {
@@ -80,5 +73,6 @@ spec:
             includeAll: true,
             allValue: '.+',
           }
-        ),
+        )
+      ),
     }
