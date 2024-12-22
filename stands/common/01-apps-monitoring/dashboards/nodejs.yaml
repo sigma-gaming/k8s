@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: nodejs-new
+  name: nodejs
   namespace: monitoring
 spec:
   folderRef: applications
@@ -156,9 +156,9 @@ spec:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "avg(nodejs_external_memory_bytes{app_kubernetes_io_name=~\"$instance\"} / 1024 / 1024) by(app_kubernetes_io_name)",
+              "expr": "avg(nodejs_external_memory_bytes{namespace=~\"$namespace\", service=~\"$service\"} / 1024 / 1024) by(service)",
               "instant": false,
-              "legendFormat": "{{app_kubernetes_io_name}}",
+              "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
             }
@@ -228,9 +228,8 @@ spec:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "count(nodejs_version_info{app_kubernetes_io_name=~\"$instance\"}) by (version)",
+              "expr": "count(nodejs_version_info{namespace=~\"$namespace\", service=~\"$service\"}) by (version)",
               "format": "time_series",
-              "instant": false,
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{version}}",
@@ -305,10 +304,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "sum(changes(process_start_time_seconds{app_kubernetes_io_name=~\"$instance\"}[$__range]))",
+              "expr": "sum(changes(process_start_time_seconds{namespace=~\"$namespace\", service=~\"$service\"}[$__range]))",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{app_kubernetes_io_name}}",
+              "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
             }
@@ -410,10 +409,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "irate(process_cpu_user_seconds_total{app_kubernetes_io_name=~\"$instance\"}[2m]) * 100",
+              "expr": "irate(process_cpu_user_seconds_total{namespace=~\"$namespace\", service=~\"$service\"}[2m]) * 100",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "User CPU - {{app_kubernetes_io_name}}",
+              "legendFormat": "User CPU",
               "range": true,
               "refId": "A"
             },
@@ -423,10 +422,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "irate(process_cpu_system_seconds_total{app_kubernetes_io_name=~\"$instance\"}[2m]) * 100",
+              "expr": "irate(process_cpu_system_seconds_total{namespace=~\"$namespace\", service=~\"$service\"}[2m]) * 100",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Sys CPU - {{app_kubernetes_io_name}}",
+              "legendFormat": "Sys CPU",
               "range": true,
               "refId": "B"
             }
@@ -512,7 +511,7 @@ spec:
                 "min"
               ],
               "displayMode": "table",
-              "placement": "bottom",
+              "placement": "right",
               "showLegend": true
             },
             "tooltip": {
@@ -528,10 +527,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_eventloop_lag_seconds{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_eventloop_lag_seconds{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{app_kubernetes_io_name}}",
+              "legendFormat": "{{service}}",
               "range": true,
               "refId": "A"
             }
@@ -633,10 +632,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "process_resident_memory_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "process_resident_memory_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Process Memory - {{app_kubernetes_io_name}}",
+              "legendFormat": "Process Memory",
               "range": true,
               "refId": "A"
             },
@@ -646,10 +645,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_heap_size_total_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_heap_size_total_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Heap Total - {{app_kubernetes_io_name}}",
+              "legendFormat": "Heap Total",
               "range": true,
               "refId": "B"
             },
@@ -659,10 +658,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_heap_size_used_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_heap_size_used_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Heap Used - {{app_kubernetes_io_name}}",
+              "legendFormat": "Heap Used",
               "range": true,
               "refId": "C"
             },
@@ -672,10 +671,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_external_memory_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_external_memory_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "External Memory - {{app_kubernetes_io_name}}",
+              "legendFormat": "External Memory",
               "range": true,
               "refId": "D"
             }
@@ -777,10 +776,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_active_handles_total{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_active_handles_total{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Active Handler - {{app_kubernetes_io_name}}",
+              "legendFormat": "Active Handler",
               "range": true,
               "refId": "A"
             },
@@ -790,10 +789,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_active_requests_total{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_active_requests_total{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Active Request - {{app_kubernetes_io_name}}",
+              "legendFormat": "Active Request",
               "range": true,
               "refId": "B"
             }
@@ -891,10 +890,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_heap_space_size_total_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_heap_space_size_total_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Heap Total - {{app_kubernetes_io_name}} - {{space}}",
+              "legendFormat": "Heap Total - {{space}}",
               "range": true,
               "refId": "A"
             }
@@ -992,10 +991,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_heap_space_size_used_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_heap_space_size_used_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Heap Used - {{app_kubernetes_io_name}} - {{space}}",
+              "legendFormat": "Heap Used - {{space}}",
               "range": true,
               "refId": "A"
             }
@@ -1093,10 +1092,10 @@ spec:
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "nodejs_heap_space_size_available_bytes{app_kubernetes_io_name=~\"$instance\"}",
+              "expr": "nodejs_heap_space_size_available_bytes{namespace=~\"$namespace\", service=~\"$service\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "Heap Used - {{app_kubernetes_io_name}} - {{space}}",
+              "legendFormat": "Heap Used - {{space}}",
               "range": true,
               "refId": "A"
             }
@@ -1132,30 +1131,22 @@ spec:
             "type": "datasource"
           },
           {
-            "current": {},
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
-            },
-            "definition": "label_values(nodejs_version_info,app_kubernetes_io_name)",
-            "hide": 0,
             "includeAll": true,
-            "label": "instance",
+            "allValue": ".+",
+            "label": "Namespace",
             "multi": true,
-            "name": "instance",
-            "options": [],
-            "query": {
-              "query": "label_values(nodejs_version_info,app_kubernetes_io_name)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "name": "namespace",
+            "query": "label_values(nodejs_version_info, namespace)",
+            "type": "query"
+          }
+          {
+            "includeAll": true,
+            "allValue": ".+",
+            "label": "Service",
+            "multi": true,
+            "name": "service",
+            "query": "label_values(nodejs_version_info{namespace=~\"$namespace\"}, service)",
+            "type": "query"
           }
         ]
       },
