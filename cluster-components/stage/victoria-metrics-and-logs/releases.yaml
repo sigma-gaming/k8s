@@ -125,9 +125,15 @@ spec:
         role: monitoring
       persistentVolume:
         enabled: true
-    vector:
-      enabled: true
     dashboards:
       enabled: true
       grafanaOperator:
         enabled: true
+    vector:
+      enabled: true
+      customConfig:
+        sinks:
+          vlogs:
+            request:
+              headers:
+                VL-Msg-Field: log.record.message,log.record.msg,log.message,log.msg,log,message,msg,_msg
