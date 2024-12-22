@@ -10,61 +10,62 @@ spec:
       dashboards: "grafana"
   json: >
     {
-      "title": "Games WebSocket Overview",
-      "panels": [
+      "__inputs": [
         {
-          "type": "row",
-          "title": "Filters",
-          "collapsed": false,
-          "panels": []
-        },
-        {
-          "type": "row",
-          "title": "WebSocket Statistics",
-          "collapsed": false,
-          "panels": [
-            {
-              "type": "graph",
-              "title": "Online Users by User Type",
-              "datasource": "$Datasource",
-              "targets": [
-                {
-                  "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
-                  "legendFormat": "Online Users ({{user_type}})",
-                  "refId": "A"
-                }
-              ],
-              "yaxes": [
-                { "format": "short", "label": "Users", "min": 0 },
-                { "format": "short" }
-              ]
-            },
-            {
-              "type": "graph",
-              "title": "Connections by User Type",
-              "datasource": "$Datasource",
-              "targets": [
-                {
-                  "expr": "games_ws_connections{user_type=\"$User_Type\"}",
-                  "legendFormat": "Connections ({{user_type}})",
-                  "refId": "B"
-                }
-              ],
-              "yaxes": [
-                { "format": "short", "label": "Connections", "min": 0 },
-                { "format": "short" }
-              ]
-            }
-          ]
+          "name": "DS_PROMETHEUS",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
         }
       ],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "10.4.3"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "timeseries",
+          "name": "Time series",
+          "version": ""
+        }
+      ],
+      "title": "Games WebSocket Overview",
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "datasource",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
       "templating": {
         "list": [
           {
             "type": "datasource",
             "name": "Datasource",
             "query": "prometheus",
-            "label": "Datasource"
+            "label": "Datasource",
+            "pluginId": "prometheus",
+            "pluginName": "Prometheus"
           },
           {
             "type": "query",
@@ -75,5 +76,89 @@ spec:
             "allValue": ".+"
           }
         ]
+      },
+      "panels": [
+        {
+          "type": "timeseries",
+          "title": "Online Users by User Type",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
+              "legendFormat": "Online Users ({{user_type}})",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "timeseries",
+          "title": "Connections by User Type",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "games_ws_connections{user_type=\"$User_Type\"}",
+              "legendFormat": "Connections ({{user_type}})",
+              "refId": "B"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          }
+        }
+      ],
+      "time": {
+        "from": "now-1h",
+        "to": "now"
       }
     }
