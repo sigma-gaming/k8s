@@ -84,6 +84,14 @@ spec:
           },
           {
             "type": "query",
+            "name": "namespace",
+            "query": "label_values(games_ws_online_users, namespace)",
+            "label": "Namespace",
+            "includeAll": true,
+            "allValue": ".+"
+          },
+          {
+            "type": "query",
             "name": "user_type",
             "query": "label_values(games_ws_online_users, user_type)",
             "label": "User Type",
@@ -108,7 +116,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "games_ws_online_users{user_type=~\"$user_type\"}",
+              "expr": "games_ws_online_users{namespace=~\"$namespace\",user_type=~\"$user_type\"}",
               "legendFormat": "Online Users ({{user_type}})",
               "refId": "A"
             }
@@ -153,7 +161,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "games_ws_connections{user_type=~\"$user_type\"}",
+              "expr": "games_ws_connections{namespace=~\"$namespace\",user_type=~\"$user_type\"}",
               "legendFormat": "Connections ({{user_type}})",
               "refId": "B"
             }
