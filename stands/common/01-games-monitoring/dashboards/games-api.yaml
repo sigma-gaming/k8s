@@ -1,0 +1,107 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: games-api
+  namespace: monitoring
+spec:
+  folderRef: games
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  jsonnet: |
+    local grafana = import 'grafonnet-lib/grafonnet.libsonnet';
+
+    local dashboard = grafana.dashboard;
+    local row = grafana.row;
+    local graphPanel = grafana.graphPanel;
+    local tablePanel = grafana.tablePanel;
+
+    local betsMetric = 'games_api_bets_amount';
+    local winsMetric = 'games_api_wins_amount';
+    local lossesMetric = 'games_api_losses_amount';
+    local diceSidesMetric = 'games_api_dice_sides';
+
+    {
+      apiVersion: 1,
+      overwrite: true,
+      dashboard: dashboard.new(
+        'Games API Overview',
+        [
+          row.new('Filters', [
+            grafana.templateVar.new('Datasource', {
+              type: 'datasource',
+              query: 'prometheus',
+              label: 'Datasource',
+            }),
+            grafana.templateVar.new('Game', {
+              type: 'query',
+              query: 'label_values(games_api_bets_amount, game)',
+              label: 'Game',
+              includeAll: true,
+              allValue: '.+',
+            }),
+          ]),
+
+          row.new('Bet Statistics', [
+            graphPanel.new('Bets, Wins, and Losses', {
+              datasource: '$Datasource',
+              targets: [
+                {
+                  expr: betsMetric + '{game="$Game"}',
+                  legendFormat: 'Bets',
+                  refId: 'A',
+                },
+                {
+                  expr: winsMetric + '{game="$Game"}',
+                  legendFormat: 'Wins',
+                  refId: 'B',
+                },
+                {
+                  expr: lossesMetric + '{game="$Game"}',
+                  legendFormat: 'Losses',
+                  refId: 'C',
+                },
+              ],
+              yaxes: [
+                { format: 'short', label: 'Count', min: 0 },
+                { format: 'short' },
+              ],
+            }),
+          ]),
+
+          row.new('Dice Statistics', [
+            graphPanel.new('Dice Sides Distribution', {
+              datasource: '$Datasource',
+              targets: [
+                {
+                  expr: diceSidesMetric + '_bucket{game="$Game"}',
+                  legendFormat: '{{le}} sides',
+                  refId: 'A',
+                },
+              ],
+              stacked: true,
+              tooltip: { shared: true },
+              yaxes: [
+                { format: 'short', label: 'Count', min: 0 },
+                { format: 'short' },
+              ],
+            }),
+
+            graphPanel.new('Average Dice Sides', {
+              datasource: '$Datasource',
+              targets: [
+                {
+                  expr: 'sum(' + diceSidesMetric + '_sum{game="$Game"}) / sum(' + diceSidesMetric + '_count{game="$Game"})',
+                  legendFormat: 'Average Sides',
+                  refId: 'A',
+                },
+              ],
+              yaxes: [
+                { format: 'short', label: 'Sides', min: 0 },
+                { format: 'short' },
+              ],
+            }),
+          ]),
+        ]
+      ),
+    }
