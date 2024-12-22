@@ -79,7 +79,7 @@ spec:
           },
           {
             "type": "query",
-            "name": "User_Type",
+            "name": "user_type",
             "query": "label_values(games_ws_online_users, user_type)",
             "label": "User Type",
             "includeAll": true,
@@ -97,7 +97,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
+              "expr": "games_ws_online_users{user_type=~\"$user_type\"}",
               "legendFormat": "Online Users ({{user_type}})",
               "refId": "A"
             }
@@ -136,7 +136,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "games_ws_connections{user_type=\"$User_Type\"}",
+              "expr": "games_ws_connections{user_type=~\"$user_type\"}",
               "legendFormat": "Connections ({{user_type}})",
               "refId": "B"
             }
