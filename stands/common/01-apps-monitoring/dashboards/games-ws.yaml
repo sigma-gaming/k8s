@@ -41,6 +41,11 @@ spec:
         }
       ],
       "title": "Games WebSocket Overview",
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "refresh": "30s",
       "annotations": {
         "list": [
           {
@@ -166,9 +171,5 @@ spec:
             "y": 8
           }
         }
-      ],
-      "time": {
-        "from": "now-1h",
-        "to": "now"
-      }
+      ]
     }
