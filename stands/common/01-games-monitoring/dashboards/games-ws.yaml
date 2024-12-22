@@ -19,33 +19,22 @@ spec:
     local onlineUsersMetric = 'games_ws_online_users';
     local connectionsMetric = 'games_ws_connections';
 
+    // Создаем дэшборд
     {
       apiVersion: 1,
       overwrite: true,
       dashboard: dashboard.new(
         'Games WebSocket Overview',
+        // Ряды дэшборда
         [
-          row.new('Filters', [
-            grafana.templateVar.new('Datasource', {
-              type: 'datasource',
-              query: 'prometheus',
-              label: 'Datasource',
-            }),
-            grafana.templateVar.new('User Type', {
-              type: 'query',
-              query: 'label_values(games_ws_online_users, user_type)',
-              label: 'User Type',
-              includeAll: true,
-              allValue: '.+',
-            }),
-          ]),
+          row.new('Filters', []),
 
           row.new('WebSocket Statistics', [
             graphPanel.new('Online Users by User Type', {
               datasource: '$Datasource',
               targets: [
                 {
-                  expr: onlineUsersMetric + '{user_type="$User Type"}',
+                  expr: onlineUsersMetric + '{user_type="$User_Type"}',
                   legendFormat: 'Online Users ({{user_type}})',
                   refId: 'A',
                 },
@@ -60,7 +49,7 @@ spec:
               datasource: '$Datasource',
               targets: [
                 {
-                  expr: connectionsMetric + '{user_type="$User Type"}',
+                  expr: connectionsMetric + '{user_type="$User_Type"}',
                   legendFormat: 'Connections ({{user_type}})',
                   refId: 'B',
                 },
@@ -72,5 +61,24 @@ spec:
             }),
           ]),
         ]
-      ),
+      ).addTemplate(
+        grafana.template.new(
+          'Datasource',
+          'datasource',
+          {
+            query: 'prometheus',
+            label: 'Datasource',
+          }
+        )
+      ).addTemplate(
+        grafana.template.new(
+          'User_Type',
+          'query',
+          {
+            query: 'label_values(games_ws_online_users, user_type)',
+            label: 'User Type',
+            includeAll: true,
+            allValue: '.+',
+          }
+        ),
     }
