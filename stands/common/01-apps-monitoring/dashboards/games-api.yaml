@@ -251,9 +251,29 @@ spec:
           },
           "targets": [
             {
-              "expr": "games_api_dice_sides_bucket{namespace=~\"$namespace\"}",
-              "legendFormat": "Bucket {{le}}",
+              "expr": "increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval])",
+              "legendFormat": "Side 1",
+              "refId": "A"
+            },
+            {
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "legendFormat": "Side 2",
+              "refId": "B"
+            },
+            {
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "legendFormat": "Side 3",
+              "refId": "C"
+            },
+            {
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "legendFormat": "Side 4",
               "refId": "D"
+            },
+            {
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "legendFormat": "Side 5",
+              "refId": "E"
             }
           ],
           "fieldConfig": {
