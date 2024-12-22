@@ -8,71 +8,76 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  jsonnet: |
-    local grafana = import 'grafonnet/grafana.libsonnet';
-
-    local onlineUsersMetric = 'games_ws_online_users';
-    local connectionsMetric = 'games_ws_connections';
-
+  json: >
     {
-      apiVersion: 1,
-      overwrite: true,
-      dashboard: grafana.dashboard.new(
-        'Games WebSocket Overview',
-        [
-          grafana.row.new('Filters', []),
-
-          grafana.row.new('WebSocket Statistics', [
-            grafana.graphPanel.new('Online Users by User Type', {
-              datasource: '$Datasource',
-              targets: [
-                {
-                  expr: onlineUsersMetric + '{user_type="$User_Type"}',
-                  legendFormat: 'Online Users ({{user_type}})',
-                  refId: 'A',
-                },
-              ],
-              yaxes: [
-                { format: 'short', label: 'Users', min: 0 },
-                { format: 'short' },
-              ],
-            }),
-
-            grafana.graphPanel.new('Connections by User Type', {
-              datasource: '$Datasource',
-              targets: [
-                {
-                  expr: connectionsMetric + '{user_type="$User_Type"}',
-                  legendFormat: 'Connections ({{user_type}})',
-                  refId: 'B',
-                },
-              ],
-              yaxes: [
-                { format: 'short', label: 'Connections', min: 0 },
-                { format: 'short' },
-              ],
-            }),
-          ]),
-        ]
-      ).addTemplate(
-        grafana.template.new(
-          'Datasource',
-          'datasource',
+      "apiVersion": 1,
+      "overwrite": true,
+      "dashboard": {
+        "title": "Games WebSocket Overview",
+        "panels": [
           {
-            query: 'prometheus',
-            label: 'Datasource',
-          }
-        )
-      ).addTemplate(
-        grafana.template.new(
-          'User_Type',
-          'query',
+            "type": "row",
+            "title": "Filters",
+            "collapsed": false,
+            "panels": []
+          },
           {
-            query: 'label_values(games_ws_online_users, user_type)',
-            label: 'User Type',
-            includeAll: true,
-            allValue: '.+',
+            "type": "row",
+            "title": "WebSocket Statistics",
+            "collapsed": false,
+            "panels": [
+              {
+                "type": "graph",
+                "title": "Online Users by User Type",
+                "datasource": "$Datasource",
+                "targets": [
+                  {
+                    "expr": "games_ws_online_users{user_type=\"$User_Type\"}",
+                    "legendFormat": "Online Users ({{user_type}})",
+                    "refId": "A"
+                  }
+                ],
+                "yaxes": [
+                  { "format": "short", "label": "Users", "min": 0 },
+                  { "format": "short" }
+                ]
+              },
+              {
+                "type": "graph",
+                "title": "Connections by User Type",
+                "datasource": "$Datasource",
+                "targets": [
+                  {
+                    "expr": "games_ws_connections{user_type=\"$User_Type\"}",
+                    "legendFormat": "Connections ({{user_type}})",
+                    "refId": "B"
+                  }
+                ],
+                "yaxes": [
+                  { "format": "short", "label": "Connections", "min": 0 },
+                  { "format": "short" }
+                ]
+              }
+            ]
           }
-        )
-      ),
+        ],
+        "templating": {
+          "list": [
+            {
+              "type": "datasource",
+              "name": "Datasource",
+              "query": "prometheus",
+              "label": "Datasource"
+            },
+            {
+              "type": "query",
+              "name": "User_Type",
+              "query": "label_values(games_ws_online_users, user_type)",
+              "label": "User Type",
+              "includeAll": true,
+              "allValue": ".+"
+            }
+          ]
+        }
+      }
     }
