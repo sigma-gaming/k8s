@@ -343,7 +343,7 @@ spec:
               "expr": "increase(games_api_pincode_games{namespace=~\"$namespace\"})",
               "legendFormat": "{{mode}} mode",
               "refId": "J"
-            },
+            }
           ],
           "fieldConfig": {
             "defaults": {
