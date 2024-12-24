@@ -10,4 +10,7 @@ resources:
 configMapGenerator:
   - name: games-api-dashboard
     files:
-      - dashboards/games-api.json
+      - dashboard.json=dashboards/games-api.json
+
+configurations:
+  - kustomizeconfig.yaml

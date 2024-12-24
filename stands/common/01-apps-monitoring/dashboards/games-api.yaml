@@ -9,4 +9,4 @@ spec:
       dashboards: "grafana"
   configMapRef:
     name: games-api-dashboard
-    key: games-api.json
+    key: dashboard.json
