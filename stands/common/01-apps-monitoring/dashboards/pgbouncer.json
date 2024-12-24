@@ -955,6 +955,89 @@
         "x": 12,
         "y": 87
       }
+    },
+    {
+      "type": "row",
+      "title": "Service Health",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 95
+      },
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "PgBouncer Availability",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "red",
+              "value": null
+            },
+            {
+              "color": "green",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "up{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 96
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Server Assignments",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_server_assignment_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Rate - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_total_server_assignment_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Total - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 96
+      }
     }
   ]
 }
