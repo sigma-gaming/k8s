@@ -8,5 +8,6 @@ resources:
 
 configMapGenerator:
   - name: games-api-dashboard
+    namespace: monitoring
     files:
       - dashboards/games-api.json
