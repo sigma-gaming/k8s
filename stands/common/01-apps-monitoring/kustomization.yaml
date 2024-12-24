@@ -7,10 +7,13 @@ resources:
   - dashboards/games-ws.yaml
   - dashboards/games-api.yaml
 
+configurations:
+  - kustomizeconfig.yaml
+
 configMapGenerator:
   - name: games-api-dashboard
     files:
       - dashboard.json=dashboards/games-api.json
-
-configurations:
-  - kustomizeconfig.yaml
+  - name: pgbouncer-dashboard
+    files:
+      - dashboard.json=dashboards/pgbouncer.json

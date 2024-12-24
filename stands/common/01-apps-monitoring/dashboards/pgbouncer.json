@@ -1,0 +1,463 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.4.3"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
+  "title": "PgBouncer Metrics",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "refresh": "30s",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "${DS_PROMETHEUS}"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "datasource",
+        "multi": false,
+        "name": "DS_PROMETHEUS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "type": "query",
+        "name": "namespace",
+        "query": "label_values(cnpg_pgbouncer_collections_total, namespace)",
+        "label": "Namespace",
+        "includeAll": true,
+        "allValue": ".+"
+      },
+      {
+        "type": "query",
+        "name": "job",
+        "query": "label_values(cnpg_pgbouncer_collections_total{namespace=~\"$namespace\"}, job)",
+        "label": "Job",
+        "includeAll": true,
+        "allValue": ".+"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "row",
+      "title": "Overview",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "collapsed": false
+    },
+    {
+      "type": "stat",
+      "title": "Total Databases",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_databases{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Databases",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Total Pools",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_pools{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Pools",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Total Users",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "textMode": "auto"
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_users{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Users",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Collection Status",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "textMode": "auto",
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green",
+              "value": null
+            },
+            {
+              "color": "red",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_last_collection_error{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Error Status",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      }
+    },
+    {
+      "type": "row",
+      "title": "Client Connections",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Active Client Connections",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "{{database}}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Waiting Client Connections",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "{{database}}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      }
+    },
+    {
+      "type": "row",
+      "title": "Server Connections",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Server Connection States",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(cnpg_pgbouncer_pools_sv_active{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "legendFormat": "Active - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(cnpg_pgbouncer_pools_sv_idle{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "legendFormat": "Idle - {{database}}",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(cnpg_pgbouncer_pools_sv_used{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "legendFormat": "Used - {{database}}",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      }
+    },
+    {
+      "type": "row",
+      "title": "Query Statistics",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Query Count and Duration",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_query_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Queries/s - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_query_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "legendFormat": "Avg Duration (ms) - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Transaction Statistics",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_xact_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Transactions/s - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_xact_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "legendFormat": "Avg Duration (ms) - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      }
+    },
+    {
+      "type": "row",
+      "title": "Network Traffic",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Network Traffic Rate",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_recv{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Received bytes/s - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_sent{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Sent bytes/s - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      }
+    }
+  ]
+}
