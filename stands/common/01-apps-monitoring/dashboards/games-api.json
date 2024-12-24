@@ -256,7 +256,10 @@
         "tooltip": {
           "mode": "single",
           "sort": "none"
-        }
+        },
+        "displayLabels": [
+          "name"
+        ]
       },
       "targets": [
         {
@@ -325,7 +328,10 @@
         "tooltip": {
           "mode": "single",
           "sort": "none"
-        }
+        },
+        "displayLabels": [
+          "name"
+        ]
       },
       "targets": [
         {
