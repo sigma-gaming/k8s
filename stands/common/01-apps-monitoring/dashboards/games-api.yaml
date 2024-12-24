@@ -313,8 +313,57 @@ spec:
           "gridPos": {
             "h": 8,
             "w": 12,
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "type": "piechart",
+          "title": "Pincode Mode Distribution",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "options": {
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "sum"
+              ],
+              "fields": ""
+            },
+            "pieType": "pie",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "increase(games_api_pincode_games{namespace=~\"$namespace\"})",
+              "legendFormat": "{{mode}} mode",
+              "refId": "A"
+            },
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
             "x": 12,
-            "y": 8
+            "y": 16
           }
         }
       ]
