@@ -5,3 +5,8 @@ resources:
   - dashboards/nodejs.yaml
   - dashboards/games-ws.yaml
   - dashboards/games-api.yaml
+
+configMapGenerator:
+  - name: games-api-dashboard
+    files:
+      - dashboards/games-api.json
