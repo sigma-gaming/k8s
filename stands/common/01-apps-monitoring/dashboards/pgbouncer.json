@@ -33,6 +33,12 @@
       "id": "stat",
       "name": "Stat",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
     }
   ],
   "title": "PgBouncer Metrics",
@@ -457,6 +463,497 @@
         "w": 24,
         "x": 0,
         "y": 33
+      }
+    },
+    {
+      "type": "row",
+      "title": "DNS Cache",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "DNS Cache Statistics",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_dns_names{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "DNS Names",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_lists_dns_zones{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "DNS Zones",
+          "refId": "B"
+        },
+        {
+          "expr": "cnpg_pgbouncer_lists_dns_queries{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "DNS Queries",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      }
+    },
+    {
+      "type": "gauge",
+      "title": "Pool Modes",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_pools_pool_mode{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "{{database}} ({{user}})",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "Session"
+                },
+                "2": {
+                  "text": "Transaction"
+                },
+                "3": {
+                  "text": "Statement"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "max": 3,
+          "min": 1
+        }
+      }
+    },
+    {
+      "type": "row",
+      "title": "Client Cancellation Requests",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 50
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Client Cancel Requests",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Pending - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Active - {{database}}",
+          "refId": "B"
+        },
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Waiting - {{database}}",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 51
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Server States",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_tested{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Testing - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_login{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Login - {{database}}",
+          "refId": "B"
+        },
+        {
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_wait_cancels{namespace=~\"$namespace\",job=~\"$job\"})",
+          "legendFormat": "Wait Cancels - {{database}}",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 51
+      }
+    },
+    {
+      "type": "row",
+      "title": "Wait Times",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Maximum Wait Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "(cnpg_pgbouncer_pools_maxwait{namespace=~\"$namespace\",job=~\"$job\"} * 1000000 + cnpg_pgbouncer_pools_maxwait_us{namespace=~\"$namespace\",job=~\"$job\"}) / 1000",
+          "legendFormat": "{{database}} ({{user}}) ms",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 60
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Average Wait Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_wait_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "legendFormat": "{{database}} ms",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 60
+      }
+    },
+    {
+      "type": "row",
+      "title": "Total Statistics",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Queries and Transactions",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_total_query_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Queries - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_total_xact_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Transactions - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 69
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Network Traffic",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_total_received{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Received - {{database}}",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_stats_total_sent{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Sent - {{database}}",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 69
+      }
+    },
+    {
+      "type": "row",
+      "title": "Free Resources",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 77
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Free Clients and Servers",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_free_clients{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Free Clients",
+          "refId": "A"
+        },
+        {
+          "expr": "cnpg_pgbouncer_lists_free_servers{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Free Servers",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 78
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Login Clients",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_lists_login_clients{namespace=~\"$namespace\",job=~\"$job\"}",
+          "legendFormat": "Login Clients",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 78
+      }
+    },
+    {
+      "type": "row",
+      "title": "Total Time Statistics",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 86
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Query Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_total_query_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000000",
+          "legendFormat": "Query Time - {{database}} (s)",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 87
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Transaction Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_total_xact_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000000",
+          "legendFormat": "Transaction Time - {{database}} (s)",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 87
       }
     }
   ]
