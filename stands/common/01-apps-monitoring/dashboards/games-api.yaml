@@ -273,27 +273,27 @@ spec:
             {
               "expr": "increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"})",
               "legendFormat": "1 side",
-              "refId": "A"
+              "refId": "D"
             },
             {
               "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
               "legendFormat": "2 sides",
-              "refId": "B"
+              "refId": "E"
             },
             {
               "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}))",
               "legendFormat": "3 sides",
-              "refId": "C"
+              "refId": "F"
             },
             {
               "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}))",
               "legendFormat": "4 sides",
-              "refId": "D"
+              "refId": "G"
             },
             {
               "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}))",
               "legendFormat": "5 sides",
-              "refId": "E"
+              "refId": "H"
             }
           ],
           "fieldConfig": {
@@ -342,7 +342,7 @@ spec:
             {
               "expr": "increase(games_api_pincode_games{namespace=~\"$namespace\"})",
               "legendFormat": "{{mode}} mode",
-              "refId": "A"
+              "refId": "J"
             },
           ],
           "fieldConfig": {
