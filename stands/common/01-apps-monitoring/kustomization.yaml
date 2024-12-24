@@ -1,5 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: monitoring
 resources:
   - folders.yaml
   - dashboards/nodejs.yaml
@@ -8,6 +9,5 @@ resources:
 
 configMapGenerator:
   - name: games-api-dashboard
-    namespace: monitoring
     files:
       - dashboards/games-api.json
