@@ -249,41 +249,49 @@ spec:
           }
         },
         {
-          "type": "timeseries",
+          "type": "piechart",
           "title": "Dice Sides Distribution",
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "options": {
+            "reduceOptions": {
+              "values": false,
+              "calcs": [
+                "sum"
+              ],
+              "fields": ""
+            },
+            "pieType": "pie",
             "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "targets": [
             {
-              "expr": "increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval])",
+              "expr": "increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"})",
               "legendFormat": "1 side",
               "refId": "A"
             },
             {
-              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
               "legendFormat": "2 sides",
               "refId": "B"
             },
             {
-              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}))",
               "legendFormat": "3 sides",
               "refId": "C"
             },
             {
-              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}))",
               "legendFormat": "4 sides",
               "refId": "D"
             },
             {
-              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"}[$__interval])) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}[$__interval]))",
+              "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}))",
               "legendFormat": "5 sides",
               "refId": "E"
             }
@@ -297,10 +305,6 @@ spec:
                   {
                     "color": "green",
                     "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
                   }
                 ]
               }
