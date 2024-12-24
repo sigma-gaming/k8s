@@ -6,6 +6,7 @@ resources:
   - dashboards/nodejs.yaml
   - dashboards/games-ws.yaml
   - dashboards/games-api.yaml
+  - dashboards/pgbouncer.yaml
 
 configurations:
   - kustomizeconfig.yaml
