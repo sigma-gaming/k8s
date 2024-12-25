@@ -236,6 +236,81 @@
     },
     {
       "type": "row",
+      "title": "Wait Times",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "collapsed": false
+    },
+    {
+      "type": "timeseries",
+      "title": "Maximum Wait Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "(cnpg_pgbouncer_pools_maxwait{namespace=~\"$namespace\",pod=~\"$pod\"} * 1000000 + cnpg_pgbouncer_pools_maxwait_us{namespace=~\"$namespace\",pod=~\"$pod\"}) / 1000",
+          "legendFormat": "{{database}} ({{user}}) ms",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 60
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Average Wait Time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "expr": "cnpg_pgbouncer_stats_avg_wait_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
+          "legendFormat": "{{database}} ms",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 60
+      }
+    },
+    {
+      "type": "row",
       "title": "Client Connections",
       "gridPos": {
         "h": 1,
@@ -659,81 +734,6 @@
         "w": 12,
         "x": 12,
         "y": 51
-      }
-    },
-    {
-      "type": "row",
-      "title": "Wait Times",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 59
-      },
-      "collapsed": false
-    },
-    {
-      "type": "timeseries",
-      "title": "Maximum Wait Time",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "expr": "(cnpg_pgbouncer_pools_maxwait{namespace=~\"$namespace\",pod=~\"$pod\"} * 1000000 + cnpg_pgbouncer_pools_maxwait_us{namespace=~\"$namespace\",pod=~\"$pod\"}) / 1000",
-          "legendFormat": "{{database}} ({{user}}) ms",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms"
-        }
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 60
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Average Wait Time",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "expr": "cnpg_pgbouncer_stats_avg_wait_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
-          "legendFormat": "{{database}} ms",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms"
-        }
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 60
       }
     },
     {
