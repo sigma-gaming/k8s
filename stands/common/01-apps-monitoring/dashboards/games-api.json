@@ -263,7 +263,7 @@
       },
       "targets": [
         {
-          "expr": "increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"})",
+          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
           "legendFormat": "1 side",
           "refId": "D"
         },
