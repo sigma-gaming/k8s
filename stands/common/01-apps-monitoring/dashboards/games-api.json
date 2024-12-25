@@ -35,6 +35,7 @@
     "to": "now"
   },
   "refresh": "30s",
+  "graphTooltip": 2,
   "annotations": {
     "list": [
       {
