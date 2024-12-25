@@ -7,4 +7,6 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  url: "https://grafana.com/api/dashboards/20417/revisions/3/download"
+  configMapRef:
+    name: cloudnative-pg-dashboard
+    key: dashboard.json

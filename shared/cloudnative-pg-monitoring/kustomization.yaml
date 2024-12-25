@@ -12,6 +12,10 @@ resources:
   - dashboards/pgbouncer.yaml
 
 configMapGenerator:
+  - name: cloudnative-pg-dashboard
+    files:
+      - dashboard.json=dashboards/cloudnative-pg.json
+
   - name: pgbouncer-dashboard
     files:
       - dashboard.json=dashboards/pgbouncer.json
