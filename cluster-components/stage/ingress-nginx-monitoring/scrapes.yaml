@@ -2,7 +2,6 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMServiceScrape
 metadata:
   name: ingress-nginx
-  namespace: monitoring
 spec:
   endpoints:
     - port: metrics
@@ -15,14 +14,3 @@ spec:
       app.kubernetes.io/component: controller
       app.kubernetes.io/instance: ingress-nginx
       app.kubernetes.io/name: ingress-nginx
----
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaFolder
-metadata:
-  name: ingress-nginx
-  namespace: monitoring
-spec:
-  instanceSelector:
-    matchLabels:
-      dashboards: "grafana"
-  title: "Ingress NGINX Controller"
