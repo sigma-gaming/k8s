@@ -48,6 +48,8 @@ spec:
         value: "dev-1734890128233" # {"$imagepolicy": "games-stage:letsauth:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
+      - name: GAMES_DB_HEALTH_HOST
+        value: "games-db-health-pooler-rw"
       - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
