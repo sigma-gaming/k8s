@@ -93,9 +93,9 @@
       },
       {
         "type": "query",
-        "name": "job",
-        "query": "label_values(cnpg_pgbouncer_collections_total{namespace=~\"$namespace\"}, job)",
-        "label": "Job",
+        "name": "pod",
+        "query": "label_values(cnpg_pgbouncer_collections_total{namespace=~\"$namespace\"}, pod)",
+        "label": "Pod",
         "includeAll": true,
         "allValue": ".+"
       }
@@ -128,7 +128,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_databases{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_databases{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Databases",
           "refId": "A"
         }
@@ -155,7 +155,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_pools{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_pools{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Pools",
           "refId": "A"
         }
@@ -182,7 +182,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_users{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_users{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Users",
           "refId": "A"
         }
@@ -222,7 +222,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_last_collection_error{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_last_collection_error{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Error Status",
           "refId": "A"
         }
@@ -260,7 +260,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "{{database}}",
           "refId": "A"
         }
@@ -287,7 +287,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "{{database}}",
           "refId": "A"
         }
@@ -325,17 +325,17 @@
       },
       "targets": [
         {
-          "expr": "sum(cnpg_pgbouncer_pools_sv_active{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "expr": "sum(cnpg_pgbouncer_pools_sv_active{namespace=~\"$namespace\",pod=~\"$pod\"}) by (database)",
           "legendFormat": "Active - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "sum(cnpg_pgbouncer_pools_sv_idle{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "expr": "sum(cnpg_pgbouncer_pools_sv_idle{namespace=~\"$namespace\",pod=~\"$pod\"}) by (database)",
           "legendFormat": "Idle - {{database}}",
           "refId": "B"
         },
         {
-          "expr": "sum(cnpg_pgbouncer_pools_sv_used{namespace=~\"$namespace\",job=~\"$job\"}) by (database)",
+          "expr": "sum(cnpg_pgbouncer_pools_sv_used{namespace=~\"$namespace\",pod=~\"$pod\"}) by (database)",
           "legendFormat": "Used - {{database}}",
           "refId": "C"
         }
@@ -373,12 +373,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_query_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_avg_query_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Queries/s - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_avg_query_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "expr": "cnpg_pgbouncer_stats_avg_query_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
           "legendFormat": "Avg Duration (ms) - {{database}}",
           "refId": "B"
         }
@@ -405,12 +405,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_xact_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_avg_xact_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Transactions/s - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_avg_xact_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "expr": "cnpg_pgbouncer_stats_avg_xact_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
           "legendFormat": "Avg Duration (ms) - {{database}}",
           "refId": "B"
         }
@@ -448,12 +448,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_recv{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_avg_recv{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Received bytes/s - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_avg_sent{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_avg_sent{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Sent bytes/s - {{database}}",
           "refId": "B"
         }
@@ -491,17 +491,17 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_dns_names{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_dns_names{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "DNS Names",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_lists_dns_zones{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_dns_zones{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "DNS Zones",
           "refId": "B"
         },
         {
-          "expr": "cnpg_pgbouncer_lists_dns_queries{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_dns_queries{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "DNS Queries",
           "refId": "C"
         }
@@ -528,7 +528,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_pools_pool_mode{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_pools_pool_mode{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "{{database}} ({{user}})",
           "refId": "A"
         }
@@ -597,17 +597,17 @@
       },
       "targets": [
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_cancel_req{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Pending - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_active_cancel_req{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Active - {{database}}",
           "refId": "B"
         },
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting_cancel_req{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_cl_waiting_cancel_req{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Waiting - {{database}}",
           "refId": "C"
         }
@@ -634,17 +634,17 @@
       },
       "targets": [
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_tested{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_tested{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Testing - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_login{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_login{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Login - {{database}}",
           "refId": "B"
         },
         {
-          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_wait_cancels{namespace=~\"$namespace\",job=~\"$job\"})",
+          "expr": "sum by (database) (cnpg_pgbouncer_pools_sv_wait_cancels{namespace=~\"$namespace\",pod=~\"$pod\"})",
           "legendFormat": "Wait Cancels - {{database}}",
           "refId": "C"
         }
@@ -682,7 +682,7 @@
       },
       "targets": [
         {
-          "expr": "(cnpg_pgbouncer_pools_maxwait{namespace=~\"$namespace\",job=~\"$job\"} * 1000000 + cnpg_pgbouncer_pools_maxwait_us{namespace=~\"$namespace\",job=~\"$job\"}) / 1000",
+          "expr": "(cnpg_pgbouncer_pools_maxwait{namespace=~\"$namespace\",pod=~\"$pod\"} * 1000000 + cnpg_pgbouncer_pools_maxwait_us{namespace=~\"$namespace\",pod=~\"$pod\"}) / 1000",
           "legendFormat": "{{database}} ({{user}}) ms",
           "refId": "A"
         }
@@ -714,7 +714,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_wait_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000",
+          "expr": "cnpg_pgbouncer_stats_avg_wait_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
           "legendFormat": "{{database}} ms",
           "refId": "A"
         }
@@ -757,12 +757,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_query_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_total_query_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Queries - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_total_xact_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_total_xact_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Transactions - {{database}}",
           "refId": "B"
         }
@@ -789,12 +789,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_received{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_total_received{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Received - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_total_sent{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_total_sent{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Sent - {{database}}",
           "refId": "B"
         }
@@ -837,12 +837,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_free_clients{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_free_clients{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Free Clients",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_lists_free_servers{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_free_servers{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Free Servers",
           "refId": "B"
         }
@@ -869,7 +869,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_lists_login_clients{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_lists_login_clients{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Login Clients",
           "refId": "A"
         }
@@ -907,7 +907,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_query_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000000",
+          "expr": "cnpg_pgbouncer_stats_total_query_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000000",
           "legendFormat": "Query Time - {{database}} (s)",
           "refId": "A"
         }
@@ -939,7 +939,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_xact_time{namespace=~\"$namespace\",job=~\"$job\"} / 1000000",
+          "expr": "cnpg_pgbouncer_stats_total_xact_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000000",
           "legendFormat": "Transaction Time - {{database}} (s)",
           "refId": "A"
         }
@@ -982,12 +982,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_server_assignment_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_avg_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Rate - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_total_server_assignment_count{namespace=~\"$namespace\",job=~\"$job\"}",
+          "expr": "cnpg_pgbouncer_stats_total_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
           "legendFormat": "Total - {{database}}",
           "refId": "B"
         }
