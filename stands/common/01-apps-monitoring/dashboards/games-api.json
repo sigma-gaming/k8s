@@ -360,7 +360,7 @@
       },
       "targets": [
         {
-          "expr": "increase(games_api_pincode_games{namespace=~\"$namespace\"})",
+          "expr": "sum by (mode) (increase(games_api_pincode_games{namespace=~\"$namespace\"}))",
           "legendFormat": "{{mode}} mode",
           "refId": "A"
         }
