@@ -91,6 +91,17 @@
   },
   "panels": [
     {
+      "type": "row",
+      "title": "User Connections",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "collapsed": false
+    },
+    {
       "type": "timeseries",
       "title": "Online Users by User Type",
       "datasource": {
@@ -107,12 +118,16 @@
         {
           "expr": "sum by (user_type) (games_ws_online_users{namespace=~\"$namespace\",user_type=~\"$user_type\"})",
           "legendFormat": "Online Users ({{user_type}})",
-          "refId": "A"
+          "refId": "A",
+          "interval": "5m"
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
+          "custom": {
+            "fillOpacity": 100
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -130,9 +145,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
-        "y": 0
+        "y": 1
       }
     },
     {
@@ -152,12 +167,16 @@
         {
           "expr": "sum by (user_type) (games_ws_connections{namespace=~\"$namespace\",user_type=~\"$user_type\"})",
           "legendFormat": "Connections ({{user_type}})",
-          "refId": "B"
+          "refId": "A",
+          "interval": "5m"
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
+          "custom": {
+            "fillOpacity": 100
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -175,9 +194,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 8
+        "w": 12,
+        "x": 12,
+        "y": 1
       }
     }
   ]
