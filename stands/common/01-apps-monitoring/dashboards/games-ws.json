@@ -119,7 +119,7 @@
           "expr": "sum by (user_type) (games_ws_online_users{namespace=~\"$namespace\",user_type=~\"$user_type\"})",
           "legendFormat": "Online Users ({{user_type}})",
           "refId": "A",
-          "interval": "$__rate_interval"
+          "interval": "5m"
         }
       ],
       "fieldConfig": {
@@ -169,7 +169,7 @@
           "expr": "sum by (user_type) (games_ws_connections{namespace=~\"$namespace\",user_type=~\"$user_type\"})",
           "legendFormat": "Connections ({{user_type}})",
           "refId": "A",
-          "interval": "$__rate_interval"
+          "interval": "5m"
         }
       ],
       "fieldConfig": {
