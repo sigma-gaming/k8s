@@ -1,12 +1,10 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: games-ws
+  name: cloudnative-pg
 spec:
-  folderRef: applications
+  folderRef: cloudnative-pg
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
-  configMapRef:
-    name: games-ws-dashboard
-    key: dashboard.json
+  url: "https://grafana.com/api/dashboards/20417/revisions/3/download"

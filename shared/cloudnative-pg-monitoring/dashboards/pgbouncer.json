@@ -968,46 +968,6 @@
       "collapsed": false
     },
     {
-      "type": "stat",
-      "title": "PgBouncer Availability",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "textMode": "auto",
-        "thresholds": {
-          "mode": "absolute",
-          "steps": [
-            {
-              "color": "red",
-              "value": null
-            },
-            {
-              "color": "green",
-              "value": 1
-            }
-          ]
-        }
-      },
-      "targets": [
-        {
-          "expr": "up{namespace=~\"$namespace\",job=~\"$job\"}",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 96
-      }
-    },
-    {
       "type": "timeseries",
       "title": "Server Assignments",
       "datasource": {
@@ -1035,7 +995,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 96
       }
     }

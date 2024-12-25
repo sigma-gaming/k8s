@@ -6,7 +6,6 @@ resources:
   - dashboards/nodejs.yaml
   - dashboards/games-ws.yaml
   - dashboards/games-api.yaml
-  - dashboards/pgbouncer.yaml
 
 configurations:
   - kustomizeconfig.yaml
@@ -15,6 +14,7 @@ configMapGenerator:
   - name: games-api-dashboard
     files:
       - dashboard.json=dashboards/games-api.json
-  - name: pgbouncer-dashboard
+
+  - name: games-ws-dashboard
     files:
-      - dashboard.json=dashboards/pgbouncer.json
+      - dashboard.json=dashboards/games-ws.json
