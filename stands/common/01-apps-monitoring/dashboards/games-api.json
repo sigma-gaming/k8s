@@ -119,7 +119,7 @@
           "expr": "sum by (game) (increase(games_api_bets_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
           "legendFormat": "Bets ({{game}})",
           "refId": "A",
-          "interval": "5m"
+          "interval": "$__rate_interval"
         }
       ],
       "fieldConfig": {
@@ -169,7 +169,7 @@
           "expr": "sum by (game) (increase(games_api_wins_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
           "legendFormat": "Wins ({{game}})",
           "refId": "A",
-          "interval": "5m"
+          "interval": "$__rate_interval"
         }
       ],
       "fieldConfig": {
@@ -219,7 +219,7 @@
           "expr": "sum by (game) (increase(games_api_losses_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
           "legendFormat": "Losses ({{game}})",
           "refId": "A",
-          "interval": "5m"
+          "interval": "$__rate_interval"
         }
       ],
       "fieldConfig": {
