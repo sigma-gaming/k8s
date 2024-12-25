@@ -360,7 +360,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Query Count and Duration",
+      "title": "Query and Transaction Counts",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -373,13 +373,13 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_query_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
-          "legendFormat": "Queries/s - {{database}}",
+          "expr": "increase(cnpg_pgbouncer_stats_total_query_count{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
+          "legendFormat": "Queries - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_avg_query_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
-          "legendFormat": "Avg Duration (ms) - {{database}}",
+          "expr": "increase(cnpg_pgbouncer_stats_total_xact_count{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
+          "legendFormat": "Transactions - {{database}}",
           "refId": "B"
         }
       ],
@@ -392,7 +392,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Transaction Statistics",
+      "title": "Query and Transaction Duration",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -405,16 +405,21 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_xact_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
-          "legendFormat": "Transactions/s - {{database}}",
+          "expr": "cnpg_pgbouncer_stats_avg_query_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
+          "legendFormat": "Query Duration - {{database}}",
           "refId": "A"
         },
         {
           "expr": "cnpg_pgbouncer_stats_avg_xact_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000",
-          "legendFormat": "Avg Duration (ms) - {{database}}",
+          "legendFormat": "Transaction Duration - {{database}}",
           "refId": "B"
         }
       ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -448,12 +453,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_recv{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "rate(cnpg_pgbouncer_stats_avg_recv{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Received bytes/s - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_avg_sent{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "rate(cnpg_pgbouncer_stats_avg_sent{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Sent bytes/s - {{database}}",
           "refId": "B"
         }
@@ -789,12 +794,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_received{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "rate(cnpg_pgbouncer_stats_total_received{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Received - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_total_sent{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "rate(cnpg_pgbouncer_stats_total_sent{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Sent - {{database}}",
           "refId": "B"
         }
@@ -890,7 +895,7 @@
         "x": 0,
         "y": 86
       },
-      "collapsed": false
+      "collapsed": true
     },
     {
       "type": "timeseries",
@@ -907,7 +912,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_query_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000000",
+          "expr": "rate(cnpg_pgbouncer_stats_total_query_time{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval]) / 1000000",
           "legendFormat": "Query Time - {{database}} (s)",
           "refId": "A"
         }
@@ -939,7 +944,7 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_total_xact_time{namespace=~\"$namespace\",pod=~\"$pod\"} / 1000000",
+          "expr": "rate(cnpg_pgbouncer_stats_total_xact_time{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval]) / 1000000",
           "legendFormat": "Transaction Time - {{database}} (s)",
           "refId": "A"
         }
@@ -957,17 +962,6 @@
       }
     },
     {
-      "type": "row",
-      "title": "Service Health",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 95
-      },
-      "collapsed": false
-    },
-    {
       "type": "timeseries",
       "title": "Server Assignments",
       "datasource": {
@@ -982,12 +976,12 @@
       },
       "targets": [
         {
-          "expr": "cnpg_pgbouncer_stats_avg_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "rate(cnpg_pgbouncer_stats_avg_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Rate - {{database}}",
           "refId": "A"
         },
         {
-          "expr": "cnpg_pgbouncer_stats_total_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "increase(cnpg_pgbouncer_stats_total_server_assignment_count{namespace=~\"$namespace\",pod=~\"$pod\"}[$__rate_interval])",
           "legendFormat": "Total - {{database}}",
           "refId": "B"
         }
