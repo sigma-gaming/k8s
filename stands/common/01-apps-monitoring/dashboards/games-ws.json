@@ -126,7 +126,8 @@
         "defaults": {
           "unit": "none",
           "custom": {
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "axisSoftMax": 10
           },
           "thresholds": {
             "mode": "absolute",
@@ -175,7 +176,8 @@
         "defaults": {
           "unit": "none",
           "custom": {
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "axisSoftMax": 10
           },
           "thresholds": {
             "mode": "absolute",
