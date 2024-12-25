@@ -43,7 +43,7 @@ spec:
       pg_stat_statements.track: all
 
   backup:
-    retentionPolicy: "7d"
+    retentionPolicy: "1d"
     barmanObjectStore:
       destinationPath: gs://stage-games-db-backups
       googleCredentials:
