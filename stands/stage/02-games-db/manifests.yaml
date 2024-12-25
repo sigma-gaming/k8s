@@ -35,10 +35,10 @@ spec:
 
   postgresql:
     parameters:
-      max_connections: "200"
+      max_connections: "100"
       shared_buffers: "1GB"
       effective_cache_size: "3GB"
-      work_mem: "8MB"
+      work_mem: "4MB"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
@@ -53,6 +53,17 @@ spec:
       wal:
         compression: snappy
         maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: games-db-backup
+  namespace: games-stage
+spec:
+  schedule: "0 2 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: games-db
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
@@ -70,9 +81,10 @@ spec:
     parameters:
       max_client_conn: "200"
       default_pool_size: "20"
-      min_pool_size: "5"
-      reserve_pool_size: "5"
+      min_pool_size: "10"
+      reserve_pool_size: "10"
       server_idle_timeout: "300"
+      query_timeout: "15"
 
   template:
     spec:
@@ -87,12 +99,34 @@ spec:
               memory: "512Mi"
 ---
 apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
+kind: Pooler
 metadata:
-  name: games-db-backup
+  name: games-db-health-pooler-rw
   namespace: games-stage
 spec:
-  schedule: "0 2 * * *"
-  backupOwnerReference: self
   cluster:
     name: games-db
+
+  type: rw
+
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "10"
+      default_pool_size: "5"
+      min_pool_size: "3"
+      reserve_pool_size: "2"
+      server_idle_timeout: "300"
+      query_timeout: "5"
+
+  template:
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: "64Mi"
+            limits:
+              cpu: "0.25"
+              memory: "128Mi"
