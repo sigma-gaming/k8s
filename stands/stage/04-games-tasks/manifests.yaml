@@ -99,7 +99,5 @@ spec:
             key: api-key
       - name: BOVAPAY_CALLBACK_URL
         value: "https://payment.sigmacloud.app/bovapay"
-      - name: PUSHGATEWAY_URL
-        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local/api/v1/import/prometheus"
       - name: METRICS_PUSHGATEWAY_URL
-        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local/api/v1/import/prometheus"
+        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429/api/v1/import/prometheus"
