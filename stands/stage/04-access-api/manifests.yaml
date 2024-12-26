@@ -32,7 +32,7 @@ spec:
     ingress:
       enabled: false
     migration:
-      tag: dev-1734890128233 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1735216980511 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
