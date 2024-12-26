@@ -41,6 +41,8 @@ spec:
         schedule: "*/5 * * * *" # every 5 minutes
       - name: UpdateCurrencyRates
         schedule: "*/5 * * * *" # every 5 minutes
+      - name: SendTransactionsMetrics
+        schedule: "*/5 * * * *" # every 5 minutes
     resources:
       limits:
         cpu: "500m"
@@ -97,3 +99,7 @@ spec:
             key: api-key
       - name: BOVAPAY_CALLBACK_URL
         value: "https://payment.sigmacloud.app/bovapay"
+      - name: PUSHGATEWAY_URL
+        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local/api/v1/import/prometheus"
+      - name: METRICS_PUSHGATEWAY_URL
+        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local/api/v1/import/prometheus"
