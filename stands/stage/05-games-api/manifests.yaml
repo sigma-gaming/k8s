@@ -103,6 +103,8 @@ spec:
           secretKeyRef:
             name: jwt-secret
             key: secret
+      - name: BYPASS_RATE_LIMIT_TOKEN
+        value: "SECRET_REMOVED"
       - name: PUBLIC_TELEGRAM_BOT_ID
         valueFrom:
           configMapKeyRef:
