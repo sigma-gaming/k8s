@@ -34,7 +34,7 @@ spec:
       hosts:
         - letsauth.app
     migration:
-      tag: dev-1735216980511 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1735315743195 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
