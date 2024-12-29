@@ -75,7 +75,7 @@
       {
         "type": "query",
         "name": "namespace",
-        "query": "label_values(games_api_bets_amount, namespace)",
+        "query": "label_values(games_bets_amount, namespace)",
         "label": "Namespace",
         "includeAll": true,
         "allValue": ".+"
@@ -83,7 +83,7 @@
       {
         "type": "query",
         "name": "game",
-        "query": "label_values(games_api_bets_amount, game)",
+        "query": "label_values(games_bets_amount, game)",
         "label": "Game",
         "includeAll": true,
         "allValue": ".+"
@@ -117,7 +117,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (game) (increase(games_api_bets_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
+          "expr": "sum by (game) (increase(games_bets_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
           "legendFormat": "Bets ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -167,7 +167,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (game) (increase(games_api_wins_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
+          "expr": "games_total_amount{namespace=~\"$namespace\",type=\"Win\",game=~\"$game\"} / 100",
           "legendFormat": "Wins ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -217,7 +217,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (game) (increase(games_api_losses_amount{namespace=~\"$namespace\",game=~\"$game\"})) / 100",
+          "expr": "games_total_amount{namespace=~\"$namespace\",type=\"Loss\",game=~\"$game\"} / 100",
           "legendFormat": "Losses ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -289,27 +289,27 @@
       },
       "targets": [
         {
-          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
+          "expr": "sum by () (increase(games_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
           "legendFormat": "1 side",
           "refId": "A"
         },
         {
-          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
+          "expr": "sum by () (increase(games_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"})) - sum by () (increase(games_dice_sides_bucket{le=\"1\", namespace=~\"$namespace\"}))",
           "legendFormat": "2 sides",
           "refId": "B"
         },
         {
-          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}))",
+          "expr": "sum by () (increase(games_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"})) - sum by () (increase(games_dice_sides_bucket{le=\"2\", namespace=~\"$namespace\"}))",
           "legendFormat": "3 sides",
           "refId": "C"
         },
         {
-          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}))",
+          "expr": "sum by () (increase(games_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"})) - sum by () (increase(games_dice_sides_bucket{le=\"3\", namespace=~\"$namespace\"}))",
           "legendFormat": "4 sides",
           "refId": "D"
         },
         {
-          "expr": "sum by () (increase(games_api_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"})) - sum by () (increase(games_api_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}))",
+          "expr": "sum by () (increase(games_dice_sides_bucket{le=\"5\", namespace=~\"$namespace\"})) - sum by () (increase(games_dice_sides_bucket{le=\"4\", namespace=~\"$namespace\"}))",
           "legendFormat": "5 sides",
           "refId": "E"
         }
@@ -361,7 +361,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (mode) (increase(games_api_pincode_games{namespace=~\"$namespace\"}))",
+          "expr": "sum by (mode) (increase(games_pincode_games{namespace=~\"$namespace\"}))",
           "legendFormat": "{{mode}} mode",
           "refId": "A"
         }
