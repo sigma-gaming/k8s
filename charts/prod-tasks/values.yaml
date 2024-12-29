@@ -12,6 +12,7 @@ jobs:
     schedule: "0 * * * *"
   - name: "example-2"
     schedule: "0 * * * *"
+    deadlineSeconds: 60
 
 migration:
   enabled: true

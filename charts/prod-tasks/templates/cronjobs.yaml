@@ -12,6 +12,11 @@ spec:
     spec:
       template:
         spec:
+          {{- if $job.deadlineSeconds }}
+          activeDeadlineSeconds: {{ $job.deadlineSeconds }}
+          {{- else }}
+          activeDeadlineSeconds: 60
+          {{- end }}
           restartPolicy: OnFailure
           nodeSelector:
             role: application
