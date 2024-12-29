@@ -41,7 +41,7 @@ spec:
         schedule: "*/5 * * * *" # every 5 minutes
       - name: UpdateCurrencyRates
         schedule: "*/5 * * * *" # every 5 minutes
-      - name: SendTransactionsMetrics
+      - name: SendAdvancedGamesMetrics
         schedule: "*/5 * * * *" # every 5 minutes
     resources:
       limits:
