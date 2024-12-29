@@ -1,12 +1,12 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: games-api
+  name: games
 spec:
   folderRef: applications
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
   configMapRef:
-    name: games-api-dashboard
+    name: games-dashboard
     key: dashboard.json

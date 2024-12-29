@@ -8,13 +8,13 @@ configurations:
 resources:
   - folders.yaml
   - dashboards/nodejs.yaml
+  - dashboards/games.yaml
   - dashboards/games-ws.yaml
-  - dashboards/games-api.yaml
 
 configMapGenerator:
-  - name: games-api-dashboard
+  - name: games-dashboard
     files:
-      - dashboard.json=dashboards/games-api.json
+      - dashboard.json=dashboards/games.json
 
   - name: games-ws-dashboard
     files:
