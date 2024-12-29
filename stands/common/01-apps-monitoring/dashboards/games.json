@@ -87,6 +87,15 @@
         "label": "Game",
         "includeAll": true,
         "allValue": ".+"
+      },
+      {
+        "type": "query",
+        "name": "type",
+        "query": "label_values(games_count, type)",
+        "label": "Transaction Type",
+        "includeAll": true,
+        "allValue": ".+",
+        "refresh": 2
       }
     ]
   },
@@ -421,18 +430,28 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
+          "decimals": 2,
           "custom": {
             "drawStyle": "line",
             "lineWidth": 2,
-            "fillOpacity": 20
+            "fillOpacity": 20,
+            "spanNulls": true
           },
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1000
+              },
+              {
+                "color": "green",
+                "value": 5000
               }
             ]
           }
@@ -447,7 +466,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Maximum Transaction Amount",
+      "title": "Maximum Transaction Amount by Type",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -460,19 +479,21 @@
       },
       "targets": [
         {
-          "expr": "games_max_transaction_amount{namespace=~\"$namespace\",game=~\"$game\"} / 100",
-          "legendFormat": "Max Amount ({{game}})",
+          "expr": "games_max_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"} / 100",
+          "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
+          "decimals": 2,
           "custom": {
             "drawStyle": "line",
             "lineWidth": 2,
-            "fillOpacity": 20
+            "fillOpacity": 20,
+            "spanNulls": true
           },
           "thresholds": {
             "mode": "absolute",
@@ -494,7 +515,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Total Transaction Amount",
+      "title": "Total Amount by Type",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -507,18 +528,20 @@
       },
       "targets": [
         {
-          "expr": "games_total_transactions_amount{namespace=~\"$namespace\",game=~\"$game\"} / 100",
-          "legendFormat": "Total Amount ({{game}})",
+          "expr": "games_total_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"} / 100",
+          "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
+          "decimals": 2,
           "custom": {
             "drawStyle": "bars",
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "spanNulls": true
           },
           "thresholds": {
             "mode": "absolute",
@@ -540,7 +563,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Transaction Count",
+      "title": "Transaction Count by Type",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -553,18 +576,20 @@
       },
       "targets": [
         {
-          "expr": "games_transactions_count{namespace=~\"$namespace\",game=~\"$game\"}",
-          "legendFormat": "Count ({{game}})",
+          "expr": "games_count{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"}",
+          "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "short",
+          "decimals": 0,
           "custom": {
             "drawStyle": "bars",
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "spanNulls": true
           },
           "thresholds": {
             "mode": "absolute",
