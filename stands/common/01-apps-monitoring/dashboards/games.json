@@ -413,7 +413,7 @@
       },
       "targets": [
         {
-          "expr": "games_available_budget{namespace=~\"$namespace\"}",
+          "expr": "games_available_budget{namespace=~\"$namespace\"} / 100",
           "legendFormat": "Budget",
           "refId": "A",
           "interval": "5m"
@@ -460,7 +460,7 @@
       },
       "targets": [
         {
-          "expr": "games_max_transaction_amount{namespace=~\"$namespace\",game=~\"$game\"}",
+          "expr": "games_max_transaction_amount{namespace=~\"$namespace\",game=~\"$game\"} / 100",
           "legendFormat": "Max Amount ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -507,7 +507,7 @@
       },
       "targets": [
         {
-          "expr": "games_total_transactions_amount{namespace=~\"$namespace\",game=~\"$game\"}",
+          "expr": "games_total_transactions_amount{namespace=~\"$namespace\",game=~\"$game\"} / 100",
           "legendFormat": "Total Amount ({{game}})",
           "refId": "A",
           "interval": "5m"
