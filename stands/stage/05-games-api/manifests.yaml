@@ -55,10 +55,10 @@ spec:
       tag: dev-1735481603866 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     resources:
       limits:
-        cpu: "500m"
+        cpu: "1"
         memory: "256Mi"
       requests:
-        cpu: "250m"
+        cpu: "500m"
         memory: "128Mi"
     env:
       - name: NODE_ENV
