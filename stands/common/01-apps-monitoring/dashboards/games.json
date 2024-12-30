@@ -134,7 +134,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
             "fillOpacity": 100
@@ -176,7 +176,7 @@
       },
       "targets": [
         {
-          "expr": "games_total_amount{namespace=~\"$namespace\",type=\"Win\",game=~\"$game\"} / 100",
+          "expr": "sum by (game) (games_total_amount{namespace=~\"$namespace\",type=\"Win\",game=~\"$game\"}) / 100",
           "legendFormat": "Wins ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -184,7 +184,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
             "fillOpacity": 100
@@ -226,7 +226,7 @@
       },
       "targets": [
         {
-          "expr": "games_total_amount{namespace=~\"$namespace\",type=\"Loss\",game=~\"$game\"} / 100",
+          "expr": "sum by (game) (games_total_amount{namespace=~\"$namespace\",type=\"Loss\",game=~\"$game\"}) / 100",
           "legendFormat": "Losses ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -234,7 +234,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "none",
+          "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
             "fillOpacity": 100
@@ -479,7 +479,7 @@
       },
       "targets": [
         {
-          "expr": "games_max_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"} / 100",
+          "expr": "sum by (type, game) (games_max_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"}) / 100",
           "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -495,6 +495,7 @@
             "fillOpacity": 20,
             "spanNulls": true
           },
+          "nullValueMode": "null",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -528,7 +529,7 @@
       },
       "targets": [
         {
-          "expr": "games_total_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"} / 100",
+          "expr": "sum by (type, game) (games_total_amount{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"}) / 100",
           "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -543,6 +544,7 @@
             "fillOpacity": 100,
             "spanNulls": true
           },
+          "nullValueMode": "null",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -576,7 +578,7 @@
       },
       "targets": [
         {
-          "expr": "games_count{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"}",
+          "expr": "sum by (type, game) (games_count{namespace=~\"$namespace\",game=~\"$game\",type=~\"$type\"})",
           "legendFormat": "{{type}} ({{game}})",
           "refId": "A",
           "interval": "5m"
@@ -591,6 +593,7 @@
             "fillOpacity": 100,
             "spanNulls": true
           },
+          "nullValueMode": "null",
           "thresholds": {
             "mode": "absolute",
             "steps": [
