@@ -37,7 +37,7 @@ spec:
     metrics:
       enabled: true
     migration:
-      tag: dev-1735481603866 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1735596816417 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
