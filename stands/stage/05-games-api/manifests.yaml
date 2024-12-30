@@ -22,7 +22,7 @@ spec:
       retries: -1
   values:
     name: games-api
-    replicaCount: 1
+    replicaCount: 4
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
       tag: dev-1735503512952 # {"$imagepolicy": "games-stage:games-api:tag"}
@@ -55,11 +55,11 @@ spec:
       tag: dev-1735481603866 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     resources:
       limits:
-        cpu: "2"
-        memory: "1Gi"
+        cpu: "500m"
+        memory: "256Mi"
       requests:
-        cpu: "1"
-        memory: "512Mi"
+        cpu: "250m"
+        memory: "128Mi"
     env:
       - name: NODE_ENV
         value: "production"
