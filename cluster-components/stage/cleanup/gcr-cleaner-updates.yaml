@@ -21,7 +21,7 @@ spec:
     push:
       branch: main
   update:
-    path: ./components/cleanup
+    path: ./cluster-components/stage/cleanup
     strategy: Setters
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
