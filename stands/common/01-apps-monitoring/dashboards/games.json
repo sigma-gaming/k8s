@@ -493,7 +493,10 @@
             "drawStyle": "line",
             "lineWidth": 2,
             "fillOpacity": 20,
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "nullValueMode": "null",
           "thresholds": {
@@ -542,7 +545,10 @@
           "custom": {
             "drawStyle": "bars",
             "fillOpacity": 100,
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "nullValueMode": "null",
           "thresholds": {
