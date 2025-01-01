@@ -23,7 +23,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: maintenance-app
-          image: europe-west1-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1735691500969 # {"$imagepolicy": "games-stage:maintenance-app"}
+          image: europe-west1-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1735722519843 # {"$imagepolicy": "games-stage:maintenance-app"}
           ports:
             - name: public
               containerPort: 8080
