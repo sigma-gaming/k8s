@@ -56,7 +56,7 @@ spec:
       - name: PUBLIC_STAGE
         value: "production"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1735745061421" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1735751795266" # {"$imagepolicy": "games-stage:games-api:tag"}
       - name: GAMES_TASKS_MODE
         value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION
