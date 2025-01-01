@@ -19,7 +19,7 @@ spec:
                 - name: GCLOUD_PROJECT_ID
                   value: sigma-games
                 - name: GCLOUD_REGISTRY_REGION
-                  value: europe-west4
+                  value: europe-west1
                 - name: GCLOUD_SERVICE_ACCOUNT_KEY
                   valueFrom:
                     secretKeyRef:
