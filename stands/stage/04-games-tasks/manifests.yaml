@@ -29,10 +29,10 @@ spec:
       tag: dev-1735776107489 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     jobEnvName: GAMES_TASKS_JOB
     jobs:
-      - name: InitializeChatMessages
-        schedule: "0 */1 * * *" # every 1 hour
       - name: ProcessReferrerPayouts
         schedule: "0 */1 * * *" # every 1 hour
+      - name: InitializeChatMessages
+        schedule: "*/10 * * * *" # every 10 minutes
       - name: ProcessStaleDeposits
         schedule: "*/10 * * * *" # every 10 minutes
       - name: ProcessStaleWithdrawals
