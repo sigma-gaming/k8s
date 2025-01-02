@@ -214,7 +214,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Events Rate by User Type",
+      "title": "Events Increase by User Type",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -227,23 +227,23 @@
       },
       "targets": [
         {
-          "expr": "sum by (user_type) (rate(games_ws_events_received_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
+          "expr": "sum by (user_type) (increase(games_ws_events_received_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
           "legendFormat": "Received ({{user_type}})",
           "refId": "A"
         },
         {
-          "expr": "sum by (user_type, emit_scope) (rate(games_ws_events_sent_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
+          "expr": "sum by (user_type, emit_scope) (increase(games_ws_events_sent_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
           "legendFormat": "Sent ({{user_type}} - {{emit_scope}})",
           "refId": "B"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "ops",
+          "unit": "short",
           "custom": {
             "fillOpacity": 20,
             "lineWidth": 2,
-            "spanNulls": false
+            "spanNulls": true
           }
         }
       },
