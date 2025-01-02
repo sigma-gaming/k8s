@@ -256,7 +256,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Connection Rate by User Type",
+      "title": "Connection Increase by User Type",
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
@@ -269,23 +269,23 @@
       },
       "targets": [
         {
-          "expr": "sum by (user_type) (rate(games_ws_connected_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
+          "expr": "sum by (user_type) (increase(games_ws_connected_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
           "legendFormat": "Connected ({{user_type}})",
           "refId": "A"
         },
         {
-          "expr": "sum by (user_type) (rate(games_ws_disconnected_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
+          "expr": "sum by (user_type) (increase(games_ws_disconnected_total{namespace=~\"$namespace\",user_type=~\"$user_type\"}[5m]))",
           "legendFormat": "Disconnected ({{user_type}})",
           "refId": "B"
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "ops",
+          "unit": "short",
           "custom": {
             "fillOpacity": 20,
             "lineWidth": 2,
-            "spanNulls": false
+            "spanNulls": true
           }
         }
       },
