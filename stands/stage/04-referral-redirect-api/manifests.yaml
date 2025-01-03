@@ -37,17 +37,17 @@ spec:
     env:
       - name: NODE_ENV
         value: "production"
-      - name: REFERRAL_REDIRECT_API_PORT
+      - name: REDIRECT_API_PORT
         value: "8080"
-      - name: REFERRAL_REDIRECT_API_INTERNAL_PORT
+      - name: REDIRECT_API_INTERNAL_PORT
         value: "9090"
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
         value: "dev-1735936051564" # {"$imagepolicy": "games-stage:games-api:tag"}
-      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+      - name: PUBLIC_REDIRECT_API_URL
         value: "https://sigm.to"
-      - name: PUBLIC_REFERRAL_REDIRECT_API_VERSION
+      - name: PUBLIC_REDIRECT_API_VERSION
         value: "dev-1735936051564" # {"$imagepolicy": "games-stage:referral-redirect-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"

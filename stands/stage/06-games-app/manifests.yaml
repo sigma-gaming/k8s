@@ -50,7 +50,7 @@ spec:
         value: "https://api.sigma1.games/access"
       - name: PUBLIC_GAMES_WS_URL
         value: "wss://ws.sigma1.games"
-      - name: PUBLIC_REFERRAL_REDIRECT_API_URL
+      - name: PUBLIC_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_TELEGRAM_BOT_ID
         valueFrom:
