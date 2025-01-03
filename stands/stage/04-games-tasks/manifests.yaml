@@ -24,7 +24,7 @@ spec:
     name: games-tasks
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-tasks
-      tag: dev-1735936051564 # {"$imagepolicy": "games-stage:games-tasks:tag"}
+      tag: dev-1735942617524 # {"$imagepolicy": "games-stage:games-tasks:tag"}
     migration:
       tag: dev-1735942617524 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     jobEnvName: GAMES_TASKS_JOB
@@ -60,7 +60,7 @@ spec:
       - name: GAMES_TASKS_MODE
         value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION
-        value: "dev-1735936051564" # {"$imagepolicy": "games-stage:games-tasks:tag"}
+        value: "dev-1735942617524" # {"$imagepolicy": "games-stage:games-tasks:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_USER
