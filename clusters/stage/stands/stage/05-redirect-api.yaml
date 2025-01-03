@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: stage-referral-redirect-api
+  name: stage-redirect-api
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/stage/04-referral-redirect-api
+  path: ./stands/stage/04-redirect-api
   prune: true
   dependsOn:
     - name: registry-creds
