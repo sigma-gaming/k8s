@@ -13,7 +13,7 @@ spec:
         - name: google-registry-creds
       containers:
         - name: games-db-migration
-          image: europe-west1-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1735936051564 # {"$imagepolicy": "games-stage:games-db-migration"}
+          image: europe-west1-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1735942617524 # {"$imagepolicy": "games-stage:games-db-migration"}
           env:
             - name: NODE_ENV
               value: "production"
