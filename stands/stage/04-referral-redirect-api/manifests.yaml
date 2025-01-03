@@ -33,7 +33,7 @@ spec:
       hosts:
         - sigm.to
     migration:
-      tag: dev-1735776107489 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1735936051564 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
