@@ -16,7 +16,7 @@ spec:
             - name: google-registry-creds
           containers:
             - name: gcr-cleaner
-              image: europe-west1-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner:dev-1735944652296 # {"$imagepolicy": "cleanup:gcr-cleaner"}
+              image: europe-west1-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner:dev-1736031196611 # {"$imagepolicy": "cleanup:gcr-cleaner"}
               env:
                 - name: GCLOUD_PROJECT_ID
                   value: sigma-games
