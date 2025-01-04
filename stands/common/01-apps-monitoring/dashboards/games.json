@@ -137,7 +137,10 @@
           "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "thresholds": {
             "mode": "absolute",
@@ -187,7 +190,10 @@
           "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "thresholds": {
             "mode": "absolute",
@@ -237,7 +243,10 @@
           "unit": "currencyRUB",
           "custom": {
             "drawStyle": "bars",
-            "fillOpacity": 100
+            "fillOpacity": 100,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "thresholds": {
             "mode": "absolute",
@@ -597,7 +606,10 @@
           "custom": {
             "drawStyle": "bars",
             "fillOpacity": 100,
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "mode": "normal"
+            }
           },
           "nullValueMode": "null",
           "thresholds": {
