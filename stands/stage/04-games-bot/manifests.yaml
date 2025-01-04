@@ -81,3 +81,8 @@ spec:
           secretKeyRef:
             name: telegram
             key: bot-token
+      - name: BYPASS_WAF_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: bypass-tokens
+            key: waf
