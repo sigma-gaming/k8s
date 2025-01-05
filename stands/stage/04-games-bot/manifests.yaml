@@ -24,7 +24,8 @@ spec:
     name: games-bot
     replicaCount: 1
     nodeSelector:
-      role: monitoring
+      role: application
+      environment: stage
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/bots/games-bot
       tag: dev-1736092386850 # {"$imagepolicy": "games-stage:games-bot:tag"}
