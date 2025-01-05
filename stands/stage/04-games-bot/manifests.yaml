@@ -25,7 +25,7 @@ spec:
     replicaCount: 1
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/bots/games-bot
-      tag: dev-1736035621789 # {"$imagepolicy": "games-stage:games-bot:tag"}
+      tag: dev-1736036684904 # {"$imagepolicy": "games-stage:games-bot:tag"}
     ports:
       public: 8080
       internal: 9090
