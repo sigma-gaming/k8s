@@ -22,6 +22,9 @@ spec:
       retries: -1
   values:
     name: games-tasks
+    nodeSelector:
+      role: application
+      environment: stage
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-tasks
       tag: dev-1736031196611 # {"$imagepolicy": "games-stage:games-tasks:tag"}

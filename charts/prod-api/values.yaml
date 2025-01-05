@@ -2,9 +2,9 @@ replicaCount: 1
 
 name: "example"
 
-nodeSelector:
-  role: application
-  environment: stage
+# nodeSelector:
+#   role: application
+#   environment: production
 
 image:
   repository: example-api

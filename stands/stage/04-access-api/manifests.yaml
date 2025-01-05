@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.7.2"
+      version: "0.7.3"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -23,6 +23,9 @@ spec:
   values:
     name: access-api
     replicaCount: 1
+    nodeSelector:
+      role: application
+      environment: stage
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
       tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-access-api:tag"}
