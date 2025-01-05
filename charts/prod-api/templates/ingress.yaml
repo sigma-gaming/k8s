@@ -11,7 +11,6 @@ metadata:
   labels:
     {{- include "prod-api.labels" . | nindent 4 }}
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned
     {{- if .Values.ingress.annotations }}
       {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- end }}
@@ -21,7 +20,7 @@ spec:
     {{- range $i, $host := .Values.ingress.hosts }}
     - hosts:
         - {{ $host }}
-      secretName: {{ $host }}-cert
+      secretName: {{ (splitList "." $host) | slice -2 | join "." }}-cloudflare-cert
     {{- end }}
   rules:
     {{- range $i, $host := .Values.ingress.hosts }}
