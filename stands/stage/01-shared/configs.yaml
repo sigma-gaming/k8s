@@ -5,3 +5,4 @@ metadata:
   namespace: games-stage
 data:
   bot-id: "6842518979"
+  bot-username: "SigmaGamesBot"

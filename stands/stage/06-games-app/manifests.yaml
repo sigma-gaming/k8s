@@ -57,5 +57,10 @@ spec:
           configMapKeyRef:
             name: telegram
             key: bot-id
+      - name: PUBLIC_TELEGRAM_BOT_USERNAME
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-username
       - name: PUBLIC_VK_APP_ID
         value: "12345"
