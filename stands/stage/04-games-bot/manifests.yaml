@@ -32,6 +32,11 @@ spec:
     ingress:
       hosts:
         - games-bot.sigmacloud.app
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        nginx.ingress.kubernetes.io/proxy-buffering: "off"
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
     migration:
       tag: dev-1736033384047 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
