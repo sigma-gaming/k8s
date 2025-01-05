@@ -4,3 +4,4 @@ resources:
   - manifests.yaml
   - secrets.yaml
   - configs.yaml
+  - certificates.yaml

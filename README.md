@@ -11,6 +11,24 @@ kubectl create secret docker-registry google-registry-creds \
   --dry-run=client -o yaml
 ```
 
+## Create cloudflare certificate
+
+1. In "Origin server" section, create a certificate for the domain
+2. Download the certificate and key, and save them to `certificates/$DOMAIN.pem` and `certificates/$DOMAIN.key`
+3. Create a secret manifest:
+
+```fish
+set CLUSTER cluster
+set DOMAIN example.com
+
+kubectl create secret tls $DOMAIN-cloudflare-cert \
+  --cert=./certificates/$DOMAIN.pem \
+  --key=./certificates/$DOMAIN.key \
+  --dry-run=client -o yaml > ./certificates/$DOMAIN-cloudflare-cert.yaml
+
+seal_file $CLUSTER ./certificates/$DOMAIN-cloudflare-cert.yaml cluster-wide
+```
+
 ## Kubeseal
 
 Get public key:

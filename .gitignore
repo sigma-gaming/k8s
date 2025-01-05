@@ -1,3 +1,4 @@
 *.local.yaml
 *.local.json
 /playground
+/certificates
