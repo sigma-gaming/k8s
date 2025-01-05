@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-app
-      version: "0.4.1"
+      version: "0.4.2"
       sourceRef:
         kind: GitRepository
         name: flux-system
