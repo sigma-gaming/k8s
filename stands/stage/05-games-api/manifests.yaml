@@ -52,7 +52,7 @@ spec:
     metrics:
       enabled: true
     migration:
-      tag: dev-1736033384047 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1736038135763 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     resources:
       limits:
         cpu: "500m"

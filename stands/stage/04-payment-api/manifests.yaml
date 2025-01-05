@@ -33,7 +33,7 @@ spec:
       hosts:
         - payment.sigmacloud.app
     migration:
-      tag: dev-1736033384047 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1736038135763 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
