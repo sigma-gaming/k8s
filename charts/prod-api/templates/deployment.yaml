@@ -16,7 +16,7 @@ spec:
       labels:
         app: {{ .Values.name }}
     spec:
-      nodeSelector: {{- toJson .Values.nodeSelector | nindent 2 }}
+      nodeSelector: {{- toJson .Values.nodeSelector | nindent 8 }}
       imagePullSecrets:
         - name: google-registry-creds
       {{- if .Values.migration.enabled }}
