@@ -12,7 +12,10 @@ metadata:
   labels:
     {{- include "prod-app.labels" . | nindent 4 }}
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+    nginx.ingress.kubernetes.io/auth-tls-secret: ingress-nginx/cloudflare-root-cert
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
     nginx.ingress.kubernetes.io/default-backend: maintenance-app
     {{- if .Values.ingress.annotations }}
       {{- toYaml .Values.ingress.annotations | nindent 4 }}
