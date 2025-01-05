@@ -18,9 +18,10 @@ spec:
   ingressClassName: nginx
   tls:
     {{- range $i, $host := .Values.ingress.hosts }}
+    {{ $parts := splitList "." $host }}
     - hosts:
         - {{ $host }}
-      secretName: {{ (splitList "." $host) | slice -2 | join "." }}-cloudflare-cert
+      secretName: {{ index $parts (sub (len $parts) 2) }}.{{ index $parts (sub (len $parts) 1) }}-cloudflare-cert
     {{- end }}
   rules:
     {{- range $i, $host := .Values.ingress.hosts }}
