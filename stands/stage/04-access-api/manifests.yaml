@@ -28,7 +28,7 @@ spec:
       environment: stage
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1734701831912 # {"$imagepolicy": "games-stage:games-access-api:tag"}
+      tag: dev-1736114334097 # {"$imagepolicy": "games-stage:access-api:tag"}
     ports:
       public: 8080
       internal: 9090
