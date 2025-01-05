@@ -11,10 +11,6 @@ metadata:
   labels:
     {{- include "prod-api.labels" . | nindent 4 }}
   annotations:
-    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
-    nginx.ingress.kubernetes.io/auth-tls-secret: ingress-nginx/cloudflare-origin-ca-cert
-    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
-    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
     {{- if .Values.ingress.annotations }}
       {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- end }}
