@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/prod-api
-      version: "0.6.3"
+      version: "0.7.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -23,6 +23,8 @@ spec:
   values:
     name: games-bot
     replicaCount: 1
+    nodeSelector:
+      role: monitoring
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/bots/games-bot
       tag: dev-1736090361359 # {"$imagepolicy": "games-stage:games-bot:tag"}

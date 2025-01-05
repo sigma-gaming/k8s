@@ -17,8 +17,7 @@ spec:
         app: {{ .Values.name }}
     spec:
       nodeSelector:
-        role: application
-        environment: stage
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
       imagePullSecrets:
         - name: google-registry-creds
       {{- if .Values.migration.enabled }}

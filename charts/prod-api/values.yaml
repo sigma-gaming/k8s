@@ -2,6 +2,10 @@ replicaCount: 1
 
 name: "example"
 
+nodeSelector:
+  role: application
+  environment: stage
+
 image:
   repository: example-api
   pullPolicy: IfNotPresent
