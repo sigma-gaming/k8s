@@ -4,9 +4,9 @@
 
 ```bash
 kubectl create secret docker-registry google-registry-creds \
-  --docker-server eu.gcr.io \
+  --docker-server europe-west1-docker.pkg.dev \
   --docker-username _json_key \
-  --docker-email registry@sigma-k8s.app \
+  --docker-email google-registry@sigma-k8s.app \
   --docker-password="$(cat ./key.json)" \
   --dry-run=client -o yaml
 ```
@@ -46,24 +46,6 @@ Seal a secret:
 kubeseal --format=yaml --cert=clusters/<cluster>/pub-sealed-secrets.pem < basic-auth.yaml > basic-auth-sealed.yaml
 ```
 
-## Setup k3s cluster
-
-```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable=traefik" sh -s -
-```
-
-### Add node to cluster
-
-1. Copy token from `/var/lib/rancher/k3s/server/node-token`
-2. Run:
-
-```bash
-K3S_NODE_NAME=<node-name>
-K3S_TOKEN=<token>
-K3S_URL=https://<control-plane-hostname>:6443
-curl -sfL https://get.k3s.io | K3S_NODE_NAME=$K3S_NODE_NAME K3S_URL=$K3S_URL K3S_TOKEN=$K3S_TOKEN sh -s -
-```
-
 ## Setup Flux
 
 Bootstrap:
@@ -86,15 +68,7 @@ flux bootstrap github \
     head -c 12 /dev/urandom | shasum | cut -d ' ' -f1
     ```
 
-2. Insert generated token into `webhook-token` secret manifest (`components/flux-webhook/flux-webhook.yaml`)
+2. Insert generated token into `webhook-token` secret manifest (`cluster-components/<cluster>/flux-webhook/flux-webhook.yaml`)
 3. Reconcile repository
 4. Extract webhook url path from Receiver resource status
 5. Setup webhook in repository (`https://sigma-k8s.app/webhooks/flux/hook/<hook-path>`)
-
-## Elastic Stack
-
-### Get Elastic user password
-
-```bash
-kubectl get secret elasticsearch-es-elastic-user -n elastic-stack -o jsonpath="{.data.elastic}" | base64 -d
-```
