@@ -42,6 +42,7 @@ spec:
       work_mem: "4MB"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
+      shared_preload_libraries: pg_uuidv7
 
   backup:
     retentionPolicy: "1d"
