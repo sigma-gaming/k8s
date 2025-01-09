@@ -19,6 +19,7 @@ metadata:
   namespace: games-stage
 spec:
   instances: 1
+  imageName: ghcr.io/fboulnois/pg_uuidv7:1.5.0
 
   enableSuperuserAccess: true
 
