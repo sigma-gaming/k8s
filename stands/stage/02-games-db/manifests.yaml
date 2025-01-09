@@ -35,6 +35,8 @@ spec:
       memory: "4Gi"
 
   postgresql:
+    shared_preload_libraries:
+      - pg_uuidv7
     parameters:
       max_connections: "100"
       shared_buffers: "1GB"
@@ -42,7 +44,6 @@ spec:
       work_mem: "4MB"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
-      shared_preload_libraries: pg_uuidv7
 
   backup:
     retentionPolicy: "1d"
