@@ -65,10 +65,6 @@ spec:
       # for auth proxies
       allowSnippetAnnotations: true
 
-      nodeSelector:
-        kubernetes.io/os: linux
-        role: application
-
       metrics:
         enabled: true
       podAnnotations:
