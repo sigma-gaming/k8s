@@ -50,13 +50,13 @@ spec:
 
   bootstrap:
     recovery:
-      source: backup
+      source: games-db
     # initdb:
     #   postInitTemplateSQL:
     #     - "CREATE EXTENSION pg_uuidv7;"
 
   externalClusters:
-    - name: backup
+    - name: games-db
       barmanObjectStore:
         destinationPath: gs://stage-games-db-backups
         googleCredentials:
