@@ -10,7 +10,7 @@ spec:
       template:
         spec:
           nodeSelector:
-            role: application
+            role: service
           restartPolicy: OnFailure
           imagePullSecrets:
             - name: google-registry-creds
