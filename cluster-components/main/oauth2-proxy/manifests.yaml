@@ -1,0 +1,72 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: oauth2-proxy
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://oauth2-proxy.github.io/manifests
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: oauth2-proxy
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: oauth2-proxy-github
+  namespace: oauth2-proxy
+spec:
+  encryptedData:
+    client-id: AgCZGlCVQdwhCOZL7xOIKpZwz5VJ/rE4wZDLpdJ4JAlDeBBrhlpQAfSQ3Ai0pQwiwYJW4bwADrV6v3DsBEmHRbeP3kfrYpB+VJvmicAd1zJ3gG4k0F3MzAXY77JBfCffjm4rZyehP7XBEzHF53MB4ZG+rRdGpPuFIzL4fiuyRcYkqCm8+LfPo/nwM9mK2eGuH87TWEJwVFRiK9bBTyMWAbAKAJ0i1asDTErmN+Sv8EIS8DlpRU2L9hIwuTNeyZPERprT+DWxHLXdxuOiFgm87objhflghJszYv91G4Rf1iIUGGv5XmTIEhK8FfA329pPHRqjI37daF2dr+LC0a8gnGsUWZriGgzPZYQa2t9/+9Eppdpe/yj7JCwW0uiLYxkuBIuKyM5nxL/YMbC/SBF16OZfiTPoEujtN+nXBNcnwNrchXcFAONKxenQ/8CnOv1c7bL9I7x1bMhjw8sT05ZGZ6W+NTlWNHKd9nvAofBqvra6KT9wQXfMhZdRjgQlFqnl7CnhMIhaZL7rKnPSJWYMNAmXtVqz1k7JuJZsvhDbHUeLzvjpsJbl2FKexakArK37z3N1Pnga8UAnka5DyJdGcH1gev9+NMUJEwCvAnGVB2LuC4qhvdDK9H9tM3BM783ONtO5sICRdNHt7zKa7qojE+yRk0UWbsktpn+7S1YdbPjsb9W2vcLud5lb8WfYeTewNbTJgtcRSgMRzgiPu8nCvRhnFQtQhw==
+    client-secret: AgDACyKphJ87+Zyx8B9U5+oigaUsYatPaBuCq9YjHfZoJd8bZ1WngjApL1cmdUJTTifCkUljphviqb21wPFoeCdbAn2HPtHCpO3kZfimBLt0oVBm0S2xA1fGKQ1qeOrDe1uICYpIG3u0K/zv1lN4UTaeKFAk76HtB8XApdngboUaS2J2rCF/5wX8dy+XtiHBQ2iaE8kzlvc2W5YNik0B0yL+kro+dtj4cF7UkV/+mqLxe5mHMaOwkq4S6UDSSqlAoqMGL4wXo8JZPQz5oCniame50oivFDMYuUTHEb444IRmIZ3/g+AZyWrNSCybacwT/xMglAwLncQ4JUoKTWUQTM8ArS8wA5qiqi/tk4Af2ges52F5brxaoGUdYS1CR2BLhTKqQ2A1EdtQiJztudEZ2cghbuCoiM42lcvAvc0d+3vbj/TYPXRPAuQb6VPRI/Yb5/m1tJPWiJ0ry4kWUKQQUNcDZdOYthDdEv2ex8gOEBBio/OLktSIsCTH7lhm1yrJgPN1TZo3cCQZOacGpBsQFLQ+7SM1+fGCuf8xHVcmoF2bYVqTZeHeAIGIQwB/1QhHXIpmkaOINSpvVVvMhEf+VUZ5sBx/KFm1bI/yzLfuzmEb6rBuXewmP1LXYPD3XXqv0PL0DHit+k3mKCwdH+jPDRw8J70e1CxJmeOMoaUbX1vjNjykxedq3fJFGJPjK/4337MxNrcH+Mfo2JsHmRDNnh7edbYLJOb/QvzAdrtYiB6phBjtvVTVI5Ca
+    cookie-secret: AgDBpfRbf1zPLK7LIjACQQ76utNL/8OXm2sMeWQYkCkaSQ7DDZtzc9145ZReSI7sPkF6JrkTde9l4kpKxyAygAH+7fJhfgu4dxNU0Oj5SVstpbaI5KouL9Xz1zVL+5uZwo4PdXRlMHC8zI/eDOy61Q9kELcidqE8ggay67m0gwgoax/+T/CPMMAUa5uY0+f05MJVZ6CaIBfRZWysNYSf0jJjoQhuMx2+DWghMmI4VlYkbvyk7hjoHAMecYeg3rKdKiDQOqAKKqU+mZJkRmEUjbTcHBpFBpyhM6WxCCSZIp2L1a+m/6MgIL17xUIOQjtmaTVh8kj+ZTI9yjszNjfILljPoB5god2KrlJU/x+L4tr4btjCMn0a4hfWT04zAweNspO/x13WXjQSqaD+In+Es8KbzOuNGVtH9/+CUyvo/YO5bcAkq9A8uFCx+umhmeo0Sit08q2MIrsmqu5yYfSunUC7dwtWolkD8lSxWu/V50FLhrW0MPmCRoExTkBpnDEBBh6P6Mwh0wmOHAYk7dZGUe2l7VdJ3sdk62Gtitk+dD7F7dq6AFzlzadaq7X5sumR51/Zqh0Y1vgXgi1HqldZ1H70AmePpKWxoR5c0u1TbLgBc7DDps5wiD1OxK4WxKxpdqauJcj+TIBTNzf22P4XsytL7VqSJsMNBYKYGiQyeY9hjvYTleyI2h4eBBmlM7wZzZSkoMwOCBdxQciO1eTQ46VMwkgPx7uCA62xB5jK5a3xMw==
+  template:
+    metadata:
+      name: oauth2-proxy-github
+      namespace: oauth2-proxy
+    type: Opaque
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: oauth2-proxy
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: "7.7.26"
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: flux-system
+      interval: 10m
+  values:
+    config:
+      cookieName: sso
+      existingSecret: oauth2-proxy-github
+
+    extraArgs:
+      provider: github
+      github-org: sigma-gaming
+      cookie-domain: .sigmacloud.app
+      whitelist-domain: .sigmacloud.app
+      reverse-proxy: true
+      skip-auth-preflight: true
+      skip-auth-strip-headers: false
+
+    ingress:
+      enabled: true
+      path: /
+      hosts:
+        - auth.sigmacloud.app
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      tls:
+        - hosts:
+            - auth.sigmacloud.app
+          secretName: sigmacloud.app-cloudflare-cert

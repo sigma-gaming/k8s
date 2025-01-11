@@ -1,0 +1,44 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana-operator
+  namespace: monitoring
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: grafana-operator
+      version: "5.15.1"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      interval: 10m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    operator:
+      nodeSelector:
+        role: service

@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gcr-cleaner
+  namespace: cleanup
+spec:
+  schedule: "0 */1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            role: application
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: google-registry-creds
+          containers:
+            - name: gcr-cleaner
+              image: europe-west4-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner:dev-1736042635856 # {"$imagepolicy": "cleanup:gcr-cleaner"}
+              env:
+                - name: GCLOUD_PROJECT_ID
+                  value: sigma-games
+                - name: GCLOUD_REGISTRY_REGION
+                  value: europe-west1
+                - name: GCLOUD_SERVICE_ACCOUNT_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: gcloud-service-account-key
+                      key: key

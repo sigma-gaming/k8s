@@ -1,0 +1,51 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: gcr-cleaner
+  namespace: cleanup
+spec:
+  interval: 30s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: '{{range .Changed.Changes}}{{print .OldValue}} -> {{println .NewValue}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./cluster-components/main/cleanup
+    strategy: Setters
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: gcr-cleaner
+  namespace: cleanup
+spec:
+  image: europe-west4-docker.pkg.dev/sigma-games/docker/tools/gcr-cleaner
+  secretRef:
+    name: google-registry-creds
+  interval: 30s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: gcr-cleaner
+  namespace: cleanup
+spec:
+  imageRepositoryRef:
+    name: gcr-cleaner
+  filterTags:
+    pattern: '^dev-(?P<timestamp>.*)'
+    extract: '$timestamp'
+  policy:
+    numerical:
+      order: asc

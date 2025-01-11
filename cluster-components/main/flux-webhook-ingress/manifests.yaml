@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webhook-receiver
+  namespace: flux-system
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - main.sigma-k8s.app
+      secretName: main.sigma-k8s.app-cert
+  rules:
+    - host: main.sigma-k8s.app
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: /webhooks/flux(/|$)(.*)
+            backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
