@@ -47,7 +47,7 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1736034695004" # {"$imagepolicy": "games-production:games-api:tag"}
+        value: "dev-1736448946476" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: PUBLIC_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_REDIRECT_API_VERSION

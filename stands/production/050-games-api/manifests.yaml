@@ -28,7 +28,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1736034695004 # {"$imagepolicy": "games-production:games-api:tag"}
+      tag: dev-1736448946476 # {"$imagepolicy": "games-production:games-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -76,7 +76,7 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1736034695004" # {"$imagepolicy": "games-production:games-api:tag"}
+        value: "dev-1736448946476" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: GAMES_API_GAMES_DB_MAX_POOL_SIZE
         value: "40"
       - name: GAMES_DB_HOST
