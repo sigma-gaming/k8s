@@ -48,12 +48,12 @@ spec:
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
-  bootstrap:
-    recovery:
-      source: games-db
-    # initdb:
-    #   postInitTemplateSQL:
-    #     - "CREATE EXTENSION pg_uuidv7;"
+  # bootstrap:
+  #   recovery:
+  #     source: games-db
+  #   initdb:
+  #     postInitTemplateSQL:
+  #       - "CREATE EXTENSION pg_uuidv7;"
 
   externalClusters:
     - name: games-db

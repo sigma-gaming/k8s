@@ -2,9 +2,9 @@ apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: games-db-migration
-  namespace: games-stage
+  namespace: games-production
 spec:
-  image: europe-west1-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration
+  image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration
   secretRef:
     name: google-registry-creds
   interval: 30s
@@ -13,7 +13,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: games-db-migration
-  namespace: games-stage
+  namespace: games-production
 spec:
   imageRepositoryRef:
     name: games-db-migration

@@ -2,18 +2,19 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: games-db-migration- # version is appended in kustomization.yaml
-  namespace: games-stage
+  namespace: games-production
 spec:
   template:
     spec:
       nodeSelector:
         role: application
-        environment: stage
+        environment: production
       imagePullSecrets:
         - name: google-registry-creds
+      restartPolicy: Never
       containers:
         - name: games-db-migration
-          image: europe-west1-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1736042635856 # {"$imagepolicy": "games-stage:games-db-migration"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1736042635856 # {"$imagepolicy": "games-stage:games-db-migration"}
           env:
             - name: NODE_ENV
               value: "production"
@@ -37,4 +38,3 @@ spec:
                 secretKeyRef:
                   name: games-db-app
                   key: dbname
-      restartPolicy: Never
