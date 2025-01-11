@@ -94,8 +94,3 @@ spec:
           secretKeyRef:
             name: telegram-webhook
             key: secret-token
-      - name: TELEGRAM_WEBHOOK_CERT
-        valueFrom:
-          secretKeyRef:
-            name: sigmacloud.app-cloudflare-tls
-            key: tls.crt
