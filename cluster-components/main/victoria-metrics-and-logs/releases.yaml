@@ -92,6 +92,7 @@ spec:
         spec:
           endpoints:
             - port: http-metrics
+              scheme: https
               tlsConfig:
                 insecureSkipVerify: true
     kubeControllerManager:
@@ -99,6 +100,7 @@ spec:
         spec:
           endpoints:
             - port: http-metrics
+              scheme: https
               tlsConfig:
                 insecureSkipVerify: true
     kubeScheduler:
@@ -106,6 +108,7 @@ spec:
         spec:
           endpoints:
             - port: http-metrics
+              scheme: https
               tlsConfig:
                 insecureSkipVerify: true
     defaultDashboards:
