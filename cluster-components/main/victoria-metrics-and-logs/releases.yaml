@@ -87,6 +87,7 @@ spec:
       # enabled: false # impossible to scrape on k3s without hardcoding the node IPs
       service:
         selector:
+          component: null
           k8s-app: kube-controller-manager
       vmScrape:
         spec:
