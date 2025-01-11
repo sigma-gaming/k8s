@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/live-app
-      version: "0.5.1"
+      version: "1.0.0"
       sourceRef:
         kind: GitRepository
         name: flux-system

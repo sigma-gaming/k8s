@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/live-tasks
-      version: "0.2.0"
+      version: "1.0.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -46,13 +46,6 @@ spec:
         schedule: "*/5 * * * *" # every 5 minutes
       - name: SendAdvancedGamesMetrics
         schedule: "*/5 * * * *" # every 5 minutes
-    resources:
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-      requests:
-        cpu: "125m"
-        memory: "128Mi"
     env:
       - name: NODE_ENV
         value: "production"
