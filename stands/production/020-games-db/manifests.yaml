@@ -23,6 +23,11 @@ spec:
 
   enableSuperuserAccess: true
 
+  affinity:
+    nodeSelector:
+      role: application
+      environment: production
+
   storage:
     size: 10Gi
 
