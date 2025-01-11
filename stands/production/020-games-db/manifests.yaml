@@ -46,9 +46,9 @@ spec:
   bootstrap:
     recovery:
       source: backup
-    initdb:
-      postInitTemplateSQL:
-        - "CREATE EXTENSION pg_uuidv7;"
+    # initdb:
+    #   postInitTemplateSQL:
+    #     - "CREATE EXTENSION pg_uuidv7;"
 
   externalClusters:
     - name: backup
