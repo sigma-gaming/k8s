@@ -1,0 +1,66 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: games-app
+  namespace: games-production
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/live-app
+      version: "0.5.1"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: games-app
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
+      tag: dev-1736086500811 # {"$imagepolicy": "games-production:games-app:tag"}
+    ports:
+      public: 8080
+      internal: 9090
+    ingress:
+      hosts:
+        - sigma1.games
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PUBLIC_STAGE
+        value: "production"
+      - name: PUBLIC_DOMAIN
+        value: "sigma1.games"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigma1.games"
+      - name: PUBLIC_GAMES_APP_VERSION
+        value: "dev-1736086500811" # {"$imagepolicy": "games-production:games-app:tag"}
+      - name: PUBLIC_AUTH_API_URL
+        value: "https://letsauth.app"
+      - name: PUBLIC_GAMES_API_URL
+        value: "https://api.sigma1.games"
+      - name: PUBLIC_ACCESS_API_URL
+        value: "https://api.sigma1.games/access"
+      - name: PUBLIC_GAMES_WS_URL
+        value: "wss://ws.sigma1.games"
+      - name: PUBLIC_REDIRECT_API_URL
+        value: "https://sigm.to"
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-id
+      - name: PUBLIC_TELEGRAM_BOT_USERNAME
+        valueFrom:
+          configMapKeyRef:
+            name: telegram
+            key: bot-username
+      - name: PUBLIC_VK_APP_ID
+        value: "12345"

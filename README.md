@@ -4,7 +4,7 @@
 
 ```bash
 kubectl create secret docker-registry google-registry-creds \
-  --docker-server europe-west1-docker.pkg.dev \
+  --docker-server europe-west4-docker.pkg.dev \
   --docker-username _json_key \
   --docker-email google-registry@sigma-k8s.app \
   --docker-password="$(cat ./key.json)" \

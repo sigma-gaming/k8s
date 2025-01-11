@@ -14,7 +14,6 @@ spec:
     - name: production-shared
     - name: production-games-db
     - name: production-games-dragonfly
-    - name: production-games-db-migration
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -1,0 +1,85 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: redirect-api
+  namespace: games-production
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/live-api
+      version: "0.9.1"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: redirect-api
+    replicaCount: 1
+    nodeSelector:
+      role: application
+      environment: production
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/redirect-api
+      tag: dev-1736034695004 # {"$imagepolicy": "games-production:redirect-api:tag"}
+    ports:
+      public: 8080
+      internal: 9090
+    ingress:
+      hosts:
+        - sigm.to
+    migration:
+      tag: dev-1736616676116 # {"$imagepolicy": "games-production:games-db-migration:tag"}
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: REDIRECT_API_PORT
+        value: "8080"
+      - name: REDIRECT_API_INTERNAL_PORT
+        value: "9090"
+      - name: PUBLIC_GAMES_APP_URL
+        value: "https://sigma1.games"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1736034695004" # {"$imagepolicy": "games-production:games-api:tag"}
+      - name: PUBLIC_REDIRECT_API_URL
+        value: "https://sigm.to"
+      - name: PUBLIC_REDIRECT_API_VERSION
+        value: "dev-1735936051564" # {"$imagepolicy": "games-production:edirect-api:tag"}
+      - name: GAMES_DB_HOST
+        value: "games-db-pooler-rw"
+      - name: GAMES_DB_HEALTH_HOST
+        value: "games-db-health-pooler-rw"
+      - name: GAMES_DB_USER
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: user
+      - name: GAMES_DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: password
+      - name: GAMES_DB_DATABASE
+        valueFrom:
+          secretKeyRef:
+            name: games-db-app
+            key: dbname
+      - name: GAMES_CACHE_HOST
+        value: "games-dragonfly"
+      - name: GAMES_CACHE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: games-dragonfly-auth
+            key: password
+      - name: JWT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: jwt-secret
+            key: secret

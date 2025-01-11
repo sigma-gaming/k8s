@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintenance-app
+  namespace: games-production
+  labels:
+    app: maintenance-app
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: maintenance-app
+  template:
+    metadata:
+      namespace: games-production
+      labels:
+        app: maintenance-app
+    spec:
+      nodeSelector:
+        role: application
+        environment: production
+      imagePullSecrets:
+        - name: google-registry-creds
+      containers:
+        - name: maintenance-app
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/apps/maintenance-app:dev-1736009117347 # {"$imagepolicy": "games-production:maintenance-app"}
+          ports:
+            - name: public
+              containerPort: 8080
+            - name: internal
+              containerPort: 9090
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: internal
+            initialDelaySeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: internal
+            initialDelaySeconds: 5
+          resources:
+            limits:
+              cpu: "125m"
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintenance-app
+  namespace: games-production
+spec:
+  selector:
+    app: maintenance-app
+  ports:
+    - name: public
+      port: 8080

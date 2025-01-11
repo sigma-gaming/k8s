@@ -1,19 +1,20 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: production-games-bot
+  name: production-games-app
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/production/040-games-bot
+  path: ./stands/production/060-games-app
   prune: true
   dependsOn:
     - name: registry-creds
     - name: ingress-nginx
     - name: cloudflare-tls-es
     - name: production-shared
-    - name: production-games-db
-    - name: production-games-dragonfly
+    - name: production-maintenance-app
+    - name: production-games-api
+    - name: production-games-ws
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: production-games-bot
+  name: production-payment-api
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/production/040-games-bot
+  path: ./stands/production/040-payment-api
   prune: true
   dependsOn:
     - name: registry-creds
