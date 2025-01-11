@@ -83,17 +83,31 @@ spec:
         registry: docker.io
         repository: bitnami/kube-state-metrics
         tag: "2.14.0"
-    # kubeApiServer:
-    #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
-    # kubeControllerManager:
-    #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     kubeEtcd:
       # enabled: false # impossible to scrape on k3s without hardcoding the node IPs
       service:
         selector:
           k8s-app: kube-controller-manager
-    # kubeScheduler:
-    #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
+      vmScrape:
+        spec:
+          endpoints:
+            - port: http-metrics
+              tlsConfig:
+                insecureSkipVerify: true
+    kubeControllerManager:
+      vmScrape:
+        spec:
+          endpoints:
+            - port: http-metrics
+              tlsConfig:
+                insecureSkipVerify: true
+    kubeScheduler:
+      vmScrape:
+        spec:
+          endpoints:
+            - port: http-metrics
+              tlsConfig:
+                insecureSkipVerify: true
     defaultDashboards:
       grafanaOperator:
         enabled: true
