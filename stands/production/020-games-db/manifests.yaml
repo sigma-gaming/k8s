@@ -113,6 +113,9 @@ spec:
 
   template:
     spec:
+      nodeSelector:
+        role: application
+        environment: production
       containers:
         - name: pgbouncer
           resources:
@@ -146,6 +149,9 @@ spec:
 
   template:
     spec:
+      nodeSelector:
+        role: application
+        environment: production
       containers:
         - name: pgbouncer
           resources:
