@@ -96,6 +96,7 @@ spec:
               scheme: https
               tlsConfig:
                 insecureSkipVerify: true
+                caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
     kubeControllerManager:
       vmScrape:
         spec:
@@ -104,6 +105,7 @@ spec:
               scheme: https
               tlsConfig:
                 insecureSkipVerify: true
+                caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
     kubeScheduler:
       vmScrape:
         spec:
