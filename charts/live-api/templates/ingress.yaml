@@ -4,7 +4,7 @@
   {{- end -}}
 {{- range $i, $host := $.Values.ingress.hosts }}
 {{ $parts := splitList "." $host }}
-{{ $secretName := index $parts (sub (len $parts) 2) }}.{{ index $parts (sub (len $parts) 1) }}-cloudflare-tls }}
+{{- $secretName := printf "%s.%s-cloudflare-tls" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
@@ -41,7 +41,7 @@ spec:
     {{ $parts := splitList "." $host }}
     - hosts:
         - {{ $host }}
-      secretName: {{ index $parts (sub (len $parts) 2) }}.{{ index $parts (sub (len $parts) 1) }}-cloudflare-cert
+      secretName: {{ printf "%s.%s-cloudflare-cert" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
     {{- end }}
   rules:
     {{- range $i, $host := .Values.ingress.hosts }}
