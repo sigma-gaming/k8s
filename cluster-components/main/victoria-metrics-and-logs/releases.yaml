@@ -97,6 +97,7 @@ spec:
               tlsConfig:
                 insecureSkipVerify: true
                 caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     kubeControllerManager:
       vmScrape:
         spec:
@@ -106,6 +107,7 @@ spec:
               tlsConfig:
                 insecureSkipVerify: true
                 caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     kubeScheduler:
       vmScrape:
         spec:
