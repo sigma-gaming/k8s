@@ -1,7 +1,12 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - access-token.yaml
-  - https://raw.githubusercontent.com/digitalocean/csi-digitalocean/master/deploy/kubernetes/releases/csi-digitalocean-v4.12.0/crds.yaml
-  - https://raw.githubusercontent.com/digitalocean/csi-digitalocean/master/deploy/kubernetes/releases/csi-digitalocean-v4.12.0/driver.yaml
-  - https://raw.githubusercontent.com/digitalocean/csi-digitalocean/master/deploy/kubernetes/releases/csi-digitalocean-v4.12.0/snapshot-controller.yaml
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: digitalocean
+  namespace: kube-system
+spec:
+  encryptedData:
+    access-token: AgCAmJlhDjDwVzGgKj5y6ohTGbw9Epr8JLjsBqrQ7757E3OsifUtwhTPiuPnshLQc796BttQ9DthmgPFE9jLrU85UxX16TaDglGJ7wj/HF0CA0yx7O0hIvZeG2MYaTa5ynmsUWV0iRP7wKnxe7qSn1Bb2bCux5BwSWgEtse7k/dIH7cyH3fDiI2AwG9g9qrNRN1DbMQyKh3hPIggKCN3aQJo/VhIb49NCAJPenrp0BLIkexkBFkpyqVQakGF21gAsejeIZlgwmEnvpud1lbxjbaKfl8GP8y6s5tu6sEHsQsa07hnBH57hQeBxSCQYexGsA6LckVjQdejBsBG/crcXtByXtU7+2FoIVyKlg8yd7FwwxTTM2CMTAPWK0QjKrllvaNuGChZEEJ0pjsK7cZ0ZizzLEoADeek1HF3lhOrf9ks7SYo991lJkZv8hTQYDvL2CaCsChnzrjnD1TE3F+uiR5tlqhNcIZP8LhG7A08+gGNmLNosTrUPrv0BWwrB0Aw9kxpHMgnyKjL2pQGNc1dZxBUGTz8kCjY7897rEiM6vcj9f+GXua3rLNCmkMKljPwO1sJRDfOHoxw64XzqUTjoSPoOi1eWx0ld14KnbV4hrnKWOYDxNnkfT9HZBvUkrRj+1ZYAGrzSOtcajQ0vKGRWFfszsMinJM0ryS+HH6Y8kqxq3Gr5t+rK9VdbE6a2v51kQb+0fxrsUmZ0370pcn3OQqU9gTcFlZaGW1OHHepJI+vCWnLRqx+2PrPdF44QmNwmHz+qJ2McZA6ZfUXys7S4LAYC4N3A+Y8BQ==
+  template:
+    metadata:
+      name: digitalocean
+      namespace: kube-system
