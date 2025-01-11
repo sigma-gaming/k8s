@@ -1,0 +1,152 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: backup-creds
+  namespace: games-production
+spec:
+  encryptedData:
+    gcs-credentials: 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
+  template:
+    metadata:
+      name: backup-creds
+      namespace: games-production
+    type: Opaque
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: games-db
+  namespace: games-production
+spec:
+  instances: 1
+  imageName: risenx/cnpg-postgres-uuidv7:17.2-28
+
+  enableSuperuserAccess: true
+
+  storage:
+    size: 10Gi
+
+  resources:
+    requests:
+      cpu: "1"
+      memory: "2Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: "1GB"
+      effective_cache_size: "3GB"
+      work_mem: "4MB"
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+
+  bootstrap:
+    recovery:
+      source: backup
+    initdb:
+      postInitTemplateSQL:
+        - "CREATE EXTENSION pg_uuidv7;"
+
+  externalClusters:
+    - name: backup
+      barmanObjectStore:
+        destinationPath: gs://stage-games-db-backups
+        googleCredentials:
+          applicationCredentials:
+            name: backup-creds
+            key: gcs-credentials
+        wal:
+          compression: snappy
+          maxParallel: 8
+
+  # backup:
+  #   retentionPolicy: "1d"
+  #   barmanObjectStore:
+  #     destinationPath: gs://stage-games-db-backups
+  #     googleCredentials:
+  #       applicationCredentials:
+  #         name: backup-creds
+  #         key: gcs-credentials
+  #     wal:
+  #       compression: snappy
+  #       maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: games-db-backup
+  namespace: games-production
+spec:
+  schedule: "0 2 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: games-db
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: games-db-pooler-rw
+  namespace: games-production
+spec:
+  cluster:
+    name: games-db
+
+  type: rw
+
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "200"
+      default_pool_size: "20"
+      min_pool_size: "10"
+      reserve_pool_size: "10"
+      server_idle_timeout: "300"
+      query_timeout: "15"
+
+  template:
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: games-db-health-pooler-rw
+  namespace: games-production
+spec:
+  cluster:
+    name: games-db
+
+  type: rw
+
+  pgbouncer:
+    poolMode: transaction
+    parameters:
+      max_client_conn: "10"
+      default_pool_size: "5"
+      min_pool_size: "3"
+      reserve_pool_size: "2"
+      server_idle_timeout: "300"
+      query_timeout: "5"
+
+  template:
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: "64Mi"
+            limits:
+              cpu: "0.25"
+              memory: "128Mi"

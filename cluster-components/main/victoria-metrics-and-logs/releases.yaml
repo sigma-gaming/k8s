@@ -97,6 +97,8 @@ spec:
               tlsConfig:
                 insecureSkipVerify: true
                 caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                # tls secret is created from terraform (do plan)
+                # enable tls creation and specify "monitoring" namespace
                 keySecret:
                   name: etcd-tls
                   key: tls.key

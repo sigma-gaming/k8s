@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMPodScrape
 metadata:
-  name: stage-games-dragonfly
+  name: production-games-dragonfly
   namespace: monitoring
 spec:
   podMetricsEndpoints:
@@ -9,7 +9,7 @@ spec:
       path: /metrics
   namespaceSelector:
     matchNames:
-      - games-stage
+      - games-production
   selector:
     matchLabels:
       app.kubernetes.io/name: dragonfly

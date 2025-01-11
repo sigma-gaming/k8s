@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: telegram
-  namespace: games-stage
+  namespace: games-production
 data:
   bot-id: "6842518979"
   bot-username: "SigmaGamesBot"

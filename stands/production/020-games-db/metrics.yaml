@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMPodScrape
 metadata:
-  name: stage-games-db
+  name: production-games-db
   namespace: monitoring
 spec:
   podMetricsEndpoints:
@@ -9,7 +9,7 @@ spec:
       path: /metrics
   namespaceSelector:
     matchNames:
-      - games-stage
+      - games-production
   selector:
     matchLabels:
       cnpg.io/cluster: games-db
@@ -18,7 +18,7 @@ spec:
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMPodScrape
 metadata:
-  name: stage-games-db-pooler
+  name: production-games-db-pooler
   namespace: monitoring
 spec:
   podMetricsEndpoints:
@@ -26,7 +26,7 @@ spec:
       path: /metrics
   namespaceSelector:
     matchNames:
-      - games-stage
+      - games-production
   selector:
     matchLabels:
       cnpg.io/cluster: games-db

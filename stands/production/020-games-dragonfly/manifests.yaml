@@ -1,0 +1,35 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: games-dragonfly-auth
+  namespace: games-production
+spec:
+  encryptedData:
+    password: AgB5YUjWRsSYD+kfnndyXsyat4vOmjHqaLo1Lx4Pc4d7Q0T3CJp0PsSROMKh6yfIREJwEPm/3Ml5uAq+eiD3oEr+PWrmkSIS3vvKlsmVC9Ji/9eA7MRE3SxtNOim/HmMWFCBO+XEAtINItQ7LZSuSKHlQia8/LCWzk2iSVtpgdwNcWqTinB1NSkM94SGAoUjQ5aPDgHyAa4UkXl/+GAH/xMMOviXugVOlsUN39fVxLMFlLKATlRm0yEyOe5D7R2xqYak2nIHliolHwSYALolMMgOcHG1hEBg9LE8Jmq9xhvsnmBuNx58bk23ODvs/LLcQ0/xtSBxZsSWCbFOg8bLsVGIIkfozGwhCXHJuOgKXDdB958siB7+acGknOn05L1JiF83RyAh7QsXkONnLJ7PS93WvR29Cpgaxnnpy6hBzUWaQ8075pXTaGpYxVG+mQPRqWBK5hDycigc4KK86+xM/86e257H4AcR7KPcsSzsxHhl59IeRK2g5lX/SwESDSNsuJ4ErX2efpMQXW1gHS69WSWCepgZ1hl/r5wuf0HQPh1V44k3jR5AZwrWrTdRd9K0K8xl2huFR0TOaTefoLF/zT7CmuUDLXjaB5YKKzKI1fR/d+6uUweUIecUXSm82KK7BRgm3AuQhOXy1pWITK8ZlKDyY/MXYOwWAsYS0+mn6WLHLTx9M+zEv+bhDd8Au0uihHTaiujGxqoOhuxFRD2AFH4LO6e8MeH0TYobcHcCrg9voQ==
+  template:
+    metadata:
+      name: games-dragonfly-auth
+      namespace: games-production
+    type: Opaque
+---
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: games-dragonfly
+  namespace: games-production
+spec:
+  replicas: 1
+  nodeSelector:
+    role: application
+    environment: production
+  authentication:
+    passwordFromSecret:
+      name: games-dragonfly-auth
+      key: password
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
