@@ -33,10 +33,10 @@ spec:
 
   resources:
     requests:
-      cpu: "1"
+      cpu: "250m"
       memory: "2Gi"
     limits:
-      cpu: "2"
+      cpu: "500m"
       memory: "4Gi"
 
   postgresql:
@@ -120,10 +120,10 @@ spec:
         - name: pgbouncer
           resources:
             requests:
-              cpu: "0.5"
+              cpu: "250m"
               memory: "256Mi"
             limits:
-              cpu: "1"
+              cpu: "500m"
               memory: "512Mi"
 ---
 apiVersion: postgresql.cnpg.io/v1
