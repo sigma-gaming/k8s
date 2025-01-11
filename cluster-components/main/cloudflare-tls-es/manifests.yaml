@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloudflare-tls
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloudflare-tls-store
+  namespace: cloudflare-tls
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: read-source-secret
+  namespace: cloudflare-tls
+rules:
+  - apiGroups: [""]
+    resourceNames:
+      - source-secret
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - selfsubjectrulesreviews
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-source-secret
+  namespace: cloudflare-tls
+subjects:
+  - kind: ServiceAccount
+    name: cloudflare-tls-store
+    namespace: cloudflare-tls
+roleRef:
+  kind: Role
+  name: read-source-secret
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: cloudflare-tls-store
+spec:
+  provider:
+    kubernetes:
+      remoteNamespace: cloudflare-tls
+      server:
+        url: "https://kubernetes.default"
+        caProvider:
+          type: ConfigMap
+          name: kube-root-ca.crt
+          key: ca.crt
+          namespace: cloudflare-tls
+      auth:
+        serviceAccount:
+          name: "cloudflare-tls-store"
+          namespace: cloudflare-tls

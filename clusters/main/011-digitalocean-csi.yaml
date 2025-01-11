@@ -4,7 +4,7 @@ metadata:
   name: digitalocean-csi
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./cluster-components/main/digitalocean-csi
   prune: true
   dependsOn:

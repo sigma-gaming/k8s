@@ -4,7 +4,7 @@ metadata:
   name: victoria-metrics-crds
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./shared/victoria-metrics-crds
   prune: true
   sourceRef:

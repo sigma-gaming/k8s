@@ -4,7 +4,7 @@ metadata:
   name: flux-webhook
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./cluster-components/main/flux-webhook-ingress
   prune: true
   dependsOn:

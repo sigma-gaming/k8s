@@ -4,7 +4,7 @@ metadata:
   name: ingress-nginx
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./cluster-components/main/ingress-nginx
   prune: true
   dependsOn:

@@ -4,7 +4,7 @@ metadata:
   name: dragonfly-operator
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./shared/dragonfly-operator
   prune: true
   sourceRef:

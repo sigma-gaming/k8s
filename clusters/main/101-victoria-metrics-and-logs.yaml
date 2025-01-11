@@ -4,7 +4,7 @@ metadata:
   name: victoria-metrics-and-logs
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 6h
   path: ./cluster-components/main/victoria-metrics-and-logs
   prune: true
   dependsOn:

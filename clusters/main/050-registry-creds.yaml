@@ -4,7 +4,7 @@ metadata:
   name: registry-creds
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./cluster-components/main/registry-creds
   prune: true
   dependsOn:

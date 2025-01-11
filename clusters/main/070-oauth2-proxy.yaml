@@ -4,7 +4,7 @@ metadata:
   name: oauth2-proxy
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h
   path: ./cluster-components/main/oauth2-proxy
   prune: true
   dependsOn:
