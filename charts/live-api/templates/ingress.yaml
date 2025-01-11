@@ -41,7 +41,7 @@ spec:
     {{ $parts := splitList "." $host }}
     - hosts:
         - {{ $host }}
-      secretName: {{ printf "%s.%s-cloudflare-cert" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
+      secretName: {{ printf "%s.%s-cloudflare-tls" (index $parts (sub (len $parts) 2)) (index $parts (sub (len $parts) 1)) }}
     {{- end }}
   rules:
     {{- range $i, $host := .Values.ingress.hosts }}
