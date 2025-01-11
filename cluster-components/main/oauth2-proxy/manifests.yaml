@@ -39,6 +39,8 @@ spec:
     name: cloudflare-tls-store
   target:
     name: sigmacloud.app-cloudflare-tls
+    template:
+      type: kubernetes.io/tls
   dataFrom:
     - extract:
         key: sigmacloud.app-cloudflare-tls
