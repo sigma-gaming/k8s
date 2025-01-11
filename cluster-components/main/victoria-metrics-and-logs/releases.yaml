@@ -87,8 +87,11 @@ spec:
     #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     # kubeControllerManager:
     #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
-    # kubeEtcd:
-    #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
+    kubeEtcd:
+      # enabled: false # impossible to scrape on k3s without hardcoding the node IPs
+      service:
+        selector:
+          k8s-app: kube-controller-manager
     # kubeScheduler:
     #   enabled: false # impossible to scrape on k3s without hardcoding the node IPs
     defaultDashboards:
