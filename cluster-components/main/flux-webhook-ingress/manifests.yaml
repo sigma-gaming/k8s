@@ -13,14 +13,14 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - main.sigma-k8s.app
-      secretName: main.sigma-k8s.app-cert
+        - main-webhooks.sigma-k8s.app
+      secretName: main-webhooks.sigma-k8s.app-cert
   rules:
-    - host: main.sigma-k8s.app
+    - host: main-webhooks.sigma-k8s.app
       http:
         paths:
           - pathType: ImplementationSpecific
-            path: /webhooks/flux(/|$)(.*)
+            path: /flux(/|$)(.*)
             backend:
               service:
                 name: webhook-receiver
