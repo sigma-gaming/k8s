@@ -97,6 +97,13 @@ spec:
               tlsConfig:
                 insecureSkipVerify: true
                 caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                keySecret:
+                  name: etcd-tls
+                  key: tls.key
+                cert:
+                  secret:
+                    name: etcd-tls
+                    key: tls.crt
     kubeControllerManager:
       vmScrape:
         spec:
