@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: control-app
-  namespace: games-stage
+  namespace: games-production
 spec:
   interval: 10m
   timeout: 15m
@@ -24,7 +24,7 @@ spec:
     name: control-app
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apps/control-app
-      tag: dev-1736031196611 # {"$imagepolicy": "games-stage:control-app:tag"}
+      tag: dev-1736031196611 # {"$imagepolicy": "games-production:control-app:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -53,7 +53,7 @@ spec:
       - name: PUBLIC_CONTROL_APP_URL
         value: "https://control.sigmacloud.app"
       - name: PUBLIC_CONTROL_APP_VERSION
-        value: "dev-1736031196611" # {"$imagepolicy": "games-stage:control-app:tag"}
+        value: "dev-1736031196611" # {"$imagepolicy": "games-production:control-app:tag"}
       - name: PUBLIC_CONTROL_API_URL
         value: "https://control-api.sigmacloud.app"
       - name: PUBLIC_ACCESS_API_URL

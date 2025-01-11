@@ -1,0 +1,5 @@
+apiVersion: v2
+name: live-api
+description: A chart for deploying APIs with latest version from registry
+type: application
+version: 0.9.0

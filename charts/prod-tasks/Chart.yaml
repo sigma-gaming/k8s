@@ -1,5 +1,0 @@
-apiVersion: v2
-name: prod-tasks
-description: A chart for production tasks
-type: application
-version: 0.2.0

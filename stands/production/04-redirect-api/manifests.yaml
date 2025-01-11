@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: redirect-api
-  namespace: games-stage
+  namespace: games-production
 spec:
   interval: 10m
   timeout: 15m
@@ -25,10 +25,10 @@ spec:
     replicaCount: 1
     nodeSelector:
       role: application
-      environment: stage
+      environment: production
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/redirect-api
-      tag: dev-1736034695004 # {"$imagepolicy": "games-stage:redirect-api:tag"}
+      tag: dev-1736034695004 # {"$imagepolicy": "games-production:redirect-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -36,7 +36,7 @@ spec:
       hosts:
         - sigm.to
     migration:
-      tag: dev-1736042635856 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1736042635856 # {"$imagepolicy": "games-production:games-db-migration:tag"}
     env:
       - name: NODE_ENV
         value: "production"
@@ -47,11 +47,11 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1736034695004" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1736034695004" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: PUBLIC_REDIRECT_API_URL
         value: "https://sigm.to"
       - name: PUBLIC_REDIRECT_API_VERSION
-        value: "dev-1735936051564" # {"$imagepolicy": "games-stage:edirect-api:tag"}
+        value: "dev-1735936051564" # {"$imagepolicy": "games-production:edirect-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_HEALTH_HOST

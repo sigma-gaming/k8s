@@ -1,0 +1,33 @@
+name: "example-tasks"
+
+# nodeSelector:
+#   role: application
+#   environment: production
+
+image:
+  repository: example-tasks
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+jobEnvName: "TASKS_JOB"
+
+jobs:
+  - name: "example-1"
+    schedule: "0 * * * *"
+  - name: "example-2"
+    schedule: "0 * * * *"
+    deadlineSeconds: 60
+
+migration:
+  enabled: true
+  tag: ""
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+env: []

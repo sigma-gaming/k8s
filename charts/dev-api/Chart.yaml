@@ -1,5 +1,0 @@
-apiVersion: v2
-name: dev-api
-description: A chart for development stage application
-type: application
-version: 0.2.1

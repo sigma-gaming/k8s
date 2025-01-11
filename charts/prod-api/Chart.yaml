@@ -1,5 +1,0 @@
-apiVersion: v2
-name: prod-api
-description: A chart for production api
-type: application
-version: 0.8.4

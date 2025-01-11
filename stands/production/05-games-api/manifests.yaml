@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: games-api
-  namespace: games-stage
+  namespace: games-production
 spec:
   interval: 10m
   timeout: 15m
@@ -25,10 +25,10 @@ spec:
     replicaCount: 2
     nodeSelector:
       role: application
-      environment: stage
+      environment: production
     image:
       repository: europe-west1-docker.pkg.dev/sigma-games/docker/apis/games-api
-      tag: dev-1736034695004 # {"$imagepolicy": "games-stage:games-api:tag"}
+      tag: dev-1736034695004 # {"$imagepolicy": "games-production:games-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -55,7 +55,7 @@ spec:
     metrics:
       enabled: true
     migration:
-      tag: dev-1736042635856 # {"$imagepolicy": "games-stage:games-db-migration:tag"}
+      tag: dev-1736042635856 # {"$imagepolicy": "games-production:games-db-migration:tag"}
     resources:
       limits:
         cpu: "500m"
@@ -79,7 +79,7 @@ spec:
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1736034695004" # {"$imagepolicy": "games-stage:games-api:tag"}
+        value: "dev-1736034695004" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: GAMES_API_GAMES_DB_MAX_POOL_SIZE
         value: "40"
       - name: GAMES_DB_HOST
