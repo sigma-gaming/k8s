@@ -22,7 +22,7 @@ spec:
       retries: -1
   values:
     name: games-api
-    replicaCount: 1
+    replicaCount: 2
     nodeSelector:
       role: application
       environment: production
