@@ -42,7 +42,7 @@ resources:
   #   cpu: "500m"
   #   memory: "512Mi"
   requests:
-    cpu: "125m"
+    cpu: "64m"
     memory: "128Mi"
 
 env: []

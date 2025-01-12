@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/live-api
-      version: "1.0.1"
+      version: "1.0.2"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -32,6 +32,10 @@ spec:
     ports:
       public: 8080
       internal: 9090
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "128Mi"
     ingress:
       hosts:
         - api.sigma1.games
