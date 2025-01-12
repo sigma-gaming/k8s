@@ -55,29 +55,29 @@ spec:
   #     postInitTemplateSQL:
   #       - "CREATE EXTENSION pg_uuidv7;"
 
-  externalClusters:
-    - name: games-db
-      barmanObjectStore:
-        destinationPath: gs://stage-games-db-backups
-        googleCredentials:
-          applicationCredentials:
-            name: backup-creds
-            key: gcs-credentials
-        wal:
-          compression: snappy
-          maxParallel: 8
+  # externalClusters:
+  #   - name: games-db
+  #     barmanObjectStore:
+  #       destinationPath: gs://sigma-games-production-backups
+  #       googleCredentials:
+  #         applicationCredentials:
+  #           name: backup-creds
+  #           key: gcs-credentials
+  #       wal:
+  #         compression: snappy
+  #         maxParallel: 8
 
-  # backup:
-  #   retentionPolicy: "1d"
-  #   barmanObjectStore:
-  #     destinationPath: gs://stage-games-db-backups
-  #     googleCredentials:
-  #       applicationCredentials:
-  #         name: backup-creds
-  #         key: gcs-credentials
-  #     wal:
-  #       compression: snappy
-  #       maxParallel: 8
+  backup:
+    retentionPolicy: "1d"
+    barmanObjectStore:
+      destinationPath: gs://sigma-games-production-backups
+      googleCredentials:
+        applicationCredentials:
+          name: backup-creds
+          key: gcs-credentials
+      wal:
+        compression: snappy
+        maxParallel: 8
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
