@@ -28,7 +28,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1736632711733 # {"$imagepolicy": "games-production:access-api:tag"}
+      tag: dev-1736676793384 # {"$imagepolicy": "games-production:access-api:tag"}
     ports:
       public: 8080
       internal: 9090
