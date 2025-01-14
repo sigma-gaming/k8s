@@ -71,15 +71,15 @@ metadata:
   name: artifact-registry-pull-secret-all-ns
 spec:
   refreshTime: 1m
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: registry-creds-store
-  namespaceSelector:
-    matchExpressions:
-      - key: kubernetes.io/metadata.name
-        operator: Exists
+  namespaceSelectors:
+    - matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: Exists
   externalSecretSpec:
     refreshInterval: "1h"
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: registry-creds-store
     target:
       name: google-registry-creds
       template:
