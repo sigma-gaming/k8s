@@ -14,7 +14,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: games-db-migration
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1736632711733 # {"$imagepolicy": "games-production:games-db-migration"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/migrations/games-db-migration:dev-1736890296256 # {"$imagepolicy": "games-production:games-db-migration"}
           env:
             - name: NODE_ENV
               value: "production"
