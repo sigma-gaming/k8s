@@ -1,30 +1,28 @@
 {{- $secretsMap := dict -}}
+{{- $nameTemplate := .Values.nameTemplate | default "%s-cloudflare-tls" -}}
 {{- range .Values.targets -}}
   {{- $namespace := .namespace -}}
   {{- range .secrets -}}
     {{- $secret := . -}}
-    {{- $key := printf $.Values.nameTemplate $secret -}}
-    {{- if not ($secretsMap.HasKey $key) -}}
-      {{- $secretsMap.Set $key (dict "namespaces" (list)) -}}
+    {{- $key := printf $nameTemplate $secret -}}
+    {{- if not (hasKey $secretsMap $key) -}}
+      {{- $_ := set $secretsMap $key (dict "namespaces" (list)) -}}
     {{- end -}}
-    {{- $namespaces := $secretsMap.Get $key.namespaces -}}
-    {{- $namespaces = append $namespaces $namespace -}}
-    {{- $secretsMap.Set $key (dict "namespaces" $namespaces) -}}
+    {{- $_ := set (index $secretsMap $key) "namespaces" (append (index $secretsMap $key "namespaces") $namespace) -}}
   {{- end -}}
 {{- end -}}
 
-{{- range $secret, $data := $secretsMap -}}
+{{- range $secret, $data := $secretsMap }}
 apiVersion: mirrors.kts.studio/v1alpha2
 kind: SecretMirror
 metadata:
   name: {{ $secret | replace "." "-" }}
-  namespace: {{ $.Release.Namespace }}
 spec:
   source:
     name: {{ $secret }}
   destination:
     namespaces:
-      {{- range $data.namespaces }}
+      {{- range (uniq $data.namespaces) }}
       - {{ . }}
       {{- end }}
 ---
