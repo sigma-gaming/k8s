@@ -1,0 +1,12 @@
+nameTemplate: "%s"
+
+# targets:
+#   - namespace: "foo"
+#     secrets:
+#       - a
+#       - b
+#       - c
+#   - namespace: "bar"
+#     secrets:
+#       - a
+#       - b

@@ -68,7 +68,7 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterExternalSecret
 metadata:
-  name: artifact-registry-pull-secret-all-ns
+  name: google-registry-creds-mirror
 spec:
   refreshTime: 1m
   namespaceSelectors:

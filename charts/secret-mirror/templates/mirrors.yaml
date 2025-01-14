@@ -1,0 +1,31 @@
+{{- $secretsMap := dict -}}
+{{- range .Values.targets -}}
+  {{- $namespace := .namespace -}}
+  {{- range .secrets -}}
+    {{- $secret := . -}}
+    {{- $key := printf $.Values.nameTemplate $secret -}}
+    {{- if not ($secretsMap.HasKey $key) -}}
+      {{- $secretsMap.Set $key (dict "namespaces" (list)) -}}
+    {{- end -}}
+    {{- $namespaces := $secretsMap.Get $key.namespaces -}}
+    {{- $namespaces = append $namespaces $namespace -}}
+    {{- $secretsMap.Set $key (dict "namespaces" $namespaces) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range $secret, $data := $secretsMap -}}
+apiVersion: mirrors.kts.studio/v1alpha2
+kind: SecretMirror
+metadata:
+  name: {{ $secret | replace "." "-" }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  source:
+    name: {{ $secret }}
+  destination:
+    namespaces:
+      {{- range $data.namespaces }}
+      - {{ . }}
+      {{- end }}
+---
+{{- end -}}
