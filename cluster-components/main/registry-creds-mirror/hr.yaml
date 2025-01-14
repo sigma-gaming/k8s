@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: registry-creds-mirror
+  namespace: registry-creds
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/secret-mirror
+      version: "1.0.0"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    targets:
+      - namespace: .*
+        secrets:
+          - google-registry-creds
