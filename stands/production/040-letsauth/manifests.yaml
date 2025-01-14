@@ -28,7 +28,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/letsauth
-      tag: dev-1736721752855 # {"$imagepolicy": "games-production:letsauth:tag"}
+      tag: dev-1736890296256 # {"$imagepolicy": "games-production:letsauth:tag"}
     ports:
       public: 8080
     healthchecks:
@@ -48,7 +48,7 @@ spec:
       - name: PUBLIC_AUTH_API_URL
         value: "https://letsauth.app"
       - name: PUBLIC_AUTH_API_VERSION
-        value: "dev-1736721752855" # {"$imagepolicy": "games-production:letsauth:tag"}
+        value: "dev-1736890296256" # {"$imagepolicy": "games-production:letsauth:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_HEALTH_HOST
