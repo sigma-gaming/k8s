@@ -70,7 +70,7 @@ kind: ClusterExternalSecret
 metadata:
   name: artifact-registry-pull-secret-all-ns
 spec:
-  refreshInterval: 1h
+  refreshTime: 1m
   secretStoreRef:
     kind: ClusterSecretStore
     name: registry-creds-store
