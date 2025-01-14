@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: mirrors
-      version: '0.2.7'
+      version: '0.1.9'
       sourceRef:
         kind: HelmRepository
         name: kts
