@@ -9,7 +9,7 @@ spec:
   prune: true
   dependsOn:
     - name: sealed-secrets
-    - name: registry-creds
+    - name: registry-creds-mirror
   sourceRef:
     kind: GitRepository
     name: flux-system

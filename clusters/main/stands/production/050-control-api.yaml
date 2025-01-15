@@ -8,7 +8,7 @@ spec:
   path: ./stands/production/050-control-api
   prune: true
   dependsOn:
-    - name: registry-creds
+    - name: registry-creds-mirror
     - name: ingress-nginx
     - name: cloudflare-tls-es
     - name: production-shared
