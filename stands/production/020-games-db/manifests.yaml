@@ -45,6 +45,7 @@ spec:
       shared_buffers: "1GB"
       effective_cache_size: "3GB"
       work_mem: "4MB"
+      max_slot_wal_keep_size: "1GB"
       pg_stat_statements.max: "10000"
       pg_stat_statements.track: all
 
