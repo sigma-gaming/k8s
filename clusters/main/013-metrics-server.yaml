@@ -7,6 +7,8 @@ spec:
   interval: 24h
   path: ./shared/metrics-server
   prune: true
+  dependsOn:
+    - name: kubelet-serving-cert-approver
   sourceRef:
     kind: GitRepository
     name: flux-system
