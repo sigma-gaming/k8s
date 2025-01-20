@@ -28,23 +28,6 @@ spec:
       namespace: oauth2-proxy
     type: Opaque
 ---
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: sigmacloud.app-cloudflare-tls
-  namespace: oauth2-proxy
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: cloudflare-tls-store
-  target:
-    name: sigmacloud.app-cloudflare-tls
-    template:
-      type: kubernetes.io/tls
-  dataFrom:
-    - extract:
-        key: sigmacloud.app-cloudflare-tls
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:

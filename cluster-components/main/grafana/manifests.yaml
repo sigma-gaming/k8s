@@ -1,20 +1,3 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: sigmacloud.app-cloudflare-tls
-  namespace: monitoring
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: cloudflare-tls-store
-  target:
-    name: sigmacloud.app-cloudflare-tls
-    template:
-      type: kubernetes.io/tls
-  dataFrom:
-    - extract:
-        key: sigmacloud.app-cloudflare-tls
----
 apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
