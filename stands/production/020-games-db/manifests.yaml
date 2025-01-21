@@ -48,7 +48,7 @@ spec:
   #       destinationPath: gs://sigma-games-production-backups
   #       googleCredentials:
   #         applicationCredentials:
-  #           name: backup-creds
+  #           name: production-backups-creds
   #           key: gcs-credentials
   #       wal:
   #         compression: snappy
@@ -60,7 +60,7 @@ spec:
       destinationPath: gs://sigma-games-production-backups
       googleCredentials:
         applicationCredentials:
-          name: production-backup-creds
+          name: production-backups-creds
           key: gcs-credentials
       wal:
         compression: snappy
