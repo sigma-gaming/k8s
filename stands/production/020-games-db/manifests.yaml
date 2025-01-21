@@ -49,7 +49,7 @@ spec:
   #       googleCredentials:
   #         applicationCredentials:
   #           name: production-backups-creds
-  #           key: gcs-credentials
+  #           key: key
   #       wal:
   #         compression: snappy
   #         maxParallel: 8
@@ -61,7 +61,7 @@ spec:
       googleCredentials:
         applicationCredentials:
           name: production-backups-creds
-          key: gcs-credentials
+          key: key
       wal:
         compression: snappy
         maxParallel: 8
