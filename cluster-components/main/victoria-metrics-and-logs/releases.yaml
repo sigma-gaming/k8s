@@ -158,6 +158,7 @@ spec:
         role: service
       persistentVolume:
         enabled: true
+      retentionPeriod: "1w"
     dashboards:
       enabled: true
       grafanaOperator:
