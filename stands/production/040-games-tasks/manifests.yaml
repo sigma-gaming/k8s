@@ -95,4 +95,4 @@ spec:
       - name: METRICS_NAMESPACE
         value: "games-production"
       - name: METRICS_PUSHGATEWAY_URL
-        value: "http://vmagent-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429/api/v1/import/prometheus"
+        value: "http://vmsingle-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429/api/v1/import/prometheus"
