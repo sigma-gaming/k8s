@@ -70,6 +70,8 @@ spec:
       spec:
         nodeSelector:
           role: service
+    vmagent:
+      enabled: false
     alertmanager:
       spec:
         nodeSelector:
