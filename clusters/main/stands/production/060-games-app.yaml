@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: registry-creds-mirror
     - name: ingress-nginx
-    - name: cloudflare-tls-es
+    - name: cloudflare-tls-mirror
     - name: production-shared
     - name: production-maintenance-app
     - name: production-games-api
