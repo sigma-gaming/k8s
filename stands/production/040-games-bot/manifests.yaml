@@ -92,5 +92,5 @@ spec:
       - name: TELEGRAM_WEBHOOK_SECRET_TOKEN
         valueFrom:
           secretKeyRef:
-            name: telegram-webhook
-            key: secret-token
+            name: telegram
+            key: webhook-secret-token
