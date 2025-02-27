@@ -126,10 +126,22 @@ spec:
             name: telegram
             key: bot-token
       - name: PUBLIC_VK_APP_ID
-        value: "12345"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: app-id
       - name: VK_APP_SECRET
-        value: "12345"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: app-secret
       - name: VK_SERVICE_TOKEN
-        value: "12345"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: service-token
       - name: VK_GROUP_TOKEN
-        value: "54321"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: group-token

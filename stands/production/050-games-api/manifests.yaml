@@ -121,9 +121,15 @@ spec:
             name: telegram
             key: bot-token
       - name: VK_SERVICE_TOKEN
-        value: "12345"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: service-token
       - name: VK_GROUP_TOKEN
-        value: "54321"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: group-token
       - name: BOVAPAY_API_URL
         value: "https://bovatech.cc"
       - name: BOVAPAY_API_KEY

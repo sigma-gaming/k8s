@@ -63,4 +63,7 @@ spec:
             name: telegram
             key: bot-username
       - name: PUBLIC_VK_APP_ID
-        value: "12345"
+        valueFrom:
+          secretKeyRef:
+            name: vk
+            key: app-id
