@@ -78,8 +78,3 @@ spec:
           secretKeyRef:
             name: games-dragonfly-auth
             key: password
-      - name: JWT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: jwt-secret
-            key: secret

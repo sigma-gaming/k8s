@@ -81,11 +81,6 @@ spec:
           secretKeyRef:
             name: games-dragonfly-auth
             key: password
-      - name: JWT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: jwt-secret
-            key: secret
       - name: BOVAPAY_API_URL
         value: "https://bovatech.cc"
       - name: BOVAPAY_API_KEY
