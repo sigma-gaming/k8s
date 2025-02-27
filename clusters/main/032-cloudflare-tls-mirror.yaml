@@ -4,7 +4,7 @@ metadata:
   name: cloudflare-tls-mirror
   namespace: flux-system
 spec:
-  interval: 1h
+  interval: 5m
   path: ./cluster-components/main/cloudflare-tls-mirror
   prune: true
   dependsOn:
