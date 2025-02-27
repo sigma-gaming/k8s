@@ -25,5 +25,5 @@ spec:
                 - name: GCLOUD_SERVICE_ACCOUNT_KEY
                   valueFrom:
                     secretKeyRef:
-                      name: gcloud-service-account-key
+                      name: cleanup-creds
                       key: key
