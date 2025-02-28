@@ -28,7 +28,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/payment-api
-      tag: dev-1740750828934 # {"$imagepolicy": "games-production:payment-api:tag"}
+      tag: dev-1740754376255 # {"$imagepolicy": "games-production:payment-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -55,7 +55,7 @@ spec:
       - name: PAYMENT_API_URL
         value: "https://payment.sigmacloud.app"
       - name: PAYMENT_API_VERSION
-        value: "dev-1740750828934" # {"$imagepolicy": "games-production:payment-api:tag"}
+        value: "dev-1740754376255" # {"$imagepolicy": "games-production:payment-api:tag"}
       - name: GAMES_DB_HOST
         value: "games-db-pooler-rw"
       - name: GAMES_DB_HEALTH_HOST
