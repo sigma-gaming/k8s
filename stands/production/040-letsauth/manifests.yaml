@@ -87,7 +87,7 @@ spec:
             key: bot-token
       - name: PUBLIC_VK_APP_ID
         valueFrom:
-          secretKeyRef:
+          configMapKeyRef:
             name: vk
             key: app-id
       - name: VK_SERVICE_TOKEN

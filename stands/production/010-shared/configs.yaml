@@ -6,3 +6,11 @@ metadata:
 data:
   bot-id: "6842518979"
   bot-username: "SigmaGamesBot"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vk
+  namespace: games-production
+data:
+  app-id: "51986547"

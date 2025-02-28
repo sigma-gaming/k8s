@@ -65,6 +65,6 @@ spec:
             key: bot-id
       - name: PUBLIC_VK_APP_ID
         valueFrom:
-          secretKeyRef:
+          configMapKeyRef:
             name: vk
             key: app-id
