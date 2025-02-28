@@ -28,7 +28,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/bots/games-bot
-      tag: dev-1740750828934 # {"$imagepolicy": "games-production:games-bot:tag"}
+      tag: dev-1740754376255 # {"$imagepolicy": "games-production:games-bot:tag"}
     ports:
       public: 8080
       internal: 9090
