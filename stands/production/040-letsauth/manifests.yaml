@@ -43,6 +43,8 @@ spec:
         value: "production"
       - name: PORT
         value: "8080"
+      - name: PUBLIC_GAMES_API_VERSION
+        value: "dev-1740701492925" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: PUBLIC_AUTH_API_DOMAIN
         value: "letsauth.app"
       - name: PUBLIC_AUTH_API_URL
