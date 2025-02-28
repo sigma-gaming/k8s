@@ -50,7 +50,7 @@ spec:
       - name: GAMES_BOT_INTERNAL_PORT
         value: "9090"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1740701492925" # {"$imagepolicy": "games-production:games-api:tag"}
+        value: "dev-1740748957248" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: GAMES_BOT_URL
         value: "https://games-bot.sigmacloud.app"
       - name: GAMES_DB_HOST

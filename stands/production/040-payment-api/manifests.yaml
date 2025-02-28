@@ -51,7 +51,7 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1740701492925" # {"$imagepolicy": "games-production:games-api:tag"}
+        value: "dev-1740748957248" # {"$imagepolicy": "games-production:games-api:tag"}
       - name: PAYMENT_API_URL
         value: "https://payment.sigmacloud.app"
       - name: PAYMENT_API_VERSION
