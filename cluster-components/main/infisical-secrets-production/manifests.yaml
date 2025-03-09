@@ -12,12 +12,13 @@ spec:
   hostAPI: https://eu.infisical.com/api
   resyncInterval: 10
   authentication:
-    serviceTokenSecretReference:
-      secretName: infisical-service-token-production
-      secretNamespace: infisical-system-secrets
-    secretsScope:
-      envSlug: prod
-      secretsPath: /
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /
 
   managedKubeSecretReferences:
     - secretName: oauth2-proxy-github
