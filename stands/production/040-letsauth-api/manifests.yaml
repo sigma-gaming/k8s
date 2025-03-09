@@ -49,7 +49,7 @@ spec:
     env:
       - name: CoreDb__Host
         value: "core-db-pooler-rw"
-      - name: CoreDb__User
+      - name: CoreDb__Username
         valueFrom:
           secretKeyRef:
             name: core-db-app

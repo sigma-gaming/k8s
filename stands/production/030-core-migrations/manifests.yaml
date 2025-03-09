@@ -23,7 +23,7 @@ spec:
                 secretKeyRef:
                   name: core-db-app
                   key: host
-            - name: CoreDb__User
+            - name: CoreDb__Username
               valueFrom:
                 secretKeyRef:
                   name: core-db-app
