@@ -8,7 +8,6 @@ spec:
   path: ./stands/production/020-games-dragonfly
   prune: true
   dependsOn:
-    - name: sealed-secrets
     - name: dragonfly-operator
     - name: victoria-metrics-crds
     - name: production-shared

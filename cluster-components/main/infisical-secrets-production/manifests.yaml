@@ -1,0 +1,57 @@
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-production
+spec:
+  hostAPI: https://app.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceTokenSecretReference:
+      secretName: infisical-service-token-production
+      secretNamespace: infisical-system-secrets
+    secretsScope:
+      envSlug: prod
+      secretsPath: /
+
+  managedKubeSecretReferences:
+    - secretName: oauth2-proxy-github
+      secretNamespace: oauth2-proxy
+      creationPolicy: "Orphan"
+      template:
+        includeAllSecrets: true
+        data:
+          client-id: "{{ .oauth2-proxy-github.CLIENT_ID.Value }}"
+          client-secret: "{{ .oauth2-proxy-github.CLIENT_SECRET.Value }}"
+          cookie-secret: "{{ .oauth2-proxy-github.COOKIE_SECRET.Value }}"
+    - secretName: games-dragonfly-auth
+      secretNamespace: games-production
+      creationPolicy: "Orphan"
+      template:
+        includeAllSecrets: true
+        data:
+          password: "{{ .games-dragonfly-auth.PASSWORD.Value }}"
+    - secretName: telegram
+      secretNamespace: games-production
+      creationPolicy: "Orphan"
+      template:
+        includeAllSecrets: true
+        data:
+          bot-token: "{{ .telegram.BOT_TOKEN.Value }}"
+          webhook-secret-token: "{{ .telegram.WEBHOOK_SECRET_TOKEN.Value }}"
+    - secretName: vk
+      secretNamespace: games-production
+      creationPolicy: "Orphan"
+      template:
+        includeAllSecrets: true
+        data:
+          app-secret: "{{ .vk.APP_SECRET.Value }}"
+          service-token: "{{ .vk.SERVICE_TOKEN.Value }}"
+          group-token: "{{ .vk.GROUP_TOKEN.Value }}"
+    - secretName: bypass-tokens
+      secretNamespace: games-production
+      creationPolicy: "Orphan"
+      template:
+        includeAllSecrets: true
+        data:
+          waf: "{{ .bypass-tokens.WAF.Value }}"
+          rate-limit: "{{ .bypass-tokens.RATE_LIMIT.Value }}"
