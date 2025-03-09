@@ -6,7 +6,7 @@ metadata:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-production
+  name: infisical-secrets-oauth2-proxy-github
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
@@ -34,7 +34,7 @@ spec:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-production
+  name: infisical-secrets-games-dragonfly-auth
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
@@ -60,7 +60,7 @@ spec:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-production
+  name: infisical-secrets-telegram
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
@@ -87,7 +87,7 @@ spec:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-production
+  name: infisical-secrets-vk
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
@@ -115,7 +115,7 @@ spec:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-production
+  name: infisical-secrets-bypass-tokens
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
