@@ -17,6 +17,9 @@ spec:
       interval: 1m
   driftDetection:
     mode: enabled
+  install:
+    remediation:
+      retries: -1
   upgrade:
     remediation:
       retries: -1
