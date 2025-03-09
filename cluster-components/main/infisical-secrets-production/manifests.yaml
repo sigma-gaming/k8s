@@ -18,7 +18,7 @@ spec:
         secretNamespace: infisical-system-secrets
       secretsScope:
         envSlug: prod
-        secretsPath: /
+        secretsPath: /oauth2-proxy-github
 
   managedKubeSecretReferences:
     - secretName: oauth2-proxy-github
@@ -27,38 +27,114 @@ spec:
       template:
         includeAllSecrets: true
         data:
-          client-id: "{{ .oauth2-proxy-github.CLIENT_ID.Value }}"
-          client-secret: "{{ .oauth2-proxy-github.CLIENT_SECRET.Value }}"
-          cookie-secret: "{{ .oauth2-proxy-github.COOKIE_SECRET.Value }}"
+          client-id: "{{ .CLIENT_ID.Value }}"
+          client-secret: "{{ .CLIENT_SECRET.Value }}"
+          cookie-secret: "{{ .COOKIE_SECRET.Value }}"
+---
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-production
+  namespace: infisical-secrets-production
+spec:
+  hostAPI: https://eu.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /games-dragonfly-auth
+
+  managedKubeSecretReferences:
     - secretName: games-dragonfly-auth
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
         includeAllSecrets: true
         data:
-          password: "{{ .games-dragonfly-auth.PASSWORD.Value }}"
+          password: "{{ .PASSWORD.Value }}"
+---
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-production
+  namespace: infisical-secrets-production
+spec:
+  hostAPI: https://eu.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /telegram
+
+  managedKubeSecretReferences:
     - secretName: telegram
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
         includeAllSecrets: true
         data:
-          bot-token: "{{ .telegram.BOT_TOKEN.Value }}"
-          webhook-secret-token: "{{ .telegram.WEBHOOK_SECRET_TOKEN.Value }}"
+          bot-token: "{{ .BOT_TOKEN.Value }}"
+          webhook-secret-token: "{{ .WEBHOOK_SECRET_TOKEN.Value }}"
+---
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-production
+  namespace: infisical-secrets-production
+spec:
+  hostAPI: https://eu.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /vk
+
+  managedKubeSecretReferences:
     - secretName: vk
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
         includeAllSecrets: true
         data:
-          app-secret: "{{ .vk.APP_SECRET.Value }}"
-          service-token: "{{ .vk.SERVICE_TOKEN.Value }}"
-          group-token: "{{ .vk.GROUP_TOKEN.Value }}"
+          app-secret: "{{ .APP_SECRET.Value }}"
+          service-token: "{{ .SERVICE_TOKEN.Value }}"
+          group-token: "{{ .GROUP_TOKEN.Value }}"
+---
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-production
+  namespace: infisical-secrets-production
+spec:
+  hostAPI: https://eu.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /bypass-tokens
+
+  managedKubeSecretReferences:
     - secretName: bypass-tokens
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
         includeAllSecrets: true
         data:
-          waf: "{{ .bypass-tokens.WAF.Value }}"
-          rate-limit: "{{ .bypass-tokens.RATE_LIMIT.Value }}"
+          waf: "{{ .WAF.Value }}"
+          rate-limit: "{{ .RATE_LIMIT.Value }}"
