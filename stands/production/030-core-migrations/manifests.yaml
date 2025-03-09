@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: core-migrations- # version is appended in kustomization.yaml
+  namespace: games-production
+spec:
+  template:
+    spec:
+      nodeSelector:
+        role: application
+        environment: production
+      imagePullSecrets:
+        - name: google-registry-creds
+      restartPolicy: Never
+      containers:
+        - name: core-migrations
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/core-migrations:dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations"}
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: CoreDb__Host
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-app
+                  key: host
+            - name: CoreDb__User
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-app
+                  key: user
+            - name: CoreDb__Password
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-app
+                  key: password
+            - name: CoreDb__Database
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-app
+                  key: dbname

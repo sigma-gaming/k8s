@@ -9,13 +9,13 @@ resources:
   - folders.yaml
   - dashboards/nodejs.yaml
   - dashboards/games.yaml
-  - dashboards/games-ws.yaml
+  - dashboards/core-ws.yaml
 
 configMapGenerator:
   - name: games-dashboard
     files:
       - dashboard.json=dashboards/games.json
 
-  - name: games-ws-dashboard
+  - name: core-ws-dashboard
     files:
-      - dashboard.json=dashboards/games-ws.json
+      - dashboard.json=dashboards/core-ws.json

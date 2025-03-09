@@ -1,22 +1,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: production-access-api
+  name: production-core-nats
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/production/040-access-api
+  path: ./stands/production/020-core-nats
   prune: true
-  dependsOn:
-    - name: registry-creds-mirror
-    - name: production-shared
-    - name: production-core-db
-    - name: production-core-dragonfly
   sourceRef:
     kind: GitRepository
     name: flux-system
   healthChecks:
     - apiVersion: apps/v1
-      kind: Deployment
+      kind: StatefulSet
       namespace: games-production
-      name: access-api
+      name: core-nats

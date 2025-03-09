@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/live-api
-      version: "1.1.0"
+      version: "1.2.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -30,47 +30,39 @@ spec:
       role: application
       environment: production
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/access-api
-      tag: dev-1740754376255 # {"$imagepolicy": "games-production:access-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/access-api
+      tag: dev-1741561454444 # {"$imagepolicy": "games-production:access-api:tag"}
     ports:
       public: 8080
       internal: 9090
     ingress:
       enabled: false
     migration:
-      tag: dev-1740680312501 # {"$imagepolicy": "games-production:games-db-migration:tag"}
+      tag: dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
-      - name: NODE_ENV
-        value: "production"
-      - name: ACCESS_API_PORT
-        value: "8080"
-      - name: ACCESS_API_INTERNAL_PORT
-        value: "9090"
-      - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1740754376255" # {"$imagepolicy": "games-production:games-api:tag"}
-      - name: GAMES_DB_HOST
-        value: "games-db-pooler-rw"
-      - name: GAMES_DB_HEALTH_HOST
-        value: "games-db-health-pooler-rw"
-      - name: GAMES_DB_USER
+      - name: CoreDb__Host
+        value: "core-db-pooler-rw"
+      - name: CoreDb__User
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: user
-      - name: GAMES_DB_PASSWORD
+      - name: CoreDb__Password
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: password
-      - name: GAMES_DB_DATABASE
+      - name: CoreDb__Database
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: dbname
-      - name: GAMES_CACHE_HOST
-        value: "games-dragonfly"
-      - name: GAMES_CACHE_PASSWORD
+      - name: CoreCache__Host
+        value: "core-dragonfly"
+      - name: CoreCache__Password
         valueFrom:
           secretKeyRef:
-            name: games-dragonfly-auth
+            name: core-dragonfly-auth
             key: password
+      - name: CoreCache__Version
+        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}

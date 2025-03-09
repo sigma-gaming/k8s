@@ -13,8 +13,8 @@ spec:
     - name: cloudflare-tls-mirror
     - name: production-shared
     - name: production-maintenance-app
-    - name: production-games-api
-    - name: production-games-ws
+    - name: production-core-api
+    - name: production-core-ws
   sourceRef:
     kind: GitRepository
     name: flux-system

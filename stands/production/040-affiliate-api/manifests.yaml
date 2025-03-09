@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: redirect-api
+  name: affiliate-api
   namespace: games-production
 spec:
   interval: 10m
@@ -24,20 +24,19 @@ spec:
     remediation:
       retries: -1
   values:
-    name: redirect-api
+    name: affiliate-api
     replicaCount: 1
     nodeSelector:
       role: application
       environment: production
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/redirect-api
-      tag: dev-1741561454444 # {"$imagepolicy": "games-production:redirect-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/affiliate-api
+      tag: dev-1741561454444 # {"$imagepolicy": "games-production:affiliate-api:tag"}
     ports:
       public: 8080
       internal: 9090
     ingress:
-      hosts:
-        - sigm.to
+      enabled: false
     migration:
       tag: dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:

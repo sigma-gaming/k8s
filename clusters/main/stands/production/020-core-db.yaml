@@ -1,17 +1,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: production-core-migrations
+  name: production-core-db
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/production/030-core-migrations
+  path: ./stands/production/020-core-db
   prune: true
   dependsOn:
-    - name: registry-creds-mirror
     - name: cloudnative-pg
-    - name: production-shared
-    - name: production-core-db
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: v1
+      kind: Pod
+      namespace: games-production
+      name: core-db-1

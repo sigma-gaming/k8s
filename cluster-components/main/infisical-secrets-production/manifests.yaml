@@ -33,7 +33,7 @@ spec:
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
-  name: infisical-secrets-games-dragonfly-auth
+  name: infisical-secrets-core-dragonfly-auth
   namespace: infisical-secrets-production
 spec:
   hostAPI: https://eu.infisical.com/api
@@ -45,10 +45,10 @@ spec:
         secretNamespace: infisical-system-secrets
       secretsScope:
         envSlug: prod
-        secretsPath: /games-dragonfly-auth
+        secretsPath: /core-dragonfly-auth
 
   managedKubeSecretReferences:
-    - secretName: games-dragonfly-auth
+    - secretName: core-dragonfly-auth
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
@@ -78,6 +78,8 @@ spec:
       creationPolicy: "Orphan"
       template:
         data:
+          bot-id: "{{ .BOT_ID.Value }}"
+          bot-username: "{{ .BOT_USERNAME.Value }}"
           bot-token: "{{ .BOT_TOKEN.Value }}"
           webhook-secret-token: "{{ .WEBHOOK_SECRET_TOKEN.Value }}"
 ---

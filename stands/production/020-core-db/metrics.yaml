@@ -1,0 +1,33 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: production-core-db
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - games-production
+  selector:
+    matchLabels:
+      cnpg.io/cluster: core-db
+      cnpg.io/podRole: instance
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMPodScrape
+metadata:
+  name: production-core-db-pooler
+  namespace: monitoring
+spec:
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - games-production
+  selector:
+    matchLabels:
+      cnpg.io/cluster: core-db
+      cnpg.io/podRole: pooler

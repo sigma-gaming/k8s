@@ -12,8 +12,8 @@ spec:
     - name: ingress-nginx
     - name: cloudflare-tls-mirror
     - name: production-shared
-    - name: production-games-db
-    - name: production-games-dragonfly
+    - name: production-core-db
+    - name: production-core-dragonfly
   sourceRef:
     kind: GitRepository
     name: flux-system

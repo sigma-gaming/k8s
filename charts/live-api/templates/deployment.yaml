@@ -26,11 +26,11 @@ spec:
         - name: google-registry-creds
       {{- if .Values.migration.enabled }}
       initContainers:
-        - name: wait-for-games-db-migration
+        - name: wait-for-core-migrations
           image: ghcr.io/groundnuty/k8s-wait-for:v1.6
           args:
             - "job"
-            - "games-db-migration-$(GAMES_DB_MIGRATION_TAG)"
+            - "core-migrations-$(GAMES_DB_MIGRATION_TAG)"
           env:
             - name: GAMES_DB_MIGRATION_TAG
               value: {{ .Values.migration.tag }}

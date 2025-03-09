@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: ./charts/live-tasks
-      version: "1.0.1"
+      version: "1.1.0"
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -32,7 +32,7 @@ spec:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
       tag: dev-1740754376255 # {"$imagepolicy": "games-production:games-tasks:tag"}
     migration:
-      tag: dev-1740680312501 # {"$imagepolicy": "games-production:games-db-migration:tag"}
+      tag: dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations:tag"}
     jobEnvName: GAMES_TASKS_JOB
     jobs:
       - name: ProcessReferrerPayouts
@@ -54,35 +54,35 @@ spec:
         value: "production"
       - name: PUBLIC_STAGE
         value: "production"
-      - name: PUBLIC_GAMES_API_VERSION
-        value: "dev-1740754376255" # {"$imagepolicy": "games-production:games-api:tag"}
+      - name: CoreCache__Version
+        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
       - name: GAMES_TASKS_MODE
         value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION
         value: "dev-1740754376255" # {"$imagepolicy": "games-production:games-tasks:tag"}
       - name: GAMES_DB_HOST
-        value: "games-db-pooler-rw"
+        value: "core-db-pooler-rw"
       - name: GAMES_DB_USER
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: user
       - name: GAMES_DB_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: password
       - name: GAMES_DB_DATABASE
         valueFrom:
           secretKeyRef:
-            name: games-db-app
+            name: core-db-app
             key: dbname
       - name: GAMES_CACHE_HOST
-        value: "games-dragonfly"
+        value: "core-dragonfly"
       - name: GAMES_CACHE_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: games-dragonfly-auth
+            name: core-dragonfly-auth
             key: password
       - name: BOVAPAY_API_URL
         value: "https://bovatech.cc"

@@ -1,17 +1,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: production-games-tasks
+  name: production-core-api
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./stands/production/040-games-tasks
+  path: ./stands/production/050-core-api
   prune: true
   dependsOn:
     - name: registry-creds-mirror
+    - name: ingress-nginx
+    - name: cloudflare-tls-mirror
     - name: production-shared
     - name: production-core-db
     - name: production-core-dragonfly
+    - name: production-core-nats
+    - name: production-access-api
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      namespace: games-production
+      name: core-api

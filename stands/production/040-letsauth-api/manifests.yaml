@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: redirect-api
+  name: letsauth-api
   namespace: games-production
 spec:
   interval: 10m
@@ -24,20 +24,26 @@ spec:
     remediation:
       retries: -1
   values:
-    name: redirect-api
-    replicaCount: 1
+    name: letsauth-api
+    replicaCount: 2
     nodeSelector:
       role: application
       environment: production
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/redirect-api
-      tag: dev-1741561454444 # {"$imagepolicy": "games-production:redirect-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/letsauth-api
+      tag: dev-1741561454444 # {"$imagepolicy": "games-production:letsauth-api:tag"}
     ports:
       public: 8080
       internal: 9090
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "128Mi"
     ingress:
       hosts:
-        - sigm.to
+        - api.letsauth.app
+    metrics:
+      enabled: true
     migration:
       tag: dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
@@ -67,3 +73,15 @@ spec:
             key: password
       - name: CoreCache__Version
         value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
+      - name: Api__RateLimitBypassToken
+        valueFrom:
+          secretKeyRef:
+            name: bypass-tokens
+            key: rate-limit
+      - name: Telegram__BotToken
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-token
+      - name: Vk__ServiceToken
+        value: "123"

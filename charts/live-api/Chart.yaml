@@ -2,4 +2,4 @@ apiVersion: v2
 name: live-api
 description: A chart for deploying APIs with latest version from registry
 type: application
-version: 1.1.0
+version: 1.2.0

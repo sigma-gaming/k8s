@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: letsauth-app
+  namespace: games-production
+spec:
+  interval: 10m
+  timeout: 15m
+  chart:
+    spec:
+      chart: ./charts/live-api
+      version: "1.2.0"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    name: letsauth-app
+    replicaCount: 1
+    nodeSelector:
+      role: application
+      environment: production
+    image:
+      repository: europe-west4-docker.pkg.dev/sigma-games/apis/letsauth
+      tag: dev-1740872266290 # {"$imagepolicy": "games-production:letsauth-app:tag"}
+    ports:
+      public: 8080
+    healthchecks:
+      port: public
+    ingress:
+      hosts:
+        - letsauth.app
+    migration:
+      enabled: false
+    env:
+      - name: NODE_ENV
+        value: "production"
+      - name: PORT
+        value: "8080"
+      - name: PUBLIC_AUTH_APP_URL
+        value: "https://letsauth.app"
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-id
+      - name: PUBLIC_VK_APP_ID
+        value: "123"

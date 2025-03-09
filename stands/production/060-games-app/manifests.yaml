@@ -57,16 +57,13 @@ spec:
         value: "https://sigm.to"
       - name: PUBLIC_TELEGRAM_BOT_ID
         valueFrom:
-          configMapKeyRef:
+          secretKeyRef:
             name: telegram
             key: bot-id
       - name: PUBLIC_TELEGRAM_BOT_USERNAME
         valueFrom:
-          configMapKeyRef:
+          secretKeyRef:
             name: telegram
             key: bot-username
       - name: PUBLIC_VK_APP_ID
-        valueFrom:
-          configMapKeyRef:
-            name: vk
-            key: app-id
+        value: "123"
