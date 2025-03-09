@@ -25,7 +25,6 @@ spec:
       secretNamespace: oauth2-proxy
       creationPolicy: "Orphan"
       template:
-        includeAllSecrets: true
         data:
           client-id: "{{ .CLIENT_ID.Value }}"
           client-secret: "{{ .CLIENT_SECRET.Value }}"
@@ -53,7 +52,6 @@ spec:
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
-        includeAllSecrets: true
         data:
           password: "{{ .PASSWORD.Value }}"
 ---
@@ -79,7 +77,6 @@ spec:
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
-        includeAllSecrets: true
         data:
           bot-token: "{{ .BOT_TOKEN.Value }}"
           webhook-secret-token: "{{ .WEBHOOK_SECRET_TOKEN.Value }}"
@@ -106,7 +103,6 @@ spec:
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
-        includeAllSecrets: true
         data:
           app-secret: "{{ .APP_SECRET.Value }}"
           service-token: "{{ .SERVICE_TOKEN.Value }}"
@@ -134,7 +130,6 @@ spec:
       secretNamespace: games-production
       creationPolicy: "Orphan"
       template:
-        includeAllSecrets: true
         data:
           waf: "{{ .WAF.Value }}"
           rate-limit: "{{ .RATE_LIMIT.Value }}"
