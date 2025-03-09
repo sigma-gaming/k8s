@@ -31,7 +31,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/redirect-api
-      tag: dev-1740754376255 # {"$imagepolicy": "games-production:redirect-api:tag"}
+      tag: dev-1741561454444 # {"$imagepolicy": "games-production:redirect-api:tag"}
     ports:
       public: 8080
       internal: 9090
