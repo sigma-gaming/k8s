@@ -17,3 +17,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      namespace: games-production
+      name: letsauth

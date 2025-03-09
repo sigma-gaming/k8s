@@ -12,3 +12,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: v1
+      kind: Pod
+      namespace: games-production
+      name: games-db-1

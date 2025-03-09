@@ -12,3 +12,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      namespace: oauth2-proxy
+      name: oauth2-proxy
