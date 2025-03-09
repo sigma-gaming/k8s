@@ -1,9 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infisical-secrets-production
+---
 apiVersion: secrets.infisical.com/v1alpha1
 kind: InfisicalSecret
 metadata:
   name: infisical-secrets-production
+  namespace: infisical-secrets-production
 spec:
-  hostAPI: https://app.infisical.com/api
+  hostAPI: https://eu.infisical.com/api
   resyncInterval: 10
   authentication:
     serviceTokenSecretReference:
