@@ -48,7 +48,7 @@ spec:
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_APP_VERSION
         value: "dev-1741562544474" # {"$imagepolicy": "games-production:games-app:tag"}
-      - name: PUBLIC_AUTH_API_URL
+      - name: PUBLIC_AUTH_APP_URL
         value: "https://letsauth.app"
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
