@@ -58,6 +58,11 @@ spec:
         value: "http://domain-api:8080"
       - name: AFFILIATE_API_URL
         value: "http://affiliate-api:8080"
+      - name: PUBLIC_TELEGRAM_BOT_ID
+        valueFrom:
+          secretKeyRef:
+            name: telegram
+            key: bot-id
       - name: TELEGRAM_BOT_TOKEN
         valueFrom:
           secretKeyRef:
