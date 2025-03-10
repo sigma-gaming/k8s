@@ -17,12 +17,15 @@ spec:
       interval: 1m
   driftDetection:
     mode: enabled
+  reconcileStrategy: Revision
   install:
     remediation:
       retries: -1
+      remediateLastFailure: false
   upgrade:
     remediation:
       retries: -1
+      remediateLastFailure: false
   values:
     name: core-ws
     replicaCount: 1
