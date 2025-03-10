@@ -17,7 +17,6 @@ spec:
       interval: 1m
   driftDetection:
     mode: enabled
-  reconcileStrategy: Revision
   install:
     remediation:
       retries: -1
