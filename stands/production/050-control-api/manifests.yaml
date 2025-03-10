@@ -64,7 +64,7 @@ spec:
                         port:
                           name: public
     migration:
-      tag: dev-1741556899729 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1741565539968 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
       - name: NODE_ENV
         value: "production"
