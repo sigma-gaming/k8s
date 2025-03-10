@@ -25,7 +25,7 @@ spec:
       retries: -1
   values:
     name: core-api
-    replicaCount: 2
+    replicaCount: 1
     nodeSelector:
       role: application
       environment: production
