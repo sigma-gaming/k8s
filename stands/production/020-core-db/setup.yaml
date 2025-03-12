@@ -12,6 +12,9 @@ metadata:
   namespace: games-production
 rules:
 - apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list", "watch"]
 ---
