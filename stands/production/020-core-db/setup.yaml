@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pg-extension-setup
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 5
+  template:
+    spec:
+      restartPolicy: OnFailure
+      initContainers:
+        - name: wait-for-dependencies
+          image: ghcr.io/groundnuty/k8s-wait-for:v2.0
+          args:
+            - "service"
+            - "core-db-rw"
+      containers:
+        - name: setup-extension
+          image: postgres:17
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB -c "CREATE EXTENSION pg_uuidv7 IF NOT EXISTS;"
+          env:
+            - name: POSTGRES_HOST
+              value: core-db-rw
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-superuser
+                  key: user
+            - name: POSTGRES_DB
+              value: app
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: core-db-superuser
+                  key: password
