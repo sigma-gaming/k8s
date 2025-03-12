@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -60,13 +59,13 @@ spec:
           env:
             - name: POSTGRES_HOST
               value: {{ .Values.clusterName }}-rw
+            - name: POSTGRES_DB
+              value: {{ .Values.dbName }}
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.clusterName }}-superuser
                   key: user
-            - name: POSTGRES_DB
-              value: app
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
