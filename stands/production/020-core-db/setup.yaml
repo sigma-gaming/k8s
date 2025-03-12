@@ -4,8 +4,8 @@ metadata:
   name: core-db-setup
   namespace: games-production
 spec:
-  interval: 10m
-  timeout: 15m
+  interval: 1m
+  timeout: 5m
   chart:
     spec:
       chart: ./charts/cnpg-setup
