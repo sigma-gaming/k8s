@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: pg-extension-setup
+  namespace: games-production
 spec:
   ttlSecondsAfterFinished: 3600
   backoffLimit: 5
