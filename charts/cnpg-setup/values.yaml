@@ -1,0 +1,4 @@
+clusterName: example
+dbName: app
+sql: |
+  SELECT 1;

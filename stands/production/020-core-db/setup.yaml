@@ -1,74 +1,31 @@
----
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
 metadata:
-  name: pg-extension-setup-sa
-  namespace: games-production
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: service-reader
-  namespace: games-production
-rules:
-  - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: [""]
-    resources: ["services"]
-    verbs: ["get", "list", "watch"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: pg-extension-setup-rolebinding
-  namespace: games-production
-subjects:
-  - kind: ServiceAccount
-    name: pg-extension-setup-sa
-    namespace: games-production
-roleRef:
-  kind: Role
-  name: service-reader
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: pg-extension-setup
+  name: core-db-setup
   namespace: games-production
 spec:
-  ttlSecondsAfterFinished: 3600
-  backoffLimit: 5
-  template:
+  interval: 10m
+  timeout: 15m
+  chart:
     spec:
-      restartPolicy: OnFailure
-      serviceAccountName: pg-extension-setup-sa
-      initContainers:
-        - name: wait-for-dependencies
-          image: ghcr.io/groundnuty/k8s-wait-for:v2.0
-          args:
-            - "service"
-            - "core-db-rw"
-      containers:
-        - name: setup-extension
-          image: postgres:17
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB -c "CREATE EXTENSION IF NOT EXISTS pg_uuidv7;"
-          env:
-            - name: POSTGRES_HOST
-              value: core-db-rw
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: core-db-superuser
-                  key: user
-            - name: POSTGRES_DB
-              value: app
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: core-db-superuser
-                  key: password
+      chart: ./charts/cnpg-setup
+      version: "0.1.0"
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 1m
+  driftDetection:
+    mode: enabled
+  install:
+    remediation:
+      retries: -1
+      remediateLastFailure: false
+  upgrade:
+    remediation:
+      retries: -1
+      remediateLastFailure: false
+  values:
+    clusterName: core-db
+    sql: |
+      CREATE EXTENSION IF NOT EXISTS pg_uuidv7;

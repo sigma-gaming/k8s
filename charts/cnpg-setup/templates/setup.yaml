@@ -1,0 +1,74 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cnpg-setup-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: service-reader
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cnpg-setup-rolebinding
+  namespace: {{ .Release.Namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: cnpg-setup-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: service-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cnpg-setup-{{ .Values.clusterName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 5
+  template:
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: cnpg-setup-sa
+      initContainers:
+        - name: wait-for-dependencies
+          image: ghcr.io/groundnuty/k8s-wait-for:v2.0
+          args:
+            - "service"
+            - "{{ .Values.clusterName }}-rw"
+      containers:
+        - name: setup-extension
+          image: postgres:17
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB -c "{{ .Values.sql }}"
+          env:
+            - name: POSTGRES_HOST
+              value: {{ .Values.clusterName }}-rw
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clusterName }}-superuser
+                  key: user
+            - name: POSTGRES_DB
+              value: app
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clusterName }}-superuser
+                  key: password

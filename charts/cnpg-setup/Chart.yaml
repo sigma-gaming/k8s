@@ -1,0 +1,5 @@
+apiVersion: v2
+name: cnpg-setup
+description: Run setup scripts for CNPG
+type: application
+version: 0.1.0
