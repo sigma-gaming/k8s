@@ -29,7 +29,7 @@ spec:
     name: control-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/control-app
-      tag: dev-1740758192260 # {"$imagepolicy": "games-production:control-app:tag"}
+      tag: dev-1741868881835 # {"$imagepolicy": "games-production:control-app:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -49,7 +49,7 @@ spec:
         value: "sigmacloud.app"
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
-      - name: PUBLIC_AUTH_API_URL
+      - name: PUBLIC_AUTH_APP_URL
         value: "https://letsauth.app"
       - name: PUBLIC_GAMES_API_URL
         value: "https://api.sigma1.games"
@@ -65,11 +65,8 @@ spec:
         value: "https://control-api.sigmacloud.app/access"
       - name: PUBLIC_TELEGRAM_BOT_ID
         valueFrom:
-          configMapKeyRef:
+          secretKeyRef:
             name: telegram
             key: bot-id
       - name: PUBLIC_VK_APP_ID
-        valueFrom:
-          configMapKeyRef:
-            name: vk
-            key: app-id
+        value: "123"
