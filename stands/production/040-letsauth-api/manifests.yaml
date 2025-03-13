@@ -47,7 +47,7 @@ spec:
     metrics:
       enabled: true
     migration:
-      tag: dev-1741837502636 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1741880803845 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
       - name: Api__ClientUrl
         value: "https://letsauth.app"

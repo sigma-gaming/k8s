@@ -40,7 +40,7 @@ spec:
     ingress:
       enabled: false
     migration:
-      tag: dev-1741837502636 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1741880803845 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
       - name: CoreDb__Host
         value: "core-db-pooler-rw"

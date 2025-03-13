@@ -34,7 +34,7 @@ spec:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/games-tasks
       tag: dev-1740754376255 # {"$imagepolicy": "games-production:games-tasks:tag"}
     migration:
-      tag: dev-1741837502636 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1741880803845 # {"$imagepolicy": "games-production:core-migrations:tag"}
     jobEnvName: GAMES_TASKS_JOB
     jobs:
       - name: ProcessReferrerPayouts
