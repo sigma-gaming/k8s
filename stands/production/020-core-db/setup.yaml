@@ -27,5 +27,4 @@ spec:
       remediateLastFailure: false
   values:
     clusterName: core-db
-    sql: |
-      CREATE EXTENSION IF NOT EXISTS pg_uuidv7;
+    sql: CREATE EXTENSION IF NOT EXISTS pg_uuidv7;
