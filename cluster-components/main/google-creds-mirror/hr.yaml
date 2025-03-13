@@ -28,6 +28,3 @@ spec:
       - namespace: games-production
         secrets:
           - production-backups-creds
-      - namespace: cleanup
-        secrets:
-          - cleanup-creds
