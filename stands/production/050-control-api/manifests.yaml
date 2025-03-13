@@ -32,8 +32,8 @@ spec:
       role: application
       environment: production
     image:
-      repository: europe-west4-docker.pkg.dev/sigma-games/docker/apis/control-api
-      tag: dev-1740754376255 # {"$imagepolicy": "games-production:control-api:tag"}
+      repository: europe-west4-docker.pkg.dev/sigma-games/docker/control-api
+      tag: dev-1741858381909 # {"$imagepolicy": "games-production:control-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -68,85 +68,31 @@ spec:
     migration:
       tag: dev-1741837502636 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
-      - name: NODE_ENV
-        value: "production"
-      - name: PUBLIC_STAGE
-        value: "production"
-      - name: PUBLIC_DOMAIN
-        value: "sigmacloud.app"
-      - name: CONTROL_API_PORT
-        value: "8080"
-      - name: CONTROL_API_INTERNAL_PORT
-        value: "9090"
-      - name: PUBLIC_GAMES_APP_URL
-        value: "https://sigma1.games"
-      - name: PUBLIC_GAMES_API_URL
-        value: "https://api.sigma1.games"
-      - name: CoreCache__Version
-        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
-      - name: PUBLIC_GAMES_WS_URL
-        value: "https://ws.sigma1.games/hub"
-      - name: PUBLIC_REDIRECT_API_URL
-        value: "https://sigm.to"
-      - name: PUBLIC_CONTROL_APP_URL
-        value: "https://control.sigmacloud.app"
-      - name: PUBLIC_CONTROL_API_URL
-        value: "https://control-api.sigmacloud.app"
-      - name: PUBLIC_CONTROL_API_VERSION
-        value: "dev-1740754376255" # {"$imagepolicy": "games-production:control-api:tag"}
-      - name: GAMES_DB_HOST
+      - name: CoreDb__Host
         value: "core-db-pooler-rw"
-      - name: GAMES_DB_HEALTH_HOST
-        value: "core-db-health-pooler-rw"
-      - name: GAMES_DB_USER
+      - name: CoreDb__Username
         valueFrom:
           secretKeyRef:
             name: core-db-app
             key: user
-      - name: GAMES_DB_PASSWORD
+      - name: CoreDb__Password
         valueFrom:
           secretKeyRef:
             name: core-db-app
             key: password
-      - name: GAMES_DB_DATABASE
+      - name: CoreDb__Database
         valueFrom:
           secretKeyRef:
             name: core-db-app
             key: dbname
-      - name: GAMES_CACHE_HOST
+      - name: CoreCache__Host
         value: "core-dragonfly"
-      - name: GAMES_CACHE_PASSWORD
+      - name: CoreCache__Password
         valueFrom:
           secretKeyRef:
             name: core-dragonfly-auth
             key: password
-      - name: PUBLIC_TELEGRAM_BOT_ID
-        valueFrom:
-          configMapKeyRef:
-            name: telegram
-            key: bot-id
-      - name: TELEGRAM_BOT_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: telegram
-            key: bot-token
-      - name: PUBLIC_VK_APP_ID
-        valueFrom:
-          configMapKeyRef:
-            name: vk
-            key: app-id
-      - name: VK_APP_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: vk
-            key: app-secret
-      - name: VK_SERVICE_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vk
-            key: service-token
-      - name: VK_GROUP_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: vk
-            key: group-token
+      - name: CoreCache__Version
+        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
+      - name: CoreNats__Url
+        value: "nats://core-nats:4222"
