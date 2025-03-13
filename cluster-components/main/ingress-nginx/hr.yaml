@@ -72,6 +72,8 @@ spec:
 
       # for auth proxies
       allowSnippetAnnotations: true
+      config:
+        annotations-risk-level: Critical
 
       metrics:
         enabled: true
