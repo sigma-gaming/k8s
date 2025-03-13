@@ -57,7 +57,7 @@ spec:
       - name: PUBLIC_STAGE
         value: "production"
       - name: CoreCache__Version
-        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
+        value: "dev-1741868898691" # {"$imagepolicy": "games-production:core-api:tag"}
       - name: GAMES_TASKS_MODE
         value: "task"
       - name: PUBLIC_GAMES_TASKS_VERSION

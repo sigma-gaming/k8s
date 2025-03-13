@@ -76,7 +76,7 @@ spec:
             name: core-dragonfly-auth
             key: password
       - name: CoreCache__Version
-        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
+        value: "dev-1741868898691" # {"$imagepolicy": "games-production:core-api:tag"}
       - name: Api__RateLimitBypassToken
         valueFrom:
           secretKeyRef:

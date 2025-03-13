@@ -33,7 +33,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/core-api
-      tag: dev-1741837502636 # {"$imagepolicy": "games-production:core-api:tag"}
+      tag: dev-1741868898691 # {"$imagepolicy": "games-production:core-api:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -91,7 +91,7 @@ spec:
             name: core-dragonfly-auth
             key: password
       - name: CoreCache__Version
-        value: "dev-1741561454444" # {"$imagepolicy": "games-production:core-api:tag"}
+        value: "dev-1741868898691" # {"$imagepolicy": "games-production:core-api:tag"}
       - name: CoreNats__Url
         value: "nats://core-nats:4222"
       - name: Api__RateLimitBypassToken
