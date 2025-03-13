@@ -4,8 +4,8 @@ metadata:
   name: letsauth-api
   namespace: games-production
 spec:
-  interval: 10m
-  timeout: 15m
+  interval: 5m
+  timeout: 3m
   chart:
     spec:
       chart: ./charts/live-api
