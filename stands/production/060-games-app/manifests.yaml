@@ -29,7 +29,7 @@ spec:
     name: games-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
-      tag: dev-1741562544474 # {"$imagepolicy": "games-production:games-app:tag"}
+      tag: dev-1741838959390 # {"$imagepolicy": "games-production:games-app:tag"}
     ports:
       public: 8080
       internal: 9090
