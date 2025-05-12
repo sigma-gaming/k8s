@@ -135,3 +135,35 @@ spec:
         data:
           waf: "{{ .WAF.Value }}"
           rate-limit: "{{ .RATE_LIMIT.Value }}"
+---
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
+metadata:
+  name: infisical-secrets-payment
+  namespace: infisical-secrets-production
+spec:
+  hostAPI: https://eu.infisical.com/api
+  resyncInterval: 10
+  authentication:
+    serviceToken:
+      serviceTokenSecretReference:
+        secretName: infisical-service-token-production
+        secretNamespace: infisical-system-secrets
+      secretsScope:
+        envSlug: prod
+        secretsPath: /payment
+
+  managedKubeSecretReferences:
+    - secretName: payment
+      secretNamespace: games-production
+      creationPolicy: "Orphan"
+      template:
+        data:
+          coincap-api-key: "{{ .COINCAP_API_KEY.Value }}"
+          plisio-api-key: "{{ .PLISIO_API_KEY.Value }}"
+          plisio-stale-deposit-timeout-minutes: "{{ .PLISIO_DEPOSIT_TIMEOUT_MINUTES.Value }}"
+          plisio-stale-withdrawal-timeout-minutes: "{{ .PLISIO_WITHDRAWAL_TIMEOUT_MINUTES.Value }}"
+          cryptocloud-api-key: "{{ .CRYPTOCLOUD_API_KEY.Value }}"
+          cryptocloud-secret-key: "{{ .CRYPTOCLOUD_SECRET_KEY.Value }}"
+          cryptocloud-stale-deposit-timeout-minutes: "{{ .CRYPTOCLOUD_DEPOSIT_TIMEOUT_MINUTES.Value }}"
+          cryptocloud-stale-withdrawal-timeout-minutes: "{{ .CRYPTOCLOUD_WITHDRAWAL_TIMEOUT_MINUTES.Value }}"
