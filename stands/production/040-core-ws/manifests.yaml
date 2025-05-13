@@ -72,6 +72,6 @@ spec:
             name: core-dragonfly-auth
             key: password
       - name: CoreCache__Version
-        value: "dev-1747151181035" # {"$imagepolicy": "games-production:core-api:tag"}
+        value: "dev-1747154783495" # {"$imagepolicy": "games-production:core-api:tag"}
       - name: CoreNats__Url
         value: "nats://core-nats:4222"
