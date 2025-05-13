@@ -14,7 +14,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: core-migrations
-          image: europe-west4-docker.pkg.dev/sigma-games/docker/core-migrations:dev-1741880803845 # {"$imagepolicy": "games-production:core-migrations"}
+          image: europe-west4-docker.pkg.dev/sigma-games/docker/core-migrations:dev-1747154783495 # {"$imagepolicy": "games-production:core-migrations"}
           env:
             - name: NODE_ENV
               value: "production"

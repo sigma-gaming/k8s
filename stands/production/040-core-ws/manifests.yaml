@@ -45,7 +45,7 @@ spec:
     metrics:
       enabled: true
     migration:
-      tag: dev-1741880803845 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1747154783495 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
       - name: CoreDb__Host
         value: "core-db-pooler-rw"
