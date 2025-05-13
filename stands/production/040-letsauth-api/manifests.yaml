@@ -33,7 +33,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/letsauth-api
-      tag: dev-1747151181035 # {"$imagepolicy": "games-production:letsauth-api:tag"}
+      tag: dev-1747154783495 # {"$imagepolicy": "games-production:letsauth-api:tag"}
     ports:
       public: 8080
       internal: 9090
