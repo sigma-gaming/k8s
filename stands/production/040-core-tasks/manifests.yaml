@@ -125,3 +125,7 @@ spec:
           secretKeyRef:
             name: payment
             key: cryptocloud-stale-withdrawal-timeout-minutes
+      - name: Metrics__PushgatewayUrl
+        value: "http://vmsingle-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429/api/v1/import/prometheus"
+      - name: Metrics__Namespace
+        value: "games-production"
