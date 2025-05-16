@@ -46,7 +46,7 @@ spec:
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
     migration:
-      tag: dev-1747154783495 # {"$imagepolicy": "games-production:core-migrations:tag"}
+      tag: dev-1747414035172 # {"$imagepolicy": "games-production:core-migrations:tag"}
     env:
       - name: NODE_ENV
         value: "production"

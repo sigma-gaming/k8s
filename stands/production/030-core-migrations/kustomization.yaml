@@ -1,5 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-nameSuffix: "dev-1747154783495" # {"$imagepolicy": "games-production:core-migrations:tag"}
+nameSuffix: "dev-1747414035172" # {"$imagepolicy": "games-production:core-migrations:tag"}
 resources:
   - manifests.yaml
