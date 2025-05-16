@@ -29,7 +29,7 @@ spec:
     name: games-app
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/apps/games-app
-      tag: dev-1747196398884 # {"$imagepolicy": "games-production:games-app:tag"}
+      tag: dev-1747414015997 # {"$imagepolicy": "games-production:games-app:tag"}
     ports:
       public: 8080
       internal: 9090
@@ -46,7 +46,7 @@ spec:
       - name: PUBLIC_GAMES_APP_URL
         value: "https://sigma1.games"
       - name: PUBLIC_GAMES_APP_VERSION
-        value: "dev-1747196398884" # {"$imagepolicy": "games-production:games-app:tag"}
+        value: "dev-1747414015997" # {"$imagepolicy": "games-production:games-app:tag"}
       - name: PUBLIC_AUTH_APP_URL
         value: "https://letsauth.app"
       - name: PUBLIC_GAMES_API_URL
