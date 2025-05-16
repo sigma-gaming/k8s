@@ -33,7 +33,7 @@ spec:
       environment: production
     image:
       repository: europe-west4-docker.pkg.dev/sigma-games/docker/affiliate-api
-      tag: dev-1747154783495 # {"$imagepolicy": "games-production:affiliate-api:tag"}
+      tag: dev-1747414035172 # {"$imagepolicy": "games-production:affiliate-api:tag"}
     ports:
       public: 8080
       internal: 9090
