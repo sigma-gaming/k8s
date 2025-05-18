@@ -15,7 +15,7 @@ spec:
       environment: production
 
   storage:
-    size: 20Gi
+    size: 50Gi
 
   resources:
     requests:
