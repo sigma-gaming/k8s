@@ -2,3 +2,9 @@
 *.local.json
 /playground
 /certificates
+
+# Never commit plain secrets: use SealedSecrets or Infisical
+secrets.yaml
+secret.yaml
+talos/
+.DS_Store
